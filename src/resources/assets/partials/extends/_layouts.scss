@@ -1,0 +1,70 @@
+// max content width
+.content-width,.max-container{
+    max-width: $max_width_content;
+    margin: auto;
+    @include mediaQuery(1024px){
+    	padding: 0 25px;
+    }
+    @include mediaQuery(767px){
+    	padding: 0 15px;
+    }
+}
+
+.fx-a-tag{
+	color: $default_a_tag;
+	&:hover{
+		color: $default_a_tag_hover;
+	}
+}
+
+// clear menu bootstrap
+.clear-menu-bootstrap{
+	>li{
+		>a{
+			color: $menu_text_col;
+			background-color: inherit;
+			&:hover,&:active,&:focus{ 
+				background-color: inherit;
+			}
+			&:hover{
+				color: $menu_text_col_hover;
+			}
+		}
+	}
+}  
+ 
+.cover_link{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	z-index: 3; 
+}
+
+// full window height
+.window-height{
+	min-height: 100vh;
+}
+
+// center
+.flexbox-container {
+	@include align-items(center);
+	@include display(flex);
+	&.absolute{
+	  @extend .full-absolute;
+	}
+}
+
+
+.flex-bottom {
+	@include align-items(flex-end);
+	@include display(flex);
+}
+
+
+.marg-top-20{
+	margin-top: calRem(20px);
+}
+
+

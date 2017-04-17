@@ -1,0 +1,65 @@
+// padding
+.no-padd{
+	padding: 0;
+}
+
+.no-padd-b{
+	padding-bottom: 0;
+}
+
+@include mediaQuery(767px){
+    .overflow-hidden-xs{
+        overflow: hidden;
+    }
+}
+
+// shadow
+// ===================== thumnail shadow ==================
+.thum-shadow-xs { 
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.27);
+}
+
+.thum-shadow-sm {
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.27);
+}
+
+.thum-shadow-lg {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.27);
+}
+
+// border-radius
+// ==================== radius style ====================
+.no-radius {
+    @include border-top-radius(0px);
+    @include border-bottom-radius(0px);
+}
+
+.radius-xs {
+    @include border-top-radius(4px);
+    @include border-bottom-radius(4px);
+}
+
+.radius-sm {
+    @include border-top-radius(6px);
+    @include border-bottom-radius(6px);
+}
+
+.radius-lg {
+    @include border-top-radius(8px);
+    @include border-bottom-radius(8px);
+}
+
+.radius-vl {
+    @include border-top-radius(10px);
+    @include border-bottom-radius(10px);
+}
+
+.radius-vvl {
+    @include border-top-radius(40px);
+    @include border-bottom-radius(40px);
+}
+
+.circle-radius {
+    @include border-top-radius(50%);
+    @include border-bottom-radius(50%);
+}
