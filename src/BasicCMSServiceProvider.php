@@ -14,11 +14,48 @@ class BasicCMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        require_once __DIR__ . '/../vendor/autoload.php';
+
         // Set default schema length
         Schema::defaultStringLength(191);
 
+        $this->app->register(
+            \Barryvdh\Cors\ServiceProvider::class
+        );
+
+        // $this->app->middleware([
+        //     \App\Http\Middleware\EncryptCookies::class,
+        //     \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        //     \Illuminate\Session\Middleware\StartSession::class,
+        //     // \Illuminate\Session\Middleware\AuthenticateSession::class,
+        //     \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        //     \App\Http\Middleware\VerifyCsrfToken::class,
+        //     \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        // ]);
+
+        // Setup middleware
+        $this->app['router']->aliasMiddleware('auth', \FlexCMS\BasicCMS\Middleware\Authenticate::class);
+        $this->app['router']->aliasMiddleware('api.auth', \FlexCMS\BasicCMS\Middleware\ApiAuthenticate::class);
+        $this->app['router']->aliasMiddleware('api.guest', \FlexCMS\BasicCMS\Middleware\ApiRedirectIfAuthenticated::class);
+        $this->app['router']->aliasMiddleware('app.auth', \FlexCMS\BasicCMS\Middleware\AuthorizedApp::class);
+        $this->app['router']->aliasMiddleware('csrf', \FlexCMS\BasicCMS\Middleware\VerifyCsrfToken::class);
+        $this->app['router']->aliasMiddleware('cors', \Barryvdh\Cors\HandleCors::class);
+
         // Load route 
         $this->loadRoutesFrom(__DIR__.'/routes.php');
+        /**
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'api.auth' => \App\Http\Middleware\ApiAuthenticate::class,
+        'api.guest' => \App\Http\Middleware\ApiRedirectIfAuthenticated::class,
+        'app.auth' => \App\Http\Middleware\AuthorizedApp::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'https' => \App\Http\Middleware\HttpsProtocol::class,
+        'localize' => 'Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes',
+        */
 
         // Load migration 
         $this->loadMigrationsFrom(__DIR__.'/migrations');
@@ -35,6 +72,10 @@ class BasicCMSServiceProvider extends ServiceProvider
         // Load view 
         $this->loadViewsFrom(__DIR__.'/resources/views', 'flexcms');
 
+        $this->publishes([
+            __DIR__.'/public' => public_path('vendor'),
+        ], 'public');
+
     }
 
     /**
@@ -44,6 +85,7 @@ class BasicCMSServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         //
         // include __DIR__.'/routes.php';
         $this->app->make('FlexCMS\BasicCMS\Api\SiteController');

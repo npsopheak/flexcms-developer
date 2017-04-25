@@ -4,7 +4,15 @@ return [
 
 	'app' => [
 
-		'name' => 'Flex Dashboard'
+		'name' => 'Flex Dashboard',
+
+		'login' => [
+
+			'name' => 'Flex Dashboard',
+
+			'description' => 'Accessing the content management system'
+			
+		]
 
 	],
 

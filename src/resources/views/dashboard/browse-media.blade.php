@@ -1,4 +1,4 @@
-@extends('layouts.browse-media')
+@extends('flexcms::layouts.browse-media')
 @section('content')	
 	<div ng-controller="BrowseMediaCtrl" id="page-media" ng-cloak>		
 		<md-list>

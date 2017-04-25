@@ -2,7 +2,7 @@
 <html lang="en" ng-app="StarterApp">
 	<head>
 		<meta charset ="utf-8" />
-		<title>GoTukTuk Login - CoCMS</title>
+		<title>{{ config('flexcms.app.name') }} - CoCMS</title>
 		<!-- <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"> -->
 		<meta name="description" content="CoCMS"/>
 		<meta name="keywords" content="web, system, cms, coding"/>
@@ -18,7 +18,8 @@
 	    <meta name="viewport" content="initial-scale=1" />
 	</head>
 	<body layout="column" layout-align="center center"
-		style="background-image: url(/img/bg/home-background.jpg);background-size: cover;"> 
+		fake-style="background-image: url(/img/bg/home-background.jpg);background-size: cover;"
+        style="background-color: rgba(111, 111, 111, 0.14);"> 
 		@yield('content')
 	</body>
 
@@ -31,23 +32,23 @@
     <script src="/vendors/angular-material/angular-material.min.js"></script>
 
     <!-- App -->
-    <script type="text/javascript" src="{{ asset('js/app.login.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/config.login.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/app.login.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/config.login.js') }}"></script>
 
     <!-- Libraries -->
-    <script type="text/javascript" src="{{ asset('js/libraries/crypt/aes.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/libraries/crypt/pbkdf2.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/libraries/jsencrypt.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/libraries/crypt/aes.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/libraries/crypt/pbkdf2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/libraries/jsencrypt.js') }}"></script>
 
     <!-- Service -->
-    <script type="text/javascript" src="{{ asset('js/services/crypt.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/services/crypt.js') }}"></script>
 
     <!-- Login -->
-    <script type="text/javascript" src="{{ asset('js/controllers/login.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/login.js') }}"></script>
 
     <!-- Dialog -->
-    <script type="text/javascript" src="{{ asset('js/controllers/modals/alert.dialog.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/controllers/modals/loading.dialog.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/modals/alert.dialog.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/modals/loading.dialog.js') }}"></script>
 
     @section('scripts')
       

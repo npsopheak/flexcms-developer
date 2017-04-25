@@ -66,7 +66,7 @@
 	      </div>
 	    </md-toolbar>
 	    <div layout="row" flex>
-	    	@include ('includes.layouts.dashboard-sidebar')
+	    	@include ('flexcms::includes.layouts.dashboard-sidebar')
 			@yield('content')
 		</div>
 		<md-progress-linear class="global-loading" ng-show="loadingBarVisible" class="global-progress-bar" md-mode="indeterminate"></md-progress-linear>
