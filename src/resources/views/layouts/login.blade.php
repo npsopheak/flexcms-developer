@@ -23,7 +23,12 @@
 		@yield('content')
 	</body>
 
+    {{-- Generate script --}}
+    {!! \CMS::generateScripts('login') !!}
 
+    {!! \CMS::generateScripts('general') !!}
+
+{{-- 
     <!-- Angular Material Dependencies -->
     <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <script src="/vendors/angular/angular.min.js"></script>
@@ -49,7 +54,7 @@
     <!-- Dialog -->
     <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/modals/alert.dialog.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/modals/loading.dialog.js') }}"></script>
-
+ --}}
     @section('scripts')
       
   	@show

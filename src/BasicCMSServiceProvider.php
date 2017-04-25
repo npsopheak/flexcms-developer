@@ -4,6 +4,10 @@ namespace FlexCMS\BasicCMS;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Foundation\AliasLoader;
+
+use FlexCMS\BasicCMS\Commands\AddPage;
+use FlexCMS\BasicCMS\Commands\ClearPublic;
 
 class BasicCMSServiceProvider extends ServiceProvider
 {
@@ -69,12 +73,28 @@ class BasicCMSServiceProvider extends ServiceProvider
             __DIR__.'/config/flexcms.php' => config_path('flexcms.php'),
         ]);
 
+        // Merge Configuration 
+        $this->mergeConfigFrom(
+            __DIR__.'/config/flexmodules.php', 'flexmodules'
+        );
+        // Config publication
+         $this->publishes([
+            __DIR__.'/config/flexmodules.php' => config_path('flexmodules.php'),
+        ]);
+
         // Load view 
         $this->loadViewsFrom(__DIR__.'/resources/views', 'flexcms');
 
         $this->publishes([
             __DIR__.'/public' => public_path('vendor'),
         ], 'public');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                AddPage::class,
+                ClearPublic::class,
+            ]);
+        }
 
     }
 
@@ -89,6 +109,8 @@ class BasicCMSServiceProvider extends ServiceProvider
         //
         // include __DIR__.'/routes.php';
         $this->app->make('FlexCMS\BasicCMS\Api\SiteController');
+
+        AliasLoader::getInstance()->alias('AuthGateway', 'FlexCMS\BasicCMS\Facades\AuthGateway');
         
         // Bind facade
         \App::bind('authgateway', function()
@@ -96,10 +118,15 @@ class BasicCMSServiceProvider extends ServiceProvider
             return new \FlexCMS\BasicCMS\Classes\AuthGateway;
         });
 
+        AliasLoader::getInstance()->alias('CMS', 'FlexCMS\BasicCMS\Facades\CMS');
+
+
         \App::bind('cms', function()
         {
             return new \FlexCMS\BasicCMS\Classes\CMS;
         });
+
+        AliasLoader::getInstance()->alias('RequestGateway', 'FlexCMS\BasicCMS\Facades\RequestGateway');
 
         \App::bind('requestgateway', function()
         {

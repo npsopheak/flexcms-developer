@@ -75,7 +75,7 @@
     <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&libraries=places'></script>
 
     {{-- @if(App::environment('local')) --}}
-
+    {{ \CMS::generateScript() }}
         <!-- Angular Material Dependencies -->
         <script src="/vendors/moment/min/moment.min.js"></script>
         <script src="/vendors/jquery/dist/jquery.min.js"></script>

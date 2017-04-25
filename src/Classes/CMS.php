@@ -9,6 +9,69 @@ class CMS {
         return env('THEME', 'default');
     }
 
+    // php artisan vendor:publish --tag=public 
+    public function generateScripts($main){
+        $modules = config('flexmodules.modules');
+
+        $base = 'vendor/flexcms/js';
+
+        $files = [];
+
+        if ($main != 'general'){
+
+            $globals = $modules['global'];
+
+            foreach($globals as $key => $value){
+                if (strpos($value, 'services/') !== 0 && strpos($value, 'directives/') !== 0){
+                    $files[] = $base . '/' . $value . '.js';
+                }
+                else{
+
+                }
+                
+            }
+
+            $files[] = $base . '/apps/' . $main . '.js';    
+            $files[] = $base . '/apps/' . $main . '.config.js';    
+
+
+            foreach($globals as $key => $value){
+                if (strpos($value, 'services/') == 0 || strpos($value, 'directives/') == 0){
+                    $files[] = $base . '/' . $value . '.js';
+                }
+                else{
+                    
+                }
+                
+            }
+        }
+
+
+        $mains = $modules[$main];
+
+        foreach($mains as $key => $value){
+            if (is_array($value)){
+                foreach($value as $k => $v){
+                    $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $v . '.js';    
+                }
+                
+            }
+            else if (is_string($value)){ 
+                $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $value . '.js';
+            }
+            
+        }
+
+        $strings = [];
+        foreach ($files as $key => $value) {
+            // <script type="text/javascript" src="{{ asset('vendor/flexcms/js/app.login.js') }}"></script>
+            $strings[] = '<script  type="text/javascript" src="' . asset($value) . '"></script>';
+        }
+
+        return implode('', $strings);
+        
+    }
+
     public function extractInfo($content){
         $delimiter = '#';
         $startTag = '{INFO}';
