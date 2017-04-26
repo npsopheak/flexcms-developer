@@ -1,4 +1,4 @@
-var namespace = {};
+namespace = {};
 
 namespace.domain = location.protocol + '//' + document.domain + ":" + (location.port || (location.protocol === 'http' ? '80' : '443')) + '/';
 namespace.guid = function () {

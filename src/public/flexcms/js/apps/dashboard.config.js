@@ -7,7 +7,7 @@ app
 		    .accentPalette('green');
         $interpolateProvider.startSymbol('<%');
         $interpolateProvider.endSymbol('%>');
-
+        console.log(namespace.routes);
         for(var key in namespace.routes){
         	var route = namespace.routes[key];
         	$routeProvider

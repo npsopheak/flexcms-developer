@@ -12,8 +12,8 @@
 		<meta name="contact" content="biz@flexitech.io"/>
 
 		<link href="/img/favico.gif" type="image/x-icon" rel="shortcut icon" />
-		<link href="{{ asset('vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">		
-		<link href="{{ asset('css/main.css') }}" rel="stylesheet">	
+		<link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">		
+		<link href="{{ asset('vendor/flexcms/css/main.css') }}" rel="stylesheet">	
 	    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 	    <meta name="viewport" content="initial-scale=1" />
 	</head>

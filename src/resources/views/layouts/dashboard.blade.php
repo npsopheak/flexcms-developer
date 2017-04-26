@@ -29,13 +29,13 @@
 
         {{-- @if(App::environment('local')) --}}
 
-		<link href="{{ asset('flexcms/css/vendor.css') }}" rel="stylesheet">
-        <link href="{{ asset('flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+		<link href="{{ asset('vendor/flexcms/css/vendor.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
 		
-		<link href="{{ asset('flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('flexcms/css/main.css') }}" rel="stylesheet">
+		<link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('vendor/flexcms/css/main.css') }}" rel="stylesheet">
 
         {{-- @else --}}
 
@@ -74,111 +74,47 @@
 
     <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&libraries=places'></script>
 
-    {{-- @if(App::environment('local')) --}}
-    {{ \CMS::generateScript() }}
+    
         <!-- Angular Material Dependencies -->
+
         <script src="/vendors/moment/min/moment.min.js"></script>
-        <script src="/vendors/jquery/dist/jquery.min.js"></script>
-        <script src="/vendors-download/magnific-popup/jquery.magnific-popup.js"></script>
-        <script src="/vendors/underscore/underscore-min.js"></script>
-        <script src="/vendors/angular/angular.min.js"></script>
-        <script src="/vendors/angular-animate/angular-animate.min.js"></script>
+        <script src="/vendor/flexcms/vendors/lodash/dist/lodash.min.js"></script>
 
-        <script src="/vendors/angular-google-maps/dist/angular-google-maps.min.js"></script>
+        {!! \CMS::generateScripts('global') !!}
 
-        <script src="/vendors/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
 
-        <script src="/vendors/lodash/dist/lodash.min.js"></script>
+        <script src="/vendor/flexcms/vendors-download/magnific-popup/jquery.magnific-popup.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-google-maps/dist/angular-google-maps.min.js"></script>
+
+        <script src="/vendor/flexcms/vendors/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
+
+        
         <script type="text/javascript" src="{{ asset('vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
 
-        <script src="/vendors/ngmap/build/scripts/ng-map.min.js"></script>
-        <script src="/vendors/angular-resource/angular-resource.min.js"></script>
-        <script src="/vendors/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
-        <script src="/vendors/angular-aria/angular-aria.min.js"></script>
-        <script src="/vendors/angular-material/angular-material.min.js"></script>
-        <script src="/vendors/angular-route/angular-route.min.js"></script>
-        <script src="/vendors/angular-sanitize/angular-sanitize.min.js"></script>
-        <script src="/vendors/ng-file-upload/ng-file-upload.min.js"></script>
+        <script src="/vendor/flexcms/vendors/ngmap/build/scripts/ng-map.min.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-resource/angular-resource.min.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-aria/angular-aria.min.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-material/angular-material.min.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-route/angular-route.min.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="/vendor/flexcms/vendors/ng-file-upload/ng-file-upload.min.js"></script>
 
-        <script src="/vendors/material-angular-paging/build/dist.min.js"></script>
+        <script src="/vendor/flexcms/vendors/material-angular-paging/build/dist.min.js"></script>
 
-        <script src="/vendors/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
-        <script src="/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-        <script type="text/javascript" src="/vendors/angular-material-data-table/dist/md-data-table.min.js"></script>
+        <script src="/vendor/flexcms/vendors/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
+        <script src="/vendor/flexcms/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.js"></script>
 
         <!-- Text editor -->
-        <script src="/vendors-download/ckeditor/ckeditor.js"></script>
+        <script src="/vendor/flexcms/vendors-download/ckeditor/ckeditor.js"></script>
         <!-- App -->
-        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/env.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/libraries/route.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/libraries/menu.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/libraries/crypt/aes.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/libraries/crypt/pbkdf2.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/libraries/jsencrypt.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/config.js') }}"></script>
-        <!-- Service -->
-        <script type="text/javascript" src="{{ asset('js/services/mock.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/services/resource.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/services/crypt.js') }}"></script>
-        <!-- Directive -->
-        <script type="text/javascript" src="{{ asset('js/directives/co-editor.js') }}"></script>
-        <!-- Controller -->
-        <script type="text/javascript" src="{{ asset('js/controllers/home.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/sidebar.js') }}"></script>
-       {{--  <script type="text/javascript" src="{{ asset('js/controllers/posts.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/messages.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/message.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/pages.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/media.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/menu.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/category.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/type.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/site.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/album.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/menu.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/page.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/category.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/type.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/localization.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/media.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/youtube.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/choose-post-locale.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/schedule-article.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/modals/alert.dialog.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/modals/loading.dialog.js') }}"></script> --}}
 
-      {{--   <script type="text/javascript" src="{{ asset('js/controllers/articles.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/article-create.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/collections.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/collection-create.js') }}"></script> --}}
-        {{-- Custom --}}
-       {{--  <script type="text/javascript" src="{{ asset('js/controllers/customs/products.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/product-sections.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/product-create.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/solutions.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/files.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/file.dialog.js') }}"></script> --}}
+        {!! \CMS::generateScripts('customs', ['util/menu', 'util/endpoint', 'util/route']) !!}
+        
+        {!! \CMS::generateScripts('dashboard') !!}
 
-        {{-- Custom - Hungry Hungry --}}
-        {{-- Custom - Location --}}
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/locations/index.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/locations/create.js') }}"></script>
-        {{-- Custom - Tour --}}
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/tours/index.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/tours/create.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/tours/booking-list.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/tours/assign-driver.dialog.js') }}"></script>
-        {{-- Custom - Promotion --}}
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/promotions/index.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/controllers/customs/promotions/create.js') }}"></script>
-
-    {{-- @else --}}
-
-        {{-- <script type="text/javascript" src="{{ elixir('js/build/hh-admin-script.js') }}"  async="true"></script>  --}}
-
-
-    {{-- @endif --}}
+        {!! \CMS::generateScripts('customs', ['services/crypt', 'services/resource', 'services/request', 'controllers/loading', 'controllers/alert', 'controllers/left']) !!}
 
     @section('scripts')
 

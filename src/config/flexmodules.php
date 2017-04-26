@@ -24,6 +24,7 @@
       'articles' => 
       array (
         0 => 'list',
+        1 => 'create',
       ),
     ),
     'login' => 
@@ -35,7 +36,7 @@
     ),
     'browse-media' => 
     array (
-    )
+    ),
   ),
   'customs' => 
   array (
@@ -44,5 +45,9 @@
     2 => 'services/resource',
     3 => 'controllers/alert',
     4 => 'controllers/loading',
+    5 => 'controllers/left',
+    6 => 'util/menu',
+    7 => 'util/endpoint',
+    8 => 'util/route',
   ),
 );

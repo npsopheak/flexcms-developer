@@ -1,8 +1,7 @@
-@extends('flexcms::layouts.login')
+@extends('layouts.login')
 
 @section('content')	
 	<form id="page-login" class="ng-cloak login-area" method="POST" name="loginForm" 
-		action="login"
 		ng-controller="LoginCtrl"
 		ng-submit="submit()">
 		
@@ -12,10 +11,10 @@
 				src="{{ URL::asset('/img/biz-dimension-logo.png') }}"/>
 		</div> --}}
 		<div class="logo-container login-title">
-			{{ config('flexcms.app.login.name') }}
+			Hungry Hungry Admin Area
 		</div>
 		<div class="logo-container login-subtitle">
-			{{ config('flexcms.app.login.description') }}
+			Accessing the content management system.
 		</div>
 		<md-content layout-padding layout="column" layout-sm="column">
 		    <md-input-container>
@@ -27,13 +26,6 @@
 		      	<input name="password" ng-model="user.password" type="password" required>
 		    </md-input-container>
 		</md-content>
-
-		@if (isset(Session::all()['error']))
-		<div class="alert alert-info">
-			{{ Session::all()['error'] }}
-		</div>
-		@endif
-
 		<input type="hidden" value="{{ csrf_token() }}" name="_token"/>
 
 		<section layout="row" layout-sm="column" layout-align="center center">

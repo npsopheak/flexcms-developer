@@ -1,4 +1,4 @@
-@extends('flexcms::layouts.dashboard')
+@extends('layouts.dashboard')
 
 @section('content')	
     <div layout="column" flex id="content">
