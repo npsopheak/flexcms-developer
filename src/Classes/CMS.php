@@ -55,17 +55,17 @@ class CMS {
                     $files[] = $base . '/apps/' . $main . '.js';    
                     $files[] = $base . '/apps/' . $main . '.config.js';    
                     // TODO: Next handle directive correctly
-                    $globals = $modules['global'];
+                    // $globals = $modules['global'];
 
-                    foreach($globals as $key => $value){
-                        if (strpos($value, 'services/') == 0 || strpos($value, 'directives/') == 0){
-                            $files[] = $base . '/' . $value . '.js';
-                        }
-                        else{
+                    // foreach($globals as $key => $value){
+                    //     if (strpos($value, 'services/') == 0 || strpos($value, 'directives/') == 0){
+                    //         $files[] = $base . '/' . $value . '.js';
+                    //     }
+                    //     else{
                             
-                        }
+                    //     }
                         
-                    } 
+                    // } 
                 }
             }
 
