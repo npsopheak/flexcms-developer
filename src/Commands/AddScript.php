@@ -40,7 +40,7 @@ class AddScript extends Command
         
         $type = $this->argument('type');
 
-        if (!in_array($type, ['services', 'directives', 'controllers']) ){
+        if (!in_array($type, ['services', 'directives', 'controllers', 'util']) ){
         	// throw new \Exception('Invalid main module name. Should be login or dashboard or browse-media');
         	return $this->error('Invalid script type. Should be services or directives');
         }
@@ -58,19 +58,25 @@ class AddScript extends Command
         	 mkdir($moduleJSPath, 0775, true);
         }
 
-        // Load sample content
-        $sampleFilePath = __DIR__ . '/../resources/samples/' . $type . '.js'; 
-        $content = file_get_contents($sampleFilePath);
+        if ($type == 'util'){
+            file_put_contents($fileJSPath, '');
+        }
+        else{
+            // Load sample content
+            $sampleFilePath = __DIR__ . '/../resources/samples/' . $type . '.js'; 
+            $content = file_get_contents($sampleFilePath);
 
-        // Prefix 
-        $prefx = [
-        	'services' => 'Service',
-        	'controllers' => 'Ctrl',
-        	'directives' => '',
-        ];
+            // Prefix 
+            $prefx = [
+                'services' => 'Service',
+                'controllers' => 'Ctrl',
+                'directives' => '',
+                'util' => '',
+            ];
 
-        // Put content
-        file_put_contents($fileJSPath, str_replace('{NAME}', $jsCtrlName . $prefx[$type], $content));
+            // Put content
+            file_put_contents($fileJSPath, str_replace('{NAME}', $jsCtrlName . $prefx[$type], $content));
+        }
 
         // Add to module js load routes
         $configFilePath = __DIR__ . '/../config/flexmodules.php';
