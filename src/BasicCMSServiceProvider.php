@@ -49,18 +49,6 @@ class BasicCMSServiceProvider extends ServiceProvider
 
         // Load route 
         $this->loadRoutesFrom(__DIR__.'/routes.php');
-        /**
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-        'api.auth' => \App\Http\Middleware\ApiAuthenticate::class,
-        'api.guest' => \App\Http\Middleware\ApiRedirectIfAuthenticated::class,
-        'app.auth' => \App\Http\Middleware\AuthorizedApp::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'https' => \App\Http\Middleware\HttpsProtocol::class,
-        'localize' => 'Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes',
-        */
 
         // Load migration 
         $this->loadMigrationsFrom(__DIR__.'/migrations');
