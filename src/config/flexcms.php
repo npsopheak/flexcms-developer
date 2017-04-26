@@ -17,7 +17,7 @@ return [
 	],
 
     'api' => [
-    	'endpoint' => 'http://localhost:8000'
+    	'endpoint' => 'http://localhost:8000/api/v1/'
     ]
 
 ];

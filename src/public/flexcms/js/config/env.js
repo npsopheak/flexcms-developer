@@ -1,3 +1,3 @@
 // CONFIGURE DOMAIN
 
-namespace.domain = 'https://www.flexitech.io/';
+namespace.domain = 'http://localhost:8000/';

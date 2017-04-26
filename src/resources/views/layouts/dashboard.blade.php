@@ -82,6 +82,11 @@
 
         {!! \CMS::generateScripts('global') !!}
 
+        <script type="text/javascript">
+            // CONFIGURE DOMAIN
+            namespace.domain = '{{ config("flexcms.api.endpoint") }}';
+        </script>
+
 
         <script src="/vendor/flexcms/vendors-download/magnific-popup/jquery.magnific-popup.js"></script>
         <script src="/vendor/flexcms/vendors/angular-google-maps/dist/angular-google-maps.min.js"></script>
