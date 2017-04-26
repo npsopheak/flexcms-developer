@@ -5,7 +5,7 @@
 * @Last Modified time: 2016-10-29 14:43:27
 */
 
-(function() {
+(function(app) {
 
     app.service('Request', ['$http', '$rootScope', '$window','genfunc', function($http, $rootScope, $window,genfunc) {
         // namespace.api_domain = 'http://localhost:3000';
@@ -19,7 +19,7 @@
         // console.log('=== api domain: ',api_domain);
         
         namespace.api_domain = api_domain;
-    	var api = namespace.api_domain;
+        var api = namespace.api_domain;
         var cleanup = function() {
         };            
 
@@ -103,4 +103,4 @@
         return public_method;
     }]);
 
-}());
+}(app));

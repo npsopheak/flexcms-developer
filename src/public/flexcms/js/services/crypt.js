@@ -5,7 +5,7 @@
 |
 **/
 
-(function (){
+(function (app){
     app
         .service('CryptService', ['$http', function ($http) {
             var public_key = '-----BEGIN PUBLIC KEY-----\nMIIBITANBgkqhkiG9w0BAQEFAAOCAQ4AMIIBCQKCAQBzJg6en2ZhWYhwrzLAuz/r\nWVDukqKU5dEUJTdPxr/hYVpzuZOSisPHDT783uHDxvRTSeMciZEmP2/mNLQVPSRO\nwHrO1DGTFF0lFxyF9kYaTPzgvJrubcVXkvom2GWPrM89QOLqEoAj3MC7ufq0g+JT\n0uClJIy9iZn7EkXOFChq0q3VDsxP3qITwU93JORZHYATldt37T3UIwUIqpjA8pOm\nSvr6FEjCT2YxFO0kc+3vJyMn37QXRaQSi3EoCfX/GYxD0YgwVIj8Fs0V4uz+D3FU\nE5R9SbDWnqB2bB3TdQBRBEePmz1VSzfoAqONyKwgktT62ws6fv94Qo+QoKJ01Nfz\nAgMBAAE=\n-----END PUBLIC KEY-----';
@@ -56,4 +56,4 @@
             };
             return public_method;
         }]);
-}());
+}(app));

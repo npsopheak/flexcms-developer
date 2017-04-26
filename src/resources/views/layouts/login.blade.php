@@ -24,39 +24,11 @@
 	</body>
 
     {{-- Generate script --}}
+    {!! \CMS::generateScripts('global') !!}
+
     {!! \CMS::generateScripts('login') !!}
 
-    {!! \CMS::generateScripts('general') !!}
+    {!! \CMS::generateScripts('customs', ['services/crypt', 'services/resource', 'services/request', 'controllers/loading', 'controllers/alert']) !!}
 
-{{-- 
-    <!-- Angular Material Dependencies -->
-    <script src="/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="/vendors/angular/angular.min.js"></script>
-    <script src="/vendors/angular-animate/angular-animate.min.js"></script>
-    <script src="/vendors/angular-aria/angular-aria.min.js"></script>
-    <script src="/vendors/angular-material/angular-material.min.js"></script>
-
-    <!-- App -->
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/app.login.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/config.login.js') }}"></script>
-
-    <!-- Libraries -->
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/libraries/crypt/aes.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/libraries/crypt/pbkdf2.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/libraries/jsencrypt.js') }}"></script>
-
-    <!-- Service -->
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/services/crypt.js') }}"></script>
-
-    <!-- Login -->
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/login.js') }}"></script>
-
-    <!-- Dialog -->
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/modals/alert.dialog.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/flexcms/js/controllers/modals/loading.dialog.js') }}"></script>
- --}}
-    @section('scripts')
-      
-  	@show
 	
 </html>

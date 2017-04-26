@@ -1,6 +1,6 @@
-(function (){
+(function (app){
 	app
-		.service('CoResource', function ($timeout, $http, $window, $resource, $rootScope){
+		.service('CoResource', ['$timeout', '$http', '$window', '$resource', '$rootScope', function ($timeout, $http, $window, $resource, $rootScope){
 			var port = location.port || (location.protocol === 'http' ? 80 : 443);
 			var $remoteUrl = namespace.domain + "admin/";
 			// if ($rootScope.remoteUrl){
@@ -34,7 +34,7 @@
 
 			var base = $remoteUrl;
 
-			var resources = namespace.endpoints($resouce, base);
+			var resources = namespace.endpoints($resource, base);
 
 			//
 
@@ -65,5 +65,5 @@
 					}
 				}
 			};
-		});
-}());
+		}]);
+}(app));

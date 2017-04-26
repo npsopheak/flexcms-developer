@@ -49,10 +49,10 @@ class AddPage extends Command
 
         $action = $this->argument('action');
 
-        echo __DIR__;
-
         $modulePath = __DIR__ . '/../resources/views/pages/' . $module . '/' . $submodule . '/'; //
         $filePath = $modulePath . $action . '.blade.php';
+
+        $this->info('Creating blade file at: ' . $filePath);
 
         if (!file_exists($modulePath)){
         	 mkdir($modulePath, 0775, true);

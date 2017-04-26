@@ -10,57 +10,84 @@ class CMS {
     }
 
     // php artisan vendor:publish --tag=public 
-    public function generateScripts($main){
+    public function generateScripts($main, $scripts = []){
         $modules = config('flexmodules.modules');
 
         $base = 'vendor/flexcms/js';
 
         $files = [];
 
-        if ($main != 'general'){
-
-            $globals = $modules['global'];
+        if ($main == 'customs'){
+            $globals = config('flexmodules.customs');;
 
             foreach($globals as $key => $value){
-                if (strpos($value, 'services/') !== 0 && strpos($value, 'directives/') !== 0){
+                if (in_array($value, $scripts) || count($scripts) == 0){
                     $files[] = $base . '/' . $value . '.js';
+                
                 }
                 else{
 
                 }
                 
             }
+        }
+        else{
 
-            $files[] = $base . '/apps/' . $main . '.js';    
-            $files[] = $base . '/apps/' . $main . '.config.js';    
+            if ($main != 'general'){
 
+                if ($main == 'global'){
 
-            foreach($globals as $key => $value){
-                if (strpos($value, 'services/') == 0 || strpos($value, 'directives/') == 0){
-                    $files[] = $base . '/' . $value . '.js';
+                    $globals = $modules['global'];
+
+                    foreach($globals as $key => $value){
+                        if (strpos($value, 'services/') !== 0 && strpos($value, 'directives/') !== 0){
+                            $files[] = $base . '/' . $value . '.js';
+                        }
+                        else{
+
+                        }
+                        
+                    }
+                    // return;
                 }
-                else{
+                else {
+
+                    $files[] = $base . '/apps/' . $main . '.js';    
+                    $files[] = $base . '/apps/' . $main . '.config.js';    
+                    // TODO: Next handle directive correctly
+                    $globals = $modules['global'];
+
+                    foreach($globals as $key => $value){
+                        if (strpos($value, 'services/') == 0 || strpos($value, 'directives/') == 0){
+                            $files[] = $base . '/' . $value . '.js';
+                        }
+                        else{
+                            
+                        }
+                        
+                    } 
+                }
+            }
+
+            if ($main != 'global'){
+                
+                $mains = $modules[$main];
+
+                foreach($mains as $key => $value){
+                    if (is_array($value)){
+                        foreach($value as $k => $v){
+                            $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $v . '.js';    
+                        }
+                        
+                    }
+                    else if (is_string($value)){ 
+                        $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $value . '.js';
+                    }
                     
-                }
-                
+                }   
             }
         }
 
-
-        $mains = $modules[$main];
-
-        foreach($mains as $key => $value){
-            if (is_array($value)){
-                foreach($value as $k => $v){
-                    $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $v . '.js';    
-                }
-                
-            }
-            else if (is_string($value)){ 
-                $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $value . '.js';
-            }
-            
-        }
 
         $strings = [];
         foreach ($files as $key => $value) {

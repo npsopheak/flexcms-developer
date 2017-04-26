@@ -2,6 +2,7 @@
 
 @section('content')	
 	<form id="page-login" class="ng-cloak login-area" method="POST" name="loginForm" 
+		action="login"
 		ng-controller="LoginCtrl"
 		ng-submit="submit()">
 		
@@ -26,6 +27,13 @@
 		      	<input name="password" ng-model="user.password" type="password" required>
 		    </md-input-container>
 		</md-content>
+
+		@if (isset(Session::all()['error']))
+		<div class="alert alert-info">
+			{{ Session::all()['error'] }}
+		</div>
+		@endif
+
 		<input type="hidden" value="{{ csrf_token() }}" name="_token"/>
 
 		<section layout="row" layout-sm="column" layout-align="center center">

@@ -17,18 +17,18 @@ Route::group(['prefix' => '', 'middleware' => ['web', 'csrf'], 'namespace' => 'F
     }]);
 
     Route::get('/dashboard/browse-media', function () {
-        return view('dashboard.browse-media');
+        return view('flexcms::dashboard.browse-media');
     });
     Route::post('/dashboard/login', ['uses' => 'Auth\AuthController@login']);
     Route::get('/dashboard/signout', ['middleware' => ['api.auth'], 'uses' => 'Auth\AuthController@getLogout']);
     Route::get('/dashboard/api/signout', ['uses' => 'Auth\AuthController@getApiLogout']);
 
     Route::get('/partials/{name}', function ($name) {
-        return view('dashboard.partials.' . $name);
+        return view('flexcms::dashboard.partials.' . $name);
     });
 
     Route::get('/templates/{name}', function ($name) {
-        return view('dashboard.templates.' . $name);
+        return view('flexcms::dashboard.templates.' . $name);
     });
 
 });

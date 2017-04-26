@@ -98,7 +98,7 @@ class AuthController extends Controller
             return redirect('/dashboard');
         }
         else{
-            return redirect('/dashboard/login');   
+            return redirect('/dashboard/login')->with(['error' => 'Sorry, invalid username or password']);   
         }
     }
 

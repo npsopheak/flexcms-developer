@@ -24,60 +24,6 @@ tests/
 vendor/
 ```
 
+php artisan vendor:publish --tag=public 
 
-## Install
-
-Via Composer
-
-``` bash
-$ composer require npsopheak/
-```
-
-## Usage
-
-``` php
-$skeleton = new FlexCMS\BasicCMS();
-echo $skeleton->echoPhrase('Hello, League!');
-```
-
-## Change log
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Testing
-
-``` bash
-$ composer test
-```
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
-
-## Security
-
-If you discover any security related issues, please email npsopheak@gmail.com instead of using the issue tracker.
-
-## Credits
-
-- [Nuon promsopheak][link-author]
-- [All Contributors][link-contributors]
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-[ico-version]: https://img.shields.io/packagist/v/npsopheak/.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/npsopheak//master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/npsopheak/.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/npsopheak/.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/npsopheak/.svg?style=flat-square
-
-[link-packagist]: https://packagist.org/packages/npsopheak/
-[link-travis]: https://travis-ci.org/npsopheak/
-[link-scrutinizer]: https://scrutinizer-ci.com/g/npsopheak//code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/npsopheak/
-[link-downloads]: https://packagist.org/packages/npsopheak/
-[link-author]: https://github.com/npsopheak
-[link-contributors]: ../../contributors
+php artisan flex:clear-public 
