@@ -8,11 +8,11 @@
 Route::group(['prefix' => '', 'middleware' => ['web', 'csrf'], 'namespace' => 'FlexCMS\BasicCMS\Api'], function()
 {
 
-    Route::get('/dashboard', ['middleware' => ['api.auth'], 'as' => 'dashboard', 'uses' => function () {
+    Route::get('/dashboard', ['middleware' => ['auth'], 'as' => 'dashboard', 'uses' => function () {
         return view('flexcms::dashboard.index');
     }]);
 
-    Route::get('/dashboard/login', ['middleware' => ['api.guest'], 'as' => 'login', 'uses' => function () {
+    Route::get('/dashboard/login', ['middleware' => ['guest'], 'as' => 'login', 'uses' => function () {
         return view('flexcms::dashboard.login');
     }]);
 
@@ -24,12 +24,12 @@ Route::group(['prefix' => '', 'middleware' => ['web', 'csrf'], 'namespace' => 'F
     Route::get('/dashboard/api/signout', ['uses' => 'Auth\AuthController@getApiLogout']);
 
     Route::get('/partials/{name}', function ($name) {
-        return view('flexcms::dashboard.partials.' . $name);
+        return view('flexcms::pages.' . $name);
     });
 
-    Route::get('/templates/{name}', function ($name) {
-        return view('flexcms::dashboard.templates.' . $name);
-    });
+    // Route::get('/templates/{name}', function ($name) {
+    //     return view('flexcms::dashboard.templates.' . $name);
+    // });
 
 });
 
