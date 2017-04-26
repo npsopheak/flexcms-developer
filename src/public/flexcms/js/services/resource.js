@@ -2,7 +2,7 @@
 	app
 		.service('CoResource', ['$timeout', '$http', '$window', '$resource', '$rootScope', function ($timeout, $http, $window, $resource, $rootScope){
 			var port = location.port || (location.protocol === 'http' ? 80 : 443);
-			var $remoteUrl = namespace.domain + "admin/";
+			var $remoteUrl = namespace.domain;
 			// if ($rootScope.remoteUrl){
 			// 	$remoteUrl = $rootScope.remoteUrl + 'api/admin/';
 			// }

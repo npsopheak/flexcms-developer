@@ -84,7 +84,7 @@
 	    	offset = offset || $scope.pagination.offset;
 	    	limit = limit || 10;
 	    	
-			CoResource.resources.Location.list({
+			CoResource.resources.Article.list({
 				'offset': (offset - 1) * limit || 0,
 				'limit': limit || 10,
 		    	'ignore-offset': 0,

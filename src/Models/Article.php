@@ -55,6 +55,10 @@ class Article extends Model
         }
     }
 
+    public function get_idAttribute(){
+        return $this->id;
+    }
+
     // public function photos(){
     //     return $this->morphMany('App\Media', 'imageable');
     // }

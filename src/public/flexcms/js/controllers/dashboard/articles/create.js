@@ -6,7 +6,7 @@
         $mdToast, CoResource, filterFilter) {
 
 	    
-		$scope._id = $routeParams.id;
+		$scope.id = $routeParams.id;
 		$scope.toastPosition = {
 	    	bottom: false,
 	    	top: true,
@@ -26,8 +26,8 @@
 		$scope.data = {};
 		$scope.mode = 'create';
 
-		$scope.data = CoResource.resources.Location
-			.get({ locationId: $scope._id || 'NO_DATA' }, function (s){
+		$scope.data = CoResource.resources.Article
+			.get({ articleId: $scope.id || 'NO_DATA' }, function (s){
 				$scope.loading = false;
 
 
@@ -371,7 +371,7 @@
 	    	if ($scope.mode === 'create'){
 	    		// $scope.data.hash = $scope.hash;
 
-	 			var item = new CoResource.resources.Location($scope.data);
+	 			var item = new CoResource.resources.Article($scope.data);
 	 			item.$save(function (s, h){
 	 				$scope.data = s.result;
 	 				$scope.mode = 'edit';
@@ -381,15 +381,15 @@
 	 					return $mdDialog.show(
 			      			$mdDialog.alert()
 						        .parent(angular.element(document.body))
-						        .title('Create Location Listing')
-						        .content('Location listing is successfully created')
-						        .ariaLabel('Create Location Listing')
+						        .title('Create Article Listing')
+						        .content('Article listing is successfully created')
+						        .ariaLabel('Create Article Listing')
 						        .ok('Got it!')
 						)
 		                .then(function(answer) {
-		                    $location.path('locations/' + $scope.data._id);
+		                    $location.path('articles/' + $scope.data._id);
 		                }, function() {
-		                    $location.path('locations/' + $scope.data._id);
+		                    $location.path('articles/' + $scope.data._id);
 		                });
 	 				}
 	 			}, function (f){
@@ -399,9 +399,9 @@
 	 					return $mdDialog.show(
 			      			$mdDialog.alert()
 						        .parent(angular.element(document.body))
-						        .title('Create Location Listing')
-						        .content('There was an error while creating Location listing. ' + CoResource.textifyError(f.data))
-						        .ariaLabel('Create Location Listing')
+						        .title('Create Article Listing')
+						        .content('There was an error while creating Article listing. ' + CoResource.textifyError(f.data))
+						        .ariaLabel('Create Article Listing')
 						        .ok('Got it!')
 					    );
 	 				}
@@ -410,11 +410,11 @@
 	    	}
 	    	else{
 
-	    		var location = new CoResource.resources.Location.get({
-	 				locationId: $scope.data._id
+	    		var item = new CoResource.resources.Article.get({
+	 				articleId: $scope.data._id
 	 			}, function(){
-	 				location = _.extend(location, $scope.data);
-	 				location.$update({locationId: $scope.data._id}, function (s, h){
+	 				item = _.extend(item, $scope.data);
+	 				item.$update({articleId: $scope.data._id}, function (s, h){
 
 		 				$rootScope.loading('hide');
 		 				if (hideDialog){
@@ -428,9 +428,9 @@
 	 					return $mdDialog.show(
 			      			$mdDialog.alert()
 						        .parent(angular.element(document.body))
-						        .title('Update Location Listing')
-						        .content('Location listing is successfully updated')
-						        .ariaLabel('Update Location Listing')
+						        .title('Update Article Listing')
+						        .content('Article listing is successfully updated')
+						        .ariaLabel('Update Article Listing')
 						        .ok('Got it!')
 						    );
 	 				}, function (e){
@@ -440,9 +440,9 @@
 		      			return $mdDialog.show(
 			      			$mdDialog.alert()
 						        .parent(angular.element(document.body))
-						        .title('Error Update Location Listing')
+						        .title('Error Update Article Listing')
 						        .content(CoResource.textifyError(e.data))
-						        .ariaLabel('Update Location Listing')
+						        .ariaLabel('Update Article Listing')
 						        .ok('Got it!')
 						    );
 	 				});
@@ -451,9 +451,9 @@
  					return $mdDialog.show(
 		      			$mdDialog.alert()
 					        .parent(angular.element(document.body))
-					        .title('Update Location Listing')
-					        .content('There was an error while updating Location listing. ' + CoResource.textifyError(e.data))
-					        .ariaLabel('Update Location Listing')
+					        .title('Update Article Listing')
+					        .content('There was an error while updating Article listing. ' + CoResource.textifyError(e.data))
+					        .ariaLabel('Update Article Listing')
 					        .ok('Got it!')
 					    );
  				});
@@ -545,15 +545,15 @@
             var confirm = $mdDialog.confirm()
                 .parent(angular.element(document.body))
                 .title('Set this gallery as cover?')
-                .content('Are sure to do set this image as Location cover?')
+                .content('Are sure to do set this image as Article cover?')
                 .ariaLabel('Set Cover')
                 .ok('Yes')
                 .cancel('No')
                 .targetEvent(ev);
             $mdDialog.show(confirm).then(function() {
                 $rootScope.loading('show');
-                CoResource.resources.Location.setCover({
-                	locationId: $scope.data._id
+                CoResource.resources.Article.setCover({
+                	articleId: $scope.data._id
                 }, {
 					cover_media: item._id
 				}, function (s){
@@ -589,22 +589,22 @@
 
 				var confirm = $mdDialog.confirm()
 	                .parent(angular.element(document.body))
-	                .title('Remove location?')
-	                .content('Are sure to remove this location? You cannot undo after you delete it')
-	                .ariaLabel('Remove location')
+	                .title('Remove Article?')
+	                .content('Are sure to remove this article? You cannot undo after you delete it')
+	                .ariaLabel('Remove Article')
 	                .ok('Yes')
 	                .cancel('No')
 	                .targetEvent($event);
 	            $mdDialog.show(confirm).then(function() {
-	                $rootScope.loading('Location');
-	                CoResource.resources.Location.delete({
-	                	locationId: $scope.data._id
+	                $rootScope.loading('Article');
+	                CoResource.resources.Article.delete({
+	                	articleId: $scope.data.id
 	                }, {}, function (s){
 	                	$rootScope.loading('hide');
 						$location.path('/');
 	                }, function (e){
 	                	$rootScope.loading('hide');
-	                	alert('Sorry, this Location cannot be set due to some reason, please contact administrator for more information');
+	                	alert('Sorry, this Article cannot be set due to some reason, please contact administrator for more information');
 	                });
 
 	            }, function() {
@@ -618,16 +618,16 @@
 
 				var confirm = $mdDialog.confirm()
 	                .parent(angular.element(document.body))
-	                .title('Remove location logo?')
-	                .content('Are sure to remove this location logo? You cannot undo after you delete it')
-	                .ariaLabel('Remove location')
+	                .title('Remove Article logo?')
+	                .content('Are sure to remove this article logo? You cannot undo after you delete it')
+	                .ariaLabel('Remove Article')
 	                .ok('Yes')
 	                .cancel('No')
 	                .targetEvent($event);
 	            $mdDialog.show(confirm).then(function() {
 	                $rootScope.loading('show');
-	                CoResource.resources.Location.deleteLogo({
-	                	locationId: $scope.data._id
+	                CoResource.resources.Article.deleteLogo({
+	                	articleId: $scope.data.id
 	                }, {}, function (s){
 	                	$rootScope.loading('hide');
 						$scope.data.logo = null;
