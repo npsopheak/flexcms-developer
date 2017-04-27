@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('flexcms::layouts.login')
 
 @section('content')	
 	<form id="page-login" class="ng-cloak login-area" method="POST" name="loginForm" 
