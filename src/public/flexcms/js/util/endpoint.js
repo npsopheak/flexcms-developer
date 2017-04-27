@@ -1,6 +1,6 @@
 namespace.endpoints = function ($resource, base) {
 	return {
-		Item: $resource(base + 'dimensions/:itemId',
+		Item: $resource(base + 'items/:itemId',
 	 	{
 	 		itemId:'@id',
 				cache : false

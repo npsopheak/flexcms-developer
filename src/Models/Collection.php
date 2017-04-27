@@ -26,6 +26,6 @@ class Collection extends Model
     protected $dates = ['deleted_at'];
 
     public function articles (){
-        return $this->hasMany('App\Article', 'collection_id');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Article', 'collection_id');
     }
 }

@@ -46,9 +46,9 @@
         					<div class="directory-image"
                                 style="background-image: url('<% item.cover ? mediaUrl + item.cover.file_name :  item.photo_url %>');  width: 100px; height: 100px;"></div>
         					<div class="directory-basic-info" style="    padding-left: 120px;">
-        						<div class="name"><% item.display_name %></div>
+        						<div class="name"><% item.title %></div>
         						<div>
-        							<span class="tag" ng-repeat="category in item.categories">
+        							<span class="tag" ng-repeat="category in [item.category, item.type]">
         								<span class="icon-price-tag"></span>
                                         <% category.display_name %>
         							</span>
@@ -66,7 +66,7 @@
         						<p class="desc" style="word-break: break-word;
                                     white-space: inherit;
                                     word-wrap: break-word;">
-	        						<% item.description %>
+	        						<% item.short_description %>
 	        					</p>
 	        					{{-- <ul class="contact-info">
 	        						<li style="word-break: break-word;

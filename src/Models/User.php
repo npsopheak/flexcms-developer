@@ -37,24 +37,24 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function profile()
     {
-        return $this->hasOne('App\Profile','user_id');
+        return $this->hasOne('FlexCMS\BasicCMS\Models\Profile','user_id');
     }
 
     public function site(){
 
-        return $this->hasMany('App\Site','user_id');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Site','user_id');
     }
 
     public function article(){
 
-        return $this->hasMany('App\Article','user_id');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Article','user_id');
     }
 
     public function tag(){
-        return $this->hasMany('App\Tag','tag_id');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Tag','tag_id');
     }
 
     public function item(){
-        return $this->hasMany('App\Item','item_id');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Item','item_id');
     }
 }

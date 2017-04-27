@@ -18,7 +18,7 @@
 		};
 
 		$scope.view = function(item){
-			$location.path('articles/' + item._id);
+			$location.path('articles/' + item.id);
 		};	
 
 		$scope.create = function(){
@@ -90,7 +90,7 @@
 		    	'ignore-offset': 0,
 		    	'search': $scope.search.query || '',
 		    	'sort': 'directory_name', // $scope.sort || '',
-		    	'scope': 'foods,origins,categories,features,menu,drinks,payment_methods,parkings',
+		    	// 'scope': 'foods,origins,categories,features,menu,drinks,payment_methods,parkings',
 		    }, function(s) {
 		    	$scope.data = s.result;
 		    	$scope.pagination.total_record = s.options.total;

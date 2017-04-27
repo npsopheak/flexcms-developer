@@ -287,6 +287,9 @@ class ArticleController extends ApiController {
 			if (Input::get('description')){
 				$article->description = Input::get('description');
 			}
+			if (Input::get('short_description')){
+				$article->short_description = Input::get('short_description');
+			}
 			if (Input::get('type_id')){
 				$article->type_id = Input::get('type_id');
 			}
@@ -433,6 +436,9 @@ class ArticleController extends ApiController {
 				}
 				if (Input::get('description')){
 					$article->description = Input::get('description');
+				}
+				if (Input::get('short_description')){
+					$article->short_description = Input::get('short_description');
 				}
 				if (Input::get('type_id')){
 					$article->type_id = Input::get('type_id');

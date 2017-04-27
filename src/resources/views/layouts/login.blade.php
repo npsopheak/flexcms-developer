@@ -26,6 +26,13 @@
     {{-- Generate script --}}
     {!! \CMS::generateScripts('global') !!}
 
+	<script type="text/javascript">
+		// CONFIGURE DOMAIN
+		namespace.domain = '{{ config("flexcms.api.endpoint") }}';
+	</script>
+
+	{!! \CMS::generateScripts('customs', ['util/menu', 'util/endpoint', 'util/route']) !!}
+
     {!! \CMS::generateScripts('login') !!}
 
     {!! \CMS::generateScripts('customs', ['services/crypt', 'services/resource', 'services/request', 'controllers/loading', 'controllers/alert']) !!}

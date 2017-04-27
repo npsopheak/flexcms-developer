@@ -26,6 +26,6 @@ class ArticleTag extends Model
     protected $dates = ['deleted_at'];
 
     public function tag (){
-        return $this->belongsTo('App\Tag','tag_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Tag','tag_id');
     }
 }

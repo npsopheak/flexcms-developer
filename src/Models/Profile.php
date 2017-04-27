@@ -27,6 +27,6 @@ class Profile extends Model
 
     public function profilePicture()
     {
-        return $this->belongsTo('App\Media','photo_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Media','photo_id');
     }
 }

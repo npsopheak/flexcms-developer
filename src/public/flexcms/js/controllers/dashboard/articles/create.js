@@ -36,15 +36,15 @@
 					$scope.mode = 'create';
 					$scope.data = {};
 
-				    if (navigator.geolocation) {
-				        navigator.geolocation.getCurrentPosition(function (position){
-				        	$scope.map.center.latitude = position.coords.latitude; // || 11.5449;
-				        	$scope.map.center.longitude = position.coords.longitude; // || 104.8922;
-				        	$scope.marker.coords.latitude = position.coords.latitude; // || 11.5449;
-				        	$scope.marker.coords.longitude = position.coords.longitude; // || 104.8922;
-				        	$scope.$apply();
-				        });
-				    }
+				    // if (navigator.geolocation) {
+				    //     navigator.geolocation.getCurrentPosition(function (position){
+				    //     	$scope.map.center.latitude = position.coords.latitude; // || 11.5449;
+				    //     	$scope.map.center.longitude = position.coords.longitude; // || 104.8922;
+				    //     	$scope.marker.coords.latitude = position.coords.latitude; // || 11.5449;
+				    //     	$scope.marker.coords.longitude = position.coords.longitude; // || 104.8922;
+				    //     	$scope.$apply();
+				    //     });
+				    // }
 					$scope.data.is_recommended = false;
 
 					// if (!$scope.data.locale){
@@ -62,10 +62,10 @@
 					$scope.mode = 'edit';
 					$scope.data.is_active = $scope.data.is_active ? true : false;
 
-		        	$scope.map.center.latitude = $scope.data.latitude; // || 11.5449;
-		        	$scope.map.center.longitude = $scope.data.longitude; // || 104.8922;
-		        	$scope.marker.coords.latitude = $scope.data.latitude; // || 11.5449;
-		        	$scope.marker.coords.longitude = $scope.data.longitude; // || 104.8922;
+		        	// $scope.map.center.latitude = $scope.data.latitude; // || 11.5449;
+		        	// $scope.map.center.longitude = $scope.data.longitude; // || 104.8922;
+		        	// $scope.marker.coords.latitude = $scope.data.latitude; // || 11.5449;
+		        	// $scope.marker.coords.longitude = $scope.data.longitude; // || 104.8922;
 
 			    	$scope.selectedCategories = _.map($scope.data.category, function (v){
 			    		return v;
@@ -81,52 +81,52 @@
 			});
 
 		$scope.categories = [];
-		$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 13 ,
-			control: {
+		// $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 13 ,
+		// 	control: {
 
-			},
-			events: {
-				click: function (e, v, args){
-					$scope.marker.coords.latitude = args[0].latLng.lat();
-					$scope.marker.coords.longitude = args[0].latLng.lng();
-					$scope.data.latitude = args[0].latLng.lat();
-					$scope.data.longitude = args[0].latLng.lng();
-					$scope.$apply();
-				}
-			}
-		};
+		// 	},
+		// 	events: {
+		// 		click: function (e, v, args){
+		// 			$scope.marker.coords.latitude = args[0].latLng.lat();
+		// 			$scope.marker.coords.longitude = args[0].latLng.lng();
+		// 			$scope.data.latitude = args[0].latLng.lat();
+		// 			$scope.data.longitude = args[0].latLng.lng();
+		// 			$scope.$apply();
+		// 		}
+		// 	}
+		// };
 
-		$scope.onLatLngChanged = function (){
-			if ($scope.data.latitude * 1.0 &&  $scope.data.longitude * 1.0){
-				$scope.marker.coords.latitude = $scope.data.latitude;
-				$scope.marker.coords.longitude = $scope.data.longitude;
-				$scope.map.center.latitude = $scope.data.latitude;
-				$scope.map.center.longitude = $scope.data.longitude;
-			}
-		};
+		// $scope.onLatLngChanged = function (){
+		// 	if ($scope.data.latitude * 1.0 &&  $scope.data.longitude * 1.0){
+		// 		$scope.marker.coords.latitude = $scope.data.latitude;
+		// 		$scope.marker.coords.longitude = $scope.data.longitude;
+		// 		$scope.map.center.latitude = $scope.data.latitude;
+		// 		$scope.map.center.longitude = $scope.data.longitude;
+		// 	}
+		// };
 
-		$scope.marker = {
-	      	id: 0,
-	      	coords: {
-	        	latitude: 40.1451,
-	        	longitude: -99.6680
-	      	},
-	      	options: {
-	      		draggable: true ,
-	      		title: 'Your selected position is here'
-	      	},
-	      	events: {
-	        	dragend: function (marker, eventName, args) {
-					var lat = marker.getPosition().lat();
-					var lon = marker.getPosition().lng();
-					$scope.data.latitude = lat;
-					$scope.data.longitude = lon;
-					// if ($scope.mode == 'edit'){
-					// 	$scope.submit(true);
-					// }
-	        	}
-	      	}
-	    };
+		// $scope.marker = {
+	    //   	id: 0,
+	    //   	coords: {
+	    //     	latitude: 40.1451,
+	    //     	longitude: -99.6680
+	    //   	},
+	    //   	options: {
+	    //   		draggable: true ,
+	    //   		title: 'Your selected position is here'
+	    //   	},
+	    //   	events: {
+	    //     	dragend: function (marker, eventName, args) {
+		// 			var lat = marker.getPosition().lat();
+		// 			var lon = marker.getPosition().lng();
+		// 			$scope.data.latitude = lat;
+		// 			$scope.data.longitude = lon;
+		// 			// if ($scope.mode == 'edit'){
+		// 			// 	$scope.submit(true);
+		// 			// }
+	    //     	}
+	    //   	}
+	    // };
 
 
     	$scope.uploadingFile = {
@@ -238,7 +238,7 @@
 			filetmp.loading = true;
 			$rootScope.loading('show');
 
-			var url = $rootScope.remoteUrl + '/admin/locations/' + $scope.data._id + '/' + (filetmp.type == 'logo' ? 'logo' : 'galleries');
+			var url = $rootScope.remoteUrl + '/admin/locations/' + $scope.data.id + '/' + (filetmp.type == 'logo' ? 'logo' : 'galleries');
 
 			// console.log(url);
 			// return;
@@ -295,10 +295,25 @@
     	/* START: HANDLE CATEGORY */
 
 		$scope.categories = CoResource.resources.Item.list({
-	    	'type': 'category',
+	    	// 'type': 'category',
 	    	'ignore-offset': 1,
 	    }, function(s) {
 	    	$scope.categories = s.result;
+            // Find the post category 
+            var filteredItem = _.filter(s.result, function (v){
+                return v.name == 'post';
+            });
+			console.log(filteredItem);
+            if (filteredItem && filteredItem[0]){
+                $scope.data.type_id = filteredItem[0].id;
+            }
+            // Find the post category 
+            filteredItem = _.filter(s.result, function (v){
+                return v.name == 'general-news';
+            });
+            if (filteredItem && filteredItem[0]){
+                $scope.data.category_id = filteredItem[0].id;
+            }
 	    });
 		$scope.select_categories = [];
 		$scope.itemChange = function (v){
@@ -323,13 +338,15 @@
 
 		/* START: HANDLE FEATURES */
 
-		$scope.features = CoResource.resources.Item.list({
-	    	'type': 'feature',
-	    	'ignore-offset': 1,
-	    }, function(s) {
-	    	$scope.features = s.result;
-	    });
-		$scope.select_features = [];
+		// $scope.features = CoResource.resources.Item.list({
+	    // 	'type': 'feature',
+	    // 	'ignore-offset': 1,
+	    // }, function(s) {
+	    // 	$scope.features = s.result;
+	    // });
+		// $scope.select_features = [];
+
+        // Handle CHIP 
 		$scope.itemChangeGeneric = function (listName){
 			$scope[listName] = _.filter($scope[listName], function(v){
 				return _.isObject(v) ? v : {
@@ -358,12 +375,12 @@
 		}
 
 	    $scope.submit = function (hideDialog){
-	    	if (!$scope.data.latitude){
-	    		$scope.data.latitude = $scope.map.center.latitude;
-	    	}
-	    	if (!$scope.data.longitude){
-	    		$scope.data.longitude = $scope.map.center.longitude;
-	    	}
+	    	// if (!$scope.data.latitude){
+	    	// 	$scope.data.latitude = $scope.map.center.latitude;
+	    	// }
+	    	// if (!$scope.data.longitude){
+	    	// 	$scope.data.longitude = $scope.map.center.longitude;
+	    	// }
 	    	$scope.data.category = $scope.selectedCategories;
 
 	    	$rootScope.loading('show');
@@ -387,9 +404,9 @@
 						        .ok('Got it!')
 						)
 		                .then(function(answer) {
-		                    $location.path('articles/' + $scope.data._id);
+		                    $location.path('articles/' + $scope.data.id);
 		                }, function() {
-		                    $location.path('articles/' + $scope.data._id);
+		                    $location.path('articles/' + $scope.data.id);
 		                });
 	 				}
 	 			}, function (f){
@@ -411,10 +428,10 @@
 	    	else{
 
 	    		var item = new CoResource.resources.Article.get({
-	 				articleId: $scope.data._id
+	 				articleId: $scope.data.id
 	 			}, function(){
 	 				item = _.extend(item, $scope.data);
-	 				item.$update({articleId: $scope.data._id}, function (s, h){
+	 				item.$update({articleId: $scope.data.id}, function (s, h){
 
 		 				$rootScope.loading('hide');
 		 				if (hideDialog){
@@ -514,11 +531,11 @@
             $mdDialog.show(confirm).then(function() {
                 $rootScope.loading('show');
                 CoResource.resources.Media.delete({
-                	mediaId: item._id
+                	mediaId: item.id
                 }, function (s){
                 	$rootScope.loading('hide');
                 	for(var i = $scope.data.gallery.length - 1; i >= 0; i--){
-    					if (item._id === $scope.data.gallery[i]._id){
+    					if (item.id === $scope.data.gallery[i].id){
     						$scope.data.gallery.splice(i, 1);
     					}
     				}
@@ -539,7 +556,7 @@
 
         $scope.updateCover = function (item, ev){
             // Appending dialog to document.body to cover sidenav in docs app
-            if (!item || item._id == $scope.data.cover_media){
+            if (!item || item.id == $scope.data.cover_media){
                 return;
             }
             var confirm = $mdDialog.confirm()
@@ -553,12 +570,12 @@
             $mdDialog.show(confirm).then(function() {
                 $rootScope.loading('show');
                 CoResource.resources.Article.setCover({
-                	articleId: $scope.data._id
+                	articleId: $scope.data.id
                 }, {
-					cover_media: item._id
+					cover_media: item.id
 				}, function (s){
                 	$rootScope.loading('hide');
-					$scope.data.cover_media = item._id;
+					$scope.data.cover_media = item.id;
 
                 	$mdToast.show(
                         $mdToast.simple()
@@ -585,7 +602,7 @@
   		};
 
 		$scope.delete = function ($event){
-			if ($scope.data._id){
+			if ($scope.data.id){
 
 				var confirm = $mdDialog.confirm()
 	                .parent(angular.element(document.body))
@@ -614,7 +631,7 @@
 
 
 		$scope.deletePhotoLogo = function ($event){
-			if ($scope.data._id){
+			if ($scope.data.id){
 
 				var confirm = $mdDialog.confirm()
 	                .parent(angular.element(document.body))
@@ -672,34 +689,34 @@
         };
 
         $timeout(function() {
-            console.log($scope.map);
-            var map = $scope.map.control.getGMap();
-            var input = document.getElementById('pac-input');
-            if (!input){
-            	return;
-            }
-            var searchBox = new google.maps.places.SearchBox(input);
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            // console.log($scope.map);
+            // var map = $scope.map.control.getGMap();
+            // var input = document.getElementById('pac-input');
+            // if (!input){
+            // 	return;
+            // }
+            // var searchBox = new google.maps.places.SearchBox(input);
+            // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
             // Bias the SearchBox results towards current map's viewport.
-            map.addListener('bounds_changed', function() {
-                searchBox.setBounds(map.getBounds());
+            // map.addListener('bounds_changed', function() {
+            //     searchBox.setBounds(map.getBounds());
 
-            });
+            // });
             // Listen for the event fired when the user selects a prediction and retrieve
             // more details for that place.
-            searchBox.addListener('places_changed', function() {
-                var places = searchBox.getPlaces();
+            // searchBox.addListener('places_changed', function() {
+            //     var places = searchBox.getPlaces();
 
-                if (places.length == 0) {
-                    return;
-                }
-               	$scope.map.center.latitude = places[0].geometry.location.lat();
-               	$scope.map.center.longitude = places[0].geometry.location.lng();
-               	$scope.marker.coords.latitude = places[0].geometry.location.lat();
-               	$scope.marker.coords.longitude = places[0].geometry.location.lng();
-               	$scope.$apply();
-            });
+            //     if (places.length == 0) {
+            //         return;
+            //     }
+            //    	$scope.map.center.latitude = places[0].geometry.location.lat();
+            //    	$scope.map.center.longitude = places[0].geometry.location.lng();
+            //    	$scope.marker.coords.latitude = places[0].geometry.location.lat();
+            //    	$scope.marker.coords.longitude = places[0].geometry.location.lng();
+            //    	$scope.$apply();
+            // });
 
             $scope.showMapSearchBox = true;
 

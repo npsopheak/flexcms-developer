@@ -48,15 +48,15 @@ class Item extends Model
     }
 
     public function item(){
-        $this->belongsTo('App\Item','parent_id');
+        $this->belongsTo('FlexCMS\BasicCMS\Models\Item','parent_id');
     }
 
     public function type(){
-        return $this->belongsTo('App\Item', 'parent_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item', 'parent_id');
     }
 
     public function photo(){
-        $this->belongsTo('App\Media','photo_id');
+        $this->belongsTo('FlexCMS\BasicCMS\Models\Media','photo_id');
     }
 
     /**
@@ -64,10 +64,10 @@ class Item extends Model
      */
     public function directories()
     {
-        return $this->belongsToMany('App\Directory', 'directory_categories', 'category_id', 'directory_id');
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Directory', 'directory_categories', 'category_id', 'directory_id');
     }
 
     public function sections(){
-        return $this->hasMany('App\ProductSection', 'product_id');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\ProductSection', 'product_id');
     }
 }

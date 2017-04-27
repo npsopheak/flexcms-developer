@@ -26,6 +26,6 @@ class ArticleProduct extends Model
     protected $dates = ['deleted_at'];
 
     public function product (){
-        return $this->belongsTo('App\Item','product_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','product_id');
     }
 }

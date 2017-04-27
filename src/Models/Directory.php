@@ -69,19 +69,19 @@ class Directory extends Model
     }
 
     // public function photos(){
-    //     return $this->morphMany('App\Media', 'imagable');
+    //     return $this->morphMany('FlexCMS\BasicCMS\Models\Media', 'imagable');
     // }
 
     public function photos(){
-        return $this->hasMany('App\Media', 'imagable_id')->where('imagable_type', '=', 'Directory')->where('type', '=', 'gallery');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Media', 'imagable_id')->where('imagable_type', '=', 'Directory')->where('type', '=', 'gallery');
     }
 
     public function category(){
-        return $this->belongsTo('App\Item','category_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','category_id');
     }
 
     public function logo(){
-        return $this->belongsTo('App\Media','logo_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Media','logo_id');
     }
 
     /**
@@ -89,6 +89,6 @@ class Directory extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany('App\Item', 'directory_categories', 'directory_id', 'category_id');
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Item', 'directory_categories', 'directory_id', 'category_id');
     }
 }   

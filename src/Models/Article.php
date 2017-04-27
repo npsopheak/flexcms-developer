@@ -25,7 +25,7 @@ class Article extends Model
         'primary_photo_id', 'category_id', 'organization_id',
         'type_id', 'created_by', 'updated_by', 'deleted_by',
         'language', 'parent_id', 'customs', 'seq_no', 'published_at', 'scheduled_at', 'status',
-        'game_photo_id', 'collection_id'];
+        'game_photo_id', 'collection_id', 'short_description'];
     
     protected $dates = ['deleted_at'];
     /**
@@ -55,40 +55,36 @@ class Article extends Model
         }
     }
 
-    public function get_idAttribute(){
-        return $this->id;
-    }
-
     // public function photos(){
-    //     return $this->morphMany('App\Media', 'imageable');
+    //     return $this->morphMany('FlexCMS\BasicCMS\Models\Media', 'imageable');
     // }
 
     public function category(){
-        return $this->belongsTo('App\Item','category_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','category_id');
     }
 
     public function type(){
-        return $this->belongsTo('App\Item','type_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','type_id');
     }
 
     public function articleTag(){
-        return $this->belongsTo('App\articleTag','tag_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\articleTag','tag_id');
     }
 
     public function collection(){
-        return $this->belongsTo('App\Collection','collection_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Collection','collection_id');
     }
 
     public function photos(){
-        return $this->hasMany('App\Media', 'imagable_id')->where('imagable_type', '=', 'Article')->where('type', '=', 'gallery');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Media', 'imagable_id')->where('imagable_type', '=', 'Article')->where('type', '=', 'gallery');
     }
 
     public function primaryMedia(){
-        return $this->belongsTo('App\Media', 'primary_photo_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Media', 'primary_photo_id');
     }
 
     public function gamePoster(){
-        return $this->belongsTo('App\Media', 'game_photo_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Media', 'game_photo_id');
     }
 
     /**
@@ -96,20 +92,20 @@ class Article extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Item', 'article_tags', 'article_id', 'tag_id');
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Item', 'article_tags', 'article_id', 'tag_id');
     }
 
     public function products()
     {
-        return $this->belongsToMany('App\Item', 'article_products', 'article_id', 'product_id');
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Item', 'article_products', 'article_id', 'product_id');
     }
 
     public function createdByUser(){
-        return $this->belongsTo('App\User', 'created_by');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\User', 'created_by');
     }
 
     public function localizations(){
-        return $this->hasMany('App\Article', 'parent_id');
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Article', 'parent_id');
     }
 
 

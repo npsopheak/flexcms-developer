@@ -66,10 +66,10 @@ class Media extends Model
     }
 
     public function album(){
-        return $this->belongsTo('App\Item','album_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','album_id');
     }
     
     public function article(){
-        return $this->belongsTo('App\Article', 'imagable_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Article', 'imagable_id');
     }
 }

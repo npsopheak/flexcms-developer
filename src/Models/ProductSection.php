@@ -36,10 +36,10 @@ class ProductSection extends Model
     }
 
     public function articleSection(){
-        return $this->belongsTo('App\Article', 'article_section_id');
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Article', 'article_section_id');
     }
 
     public function products(){
-        return $this->belongsToMany('App\Item', 'product_id');
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Item', 'product_id');
     }
 }
