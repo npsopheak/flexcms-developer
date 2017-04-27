@@ -119,7 +119,9 @@
         
         {!! \CMS::generateScripts('dashboard') !!}
 
-        {!! \CMS::generateScripts('customs', ['services/crypt', 'services/resource', 'services/request', 'controllers/loading', 'controllers/alert', 'controllers/left']) !!}
+        {!! \CMS::generateScripts('customs', [ 'directives/coEditor', 
+            'services/crypt', 'services/resource', 'services/request', 
+            'controllers/loading', 'controllers/alert', 'controllers/left']) !!}
 
     @section('scripts')
 

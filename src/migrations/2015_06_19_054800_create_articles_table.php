@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->integer('category_id');
             $table->integer('organization_id')->nullable();
             $table->integer('type_id');
-            $table->integer('seq_no');
+            $table->integer('seq_no')->default(0);
             $table->string('language', 10)->nullable();
             $table->text('locale')->nullable();
             $table->text('customs')->nullable();

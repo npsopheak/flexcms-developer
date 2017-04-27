@@ -1,9 +1,9 @@
 (function(app) {
     app.controller('DashboardArticlesCreateCtrl', ['$scope', '$timeout', '$mdSidenav',
-        '$mdUtil', '$log', '$rootScope', '$mdDialog', '$routeParams', '$location',
-        '$mdToast', 'CoResource', 'filterFilter', function($scope, $timeout, $mdSidenav,
+        '$mdUtil', '$log', '$rootScope', '$mdDialog', '$routeParams', '$location', 
+        '$mdToast', 'CoResource', 'filterFilter', 'Upload', function($scope, $timeout, $mdSidenav,
         $mdUtil, $log, $rootScope, $mdDialog, $routeParams, $location,
-        $mdToast, CoResource, filterFilter) {
+        $mdToast, CoResource, filterFilter, Upload) {
 
 	    
 		$scope.id = $routeParams.id;
@@ -217,6 +217,7 @@
     			}
     			else{
     				file.loading = true;
+					
 	    			$scope.chooseFile(file, function (data, file){
 	    				$scope.data.photos = $scope.data.photos || [];
 	    				$scope.data.photos.push(data.result);
@@ -238,9 +239,9 @@
 			filetmp.loading = true;
 			$rootScope.loading('show');
 
-			var url = $rootScope.remoteUrl + '/admin/locations/' + $scope.data.id + '/' + (filetmp.type == 'logo' ? 'logo' : 'galleries');
+			var url = namespace.domain + 'media'; // + $scope.data.id + '/' + (filetmp.type == 'logo' ? 'logo' : 'galleries');
 
-			// console.log(url);
+			console.log(url, Upload);
 			// return;
 
             $scope.upload = Upload.upload({
@@ -248,14 +249,20 @@
                 method: 'POST',
                 //headers: {'Authorization': 'xxx'}, // only for html5
                 //withCredentials: true,
-                method: 'POST',
+                // method: 'POST',
                 headers: {
                 }, // only for html5
                 data: {
+					imagable_type: 'Article',
+					imagable_id: $scope.data.id,
+					caption: $scope.data.title,
+					description: $scope.data.title,
+					type: 'gallery'
                 	// upload_session_key: namespace.guid()
                 },
                 file: filetmp.file,
             }).progress(function(evt) {
+				console.log('progressing');
                 // evt.config.file.progress = parseInt(100.0 * evt.loaded / evt.total);
                 filetmp.progress = parseInt(100.0 * evt.loaded / evt.total);
             }).success(function(data, status, headers, config) {
@@ -272,9 +279,9 @@
 			    );
 
 			    if (filetmp.type == 'gallery'){
-			    	$scope.data.gallery = $scope.data.gallery || [];
+			    	// $scope.data.photos = $scope.data.photos || [];
 			    	data.result.thumbnail_url_link = filetmp.src;
-			    	$scope.data.gallery.unshift(data.result);
+			    	// $scope.data.photos.unshift(data.result);
 			    }
 			    else if (filetmp.type == 'logo'){
 			    	// data.result.thumbnail_url_link = filetmp.src;
@@ -381,6 +388,7 @@
 	    	// if (!$scope.data.longitude){
 	    	// 	$scope.data.longitude = $scope.map.center.longitude;
 	    	// }
+			console.log($scope.data);
 	    	$scope.data.category = $scope.selectedCategories;
 
 	    	$rootScope.loading('show');
@@ -534,9 +542,9 @@
                 	mediaId: item.id
                 }, function (s){
                 	$rootScope.loading('hide');
-                	for(var i = $scope.data.gallery.length - 1; i >= 0; i--){
-    					if (item.id === $scope.data.gallery[i].id){
-    						$scope.data.gallery.splice(i, 1);
+                	for(var i = $scope.data.photos.length - 1; i >= 0; i--){
+    					if (item.id === $scope.data.photos[i].id){
+    						$scope.data.photos.splice(i, 1);
     					}
     				}
                 	$mdToast.show(
@@ -569,13 +577,14 @@
                 .targetEvent(ev);
             $mdDialog.show(confirm).then(function() {
                 $rootScope.loading('show');
-                CoResource.resources.Article.setCover({
+                CoResource.resources.Article.update({
                 	articleId: $scope.data.id
                 }, {
-					cover_media: item.id
+					primary_photo_id: item.id
 				}, function (s){
                 	$rootScope.loading('hide');
-					$scope.data.cover_media = item.id;
+					$scope.data.primary_photo_id = item.id;
+					$scope.data.primary_media = item;
 
                 	$mdToast.show(
                         $mdToast.simple()
@@ -643,11 +652,14 @@
 	                .targetEvent($event);
 	            $mdDialog.show(confirm).then(function() {
 	                $rootScope.loading('show');
-	                CoResource.resources.Article.deleteLogo({
+	                CoResource.resources.Article.update({
 	                	articleId: $scope.data.id
-	                }, {}, function (s){
+	                }, {
+						primary_photo_id: 0
+					}, function (s){
 	                	$rootScope.loading('hide');
-						$scope.data.logo = null;
+						$scope.data.primary_photo_id = null;
+						$scope.data.primary_media = null;
 	                }, function (e){
 	                	$rootScope.loading('hide');
 	                	alert('Sorry, this location logo cannot be set due to some reason, please contact administrator for more information');

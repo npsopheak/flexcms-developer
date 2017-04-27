@@ -123,10 +123,13 @@ class MediaController extends ApiController {
 
 	public function store(Request $request){
 		try{
-			$data = Input::all();		
+			$data = Input::all();	
 
-			$data = $request->input('data');
-			$data = json_decode($data, true);
+			// print_r($data);
+			// die('sdf');	
+
+			// $data = $request->input('data');
+			// $data = json_decode($data, true);
 
 			$validation = Media::validate($data, Media::$rules);
 			$user = Auth::user();

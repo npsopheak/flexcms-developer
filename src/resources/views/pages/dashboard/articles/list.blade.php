@@ -44,7 +44,7 @@
         			<tr ng-repeat="item in data | startFrom: (pagination.current - 1) * pagination.limit | limitTo : pagination.limit ">
         				<td class="col-info" style="width: 390px;">
         					<div class="directory-image"
-                                style="background-image: url('<% item.cover ? mediaUrl + item.cover.file_name :  item.photo_url %>');  width: 100px; height: 100px;"></div>
+                                style="background-image: url('<% item.primary_media ? mediaUrl + item.primary_media.file_name :  item.photo_url %>');  width: 100px; height: 100px;"></div>
         					<div class="directory-basic-info" style="    padding-left: 120px;">
         						<div class="name"><% item.title %></div>
         						<div>
@@ -94,16 +94,16 @@
 	        					</ul> --}}
         					</div>
 
-        				</td>
-        				<td class="col-info">
-        					<div class="directory-static-map">
-        						<img src="<% getMapUrl(item) %>">
-        					</div>
-
         					<div class="edit-action"  ng-click="view(item)">
         						<span class="icon-search"></span>
         					</div>
+
         				</td>
+        				{{-- <td class="col-info">
+        					<div class="directory-static-map">
+        						<img src="<% getMapUrl(item) %>"> 
+        					</div>
+        				</td>--}}
         			</tr>
         		</tbody>
         	</table>

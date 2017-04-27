@@ -12,27 +12,27 @@ namespace.endpoints = function ($resource, base) {
 	  		}
 	 	}),
 		// ItemLocale: $resource(base + 'dimensions/:itemId/locale', null, {}),
-		// Media: $resource(base + 'media/:mediaId', { mediaId: '@id' }, {
-		// 	'list': {
-	  	// 		method: 'GET',
-		// 			cache : false
-	  	// 	},
-	  	// 	'update': { method:'PUT' },
-	  	// 	'saveLink': {
-	  	// 		method: 'POST',
-	  	// 		url: base + 'media/link'
-	  	// 	},
-	  	// 	'setBestVideo': {
-	  	// 		method: 'POST',
-	  	// 		url: base + 'media/:mediaId/best-video',
-		// 	    mediaId: '@id'
-	  	// 	},
-	  	// 	'unsetBestVideo': {
-	  	// 		method: 'DELETE',
-	  	// 		url: base + 'media/:mediaId/best-video',
-		// 	    mediaId: '@id'
-	  	// 	}
-		// }),
+		Media: $resource(base + 'media/:mediaId', { mediaId: '@id' }, {
+			'list': {
+	  			method: 'GET',
+					cache : false
+	  		},
+	  		'update': { method:'PUT' },
+	  		'saveLink': {
+	  			method: 'POST',
+	  			url: base + 'media/link'
+	  		},
+	  		'setBestVideo': {
+	  			method: 'POST',
+	  			url: base + 'media/:mediaId/best-video',
+			    mediaId: '@id'
+	  		},
+	  		'unsetBestVideo': {
+	  			method: 'DELETE',
+	  			url: base + 'media/:mediaId/best-video',
+			    mediaId: '@id'
+	  		}
+		}),
 		Article: $resource(base + 'articles/:articleId', {
 			articleId: '@id',
 				cache : false

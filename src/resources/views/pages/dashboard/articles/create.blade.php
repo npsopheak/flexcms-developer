@@ -38,10 +38,10 @@
 				      	<div flex-gt-xs>
 					         <div layout-padding-row="16" class="logo-container">
 					         	<div class="logo-inner" layout="column" layout-align="center center"
-					         		style="background-image: url('<% uploadingFile.src ? uploadingFile.src : data.logo.thumbnail_url_link %>')">
+					         		style="background-image: url('<% uploadingFile.src ? uploadingFile.src : data.primary_media.file_name %>')">
 
-					         		<span class="icon-camera" ng-show="!data.logo"></span>
-					         		<span class="upload-text" ng-show="!data.logo">Article Cover Logo Here</span>
+					         		<span class="icon-camera" ng-show="!data.primary_media"></span>
+					         		<span class="upload-text" ng-show="!data.primary_media">Article Cover Logo Here</span>
 					         		{{-- <span class="upload-text" ng-show="mode === 'create'">Please, save your listing first before upload</span> --}}
 					         		<div class="overlay"
 					         			ng-class="{'show': uploadingFile.loading}"
@@ -51,10 +51,10 @@
 					         			value="<% uploadingFile.progress %>"></md-progress-circular>
 					         	</div>
 					         	
-					         	<span class="icon-upload3" ng-class="{'center': !data.logo}" ng-show="!uploadingFile.loading"
+					         	{{-- <span class="icon-upload3" ng-class="{'center': !data.primary_media}" ng-show="!uploadingFile.loading"
 					         		ngf-select ng-model="files" ngf-change="uploadLogo(files)" multiple="false">
-					         	</span>
-					         	<div class="right icon-remove-2 icon-cross selected" ng-show="data.logo" ng-click="deletePhotoLogo($event)"></div>
+					         	</span> --}}
+					         	<div class="center icon-remove-2 icon-cross selected" ng-show="data.primary_media" ng-click="deletePhotoLogo($event)"></div>
 
 					         </div>
 				      	</div>
@@ -86,10 +86,16 @@
 
 								      	<md-input-container  flex-gt-xs>
 							                <label>Description</label>
-							                <textarea ng-model="data.description"
+							                {{-- <textarea ng-model="data.description"
 							                	style="min-height: 200px;"
 							                	ng-disabled="loading" columns="1" name="description"
-							                	md-maxlength="1000"></textarea>
+							                	md-maxlength="1000"></textarea> --}}
+											<textarea name="post-editor"
+												co-editor
+												id="post-editor" ng-model="data.description" rows="10" 
+												cols="80">
+												Your text goes here!
+											</textarea>
 								      	</md-input-container>
 							      	</div>
 					        	</md-content>
@@ -115,14 +121,14 @@
 								         	</span>
 							      		</div>
 							      		{{-- Media --}}
-							      		<div class="media uploaded" flex="33" ng-repeat="media in data.gallery">
+							      		<div class="media uploaded" flex="33" ng-repeat="media in data.photos">
 							      			<div class="logo-inner" layout="column" layout-align="center center"
-							      				style="background-image: url('<% media.thumbnail_url_link %>')">
+							      				style="background-image: url('<% media.file_name %>')">
 								         		<div class="overlay"></div>
 								         		<div class="remove icon-cross" ng-click="deletePhoto(media)"></div>
 								         	</div>
 								         	{{-- <span class="icon-search left" href="<% mediaUrl ? mediaUrl + media.file_name : '/' + media.file_name %>" data-title="<% data.name %>"></span> --}}
-								         	<span class="icon-heart center" ng-class="{'selected': data.cover_media == media._id}" href="javascript:void(0)" ng-click="updateCover(media, $event)" data-title="<% data.name %>"></span>
+								         	<span class="icon-heart center" ng-class="{'selected': data.primary_photo_id == media.id}" href="javascript:void(0)" ng-click="updateCover(media, $event)" data-title="<% data.name %>"></span>
 							      		</div>
 							      		{{-- Pending --}}
 							      		<div class="media" flex="33" ng-repeat="media in pendingFiles">

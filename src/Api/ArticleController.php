@@ -296,7 +296,7 @@ class ArticleController extends ApiController {
 			if (Input::get('category_id')){
 				$article->category_id = Input::get('category_id');
 			}
-			if (Input::get('primary_photo_id')){
+			if (Input::get('primary_photo_id') !== null){
 				$article->primary_photo_id = Input::get('primary_photo_id');
 			}	
 			if (Input::get('game_photo_id')){

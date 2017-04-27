@@ -10,8 +10,6 @@
       4 => '../vendors/angular-material/angular-material.min',
       5 => '../vendors/angular-resource/angular-resource.min',
       6 => 'util/namespace',
-      // 7 => 'util/endpoint',
-      // 8 => 'config/env',
       9 => 'util/crypt/aes',
       10 => 'util/crypt/pbkdf2',
       11 => 'util/jsencrypt',
@@ -49,5 +47,6 @@
     6 => 'util/menu',
     7 => 'util/endpoint',
     8 => 'util/route',
+    9 => 'directives/coEditor',
   ),
 );
