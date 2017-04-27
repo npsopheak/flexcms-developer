@@ -11,10 +11,10 @@
 				src="{{ URL::asset('/img/biz-dimension-logo.png') }}"/>
 		</div> --}}
 		<div class="logo-container login-title">
-			Hungry Hungry Admin Area
+			{{ config('flexcms.app.login.name') }} Admin Area
 		</div>
 		<div class="logo-container login-subtitle">
-			Accessing the content management system.
+			{{ config('flexcms.app.login.description') }}
 		</div>
 		<md-content layout-padding layout="column" layout-sm="column">
 		    <md-input-container>
