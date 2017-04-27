@@ -28,7 +28,7 @@
     "autoload": {
         "psr-4": {
             "FlexCMS\\BasicCMS\\": "src",
-            "FlexCMS\\BasicCMS\\Seeds": "src/Seeds/"
+            "FlexCMS\\BasicCMS\\Seeds\\": "src/Seeds/"
         }
     },
     "autoload-dev": {
