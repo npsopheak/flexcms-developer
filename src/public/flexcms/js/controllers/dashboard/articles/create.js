@@ -56,6 +56,11 @@
 					// if (!$scope.data.locale.kh){
 					// 	$scope.data.locale.kh = $scope.data.locale.kh || {};
 					// }
+
+                    $timeout(function() {
+                        $('#post-editor').val('');
+                        $rootScope.loading('hide');
+                    }, 500);
 				}
 				else{
 					$scope.data = $scope.data.result;
@@ -70,6 +75,12 @@
 			    	$scope.selectedCategories = _.map($scope.data.category, function (v){
 			    		return v;
 			    	});
+
+
+                    $timeout(function() {
+                        $('#post-editor').val($scope.data.description);
+                        $rootScope.loading('hide');
+                    }, 500);
 
 		        	setTimeout(function (){
 		        		renderMagnific();

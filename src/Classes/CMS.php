@@ -310,18 +310,18 @@ class CMS {
 
     // Piece title must be unique to get from it
     public function getPiece($title, $default = '', $locale = ''){
-        $post = \App\Article::where('title', '=', $title)->first();
+        $post = \FlexCMS\BasicCMS\Models\Article::where('title', '=', $title)->first();
         return $post ? $post->description : $default;
     }
 
     public function getPost($title, $locale = ''){
 
-        $post = \App\Article::where('title', '=', $title)->first();
+        $post = \FlexCMS\BasicCMS\Models\Article::where('title', '=', $title)->with('primaryMedia')->with('photos')->first();
         if ($locale == ''){
             return $post;
         }
         else{
-            $locale = \App\Article::where('parent_id', '=', $post->id)->where('language', '=', $locale)->first();
+            $locale = \FlexCMS\BasicCMS\Models\Article::where('parent_id', '=', $post->id)->with('primaryMedia')->with('photos')->where('language', '=', $locale)->first();
             if (!$locale){
                 return $post;
             }
@@ -332,12 +332,12 @@ class CMS {
     public function getPostById($id, $options = []){
         $with = isset($options['with']) && is_array($options['with']) ? $options['with'] : [];
         $locale = isset($options['locale']) ? $options['locale'] : '';
-        $post = \App\Article::with($with)->where('id', '=', $id)->first();
+        $post = \FlexCMS\BasicCMS\Models\Article::with($with)->where('id', '=', $id)->first();
         if ($locale == ''){
             return $post->toArray();
         }
         else{
-            $locale = \App\Article::with($with)->where('parent_id', '=', $post->id)->where('language', '=', $locale)->first();
+            $locale = \FlexCMS\BasicCMS\Models\Article::with($with)->where('parent_id', '=', $post->id)->where('language', '=', $locale)->first();
             if (!$locale){
                 return $post->toArray();
             }
@@ -351,9 +351,9 @@ class CMS {
         $limit = isset($options['limit']) && $options['limit'] ? $options['limit'] : null;
         $offset = isset($options['offset']) && $options['offset'] ? $options['offset'] : null;
 
-        $type = \App\Item::where('item_type', '=', 'type')->where('name', '=', $type)->first();
+        $type = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'type')->where('name', '=', $type)->first();
         if ($type){
-            $post = \App\Article::with('category')->where('type_id', '=', $type->id);
+            $post = \FlexCMS\BasicCMS\Models\Article::with('category')->where('type_id', '=', $type->id);
             if ($order){
                 $post = $post->orderByRaw($order);
             }
@@ -376,9 +376,9 @@ class CMS {
         $limit = isset($options['limit']) && $options['limit'] ? $options['limit'] : null;
         $offset = isset($options['offset']) && $options['offset'] ? $options['offset'] : null;
 
-        $type = \App\Item::where('item_type', '=', 'type')->where('id', '=', $type)->first();
+        $type = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'type')->where('id', '=', $type)->first();
         if ($type){
-            $post = \App\Article::with('category')->where('type_id', '=', $type->id);
+            $post = \FlexCMS\BasicCMS\Models\Article::with('category')->where('type_id', '=', $type->id);
             if ($order){
                 $post = $post->orderByRaw($order);
             }
@@ -404,18 +404,21 @@ class CMS {
         $lang = isset($options['lang']) && $options['lang'] ? $options['lang'] : 'en';
         
         if (is_numeric($category)){
-            $category = \App\Item::where('item_type', '=', 'category')->where('id', '=', $category)->first();
+            $category = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'category')->where('id', '=', $category)->first();
         }
         else{
-            $category = \App\Item::where('item_type', '=', 'category')->where('name', '=', $category)->first();    
+            $category = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'category')->where('name', '=', $category)->first();    
         }
         
         if ($category){
-            $post = \App\Article::with('category')->where('category_id', '=', $category->id)->whereRaw('language = \'en\'');
+            $post = \FlexCMS\BasicCMS\Models\Article::with('category')
+                ->with('primaryMedia')
+                ->with('photos')
+                ->where('category_id', '=', $category->id)->whereRaw('language = \'en\'');
             if ($lang == 'en'){
             }
             else{
-                $post = \App\Article::whereRaw('(category_id = ? AND language = ? AND (parent_id IS NOT NULL AND parent_id > 0))', [$category->id, $lang]);
+                $post = \FlexCMS\BasicCMS\Models\Article::whereRaw('(category_id = ? AND language = ? AND (parent_id IS NOT NULL AND parent_id > 0))', [$category->id, $lang]);
             }
             if ($order){
                 $post = $post->orderByRaw($order);
@@ -434,6 +437,36 @@ class CMS {
         }
     }
 
+    // Get posts count by category
+    public function countPostsByCategory($category, $options = []){
+        $order = isset($options['order']) && $options['order'] ? $options['order'] : null;
+        $lang = isset($options['lang']) && $options['lang'] ? $options['lang'] : 'en';
+        
+        if (is_numeric($category)){
+            $category = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'category')->where('id', '=', $category)->first();
+        }
+        else{
+            $category = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'category')->where('name', '=', $category)->first();    
+        }
+        
+        if ($category){
+            $post = \FlexCMS\BasicCMS\Models\Article::with('category')->where('category_id', '=', $category->id)->whereRaw('language = \'en\'');
+            if ($lang == 'en'){
+            }
+            else{
+                $post = \FlexCMS\BasicCMS\Models\Article::whereRaw('(category_id = ? AND language = ? AND (parent_id IS NOT NULL AND parent_id > 0))', [$category->id, $lang]);
+            }
+            if ($order){
+                $post = $post->orderByRaw($order);
+            }
+            $count = $post->get()->count();
+            return $count;
+        }
+        else{
+            return [];
+        }
+    }
+
     // Get posts by category
     public function itemsByType($type, $options = []){
         $order = isset($options['order']) && $options['order'] ? $options['order'] : null;
@@ -442,10 +475,10 @@ class CMS {
         $lang = isset($options['lang']) && $options['lang'] ? $options['lang'] : 'en';
         $with = isset($options['with']) && is_array($options['with']) ? $options['with'] : [];
         
-        $type = \App\Item::where('item_type', '=', 'type')
+        $type = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'type')
             ->where('name', '=', $type)->first();
         if ($type){
-            $items = \App\Item::with($with)->where('parent_id', '=', $type->id);
+            $items = \FlexCMS\BasicCMS\Models\Item::with($with)->where('parent_id', '=', $type->id);
             if ($order){
                 $items = $items->orderByRaw($order);
             }
@@ -468,7 +501,7 @@ class CMS {
 
         $with = isset($options['with']) && is_array($options['with']) ? $options['with'] : [];
         $locale = isset($options['locale']) ? $options['locale'] : '';
-        $item = \App\Item::with($with)->where('id', '=', $id)->first()->toArray();
+        $item = \FlexCMS\BasicCMS\Models\Item::with($with)->where('id', '=', $id)->first()->toArray();
         return $item;
     }
 
@@ -479,9 +512,9 @@ class CMS {
         $limit = isset($options['limit']) && $options['limit'] ? $options['limit'] : null;
         $offset = isset($options['offset']) && $options['offset'] ? $options['offset'] : null;
         
-        $album = \App\Item::where('item_type', '=', 'album')->where('name', '=', $album)->first();
+        $album = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'album')->where('name', '=', $album)->first();
         if ($album){
-            $media = \App\Media::with('album')->where('album_id', '=', $album->id);
+            $media = \FlexCMS\BasicCMS\Models\Media::with('album')->where('album_id', '=', $album->id);
             if ($order){
                 $media = $media->orderByRaw($order);
             }
@@ -505,14 +538,14 @@ class CMS {
         $limit = isset($options['limit']) && $options['limit'] ? $options['limit'] : null;
         $offset = isset($options['offset']) && $options['offset'] ? $options['offset'] : null;
         
-        $album = \App\Item::where('item_type', '=', 'album');//->where('name', '=', $album)->first();
+        $album = \FlexCMS\BasicCMS\Models\Item::where('item_type', '=', 'album');//->where('name', '=', $album)->first();
         // foreach ($albums as $key => $value) {
         //     $album = $album->orWhere('name', '=', $value);
         // }
         $album = $album->whereIn('name', $albums);
         $album = $album->get();
         foreach ($album as $key => $value) {
-            $album[$key]->media = \App\Media::where('album_id', '=', $value->id);
+            $album[$key]->media = \FlexCMS\BasicCMS\Models\Media::where('album_id', '=', $value->id);
             if ($order){
                 $album[$key]->media = $album[$key]->media->orderByRaw($order);
             }
