@@ -233,6 +233,68 @@ class ItemTableSeeder extends Seeder {
         	'updated_by' => 1,
             'status' => 'active'
         ]);
+
+        // Category of document or directory or staff or donor or activities
+
+        $item = Item::create([
+            'display_name' => 'Primary Education',
+            'name' => 'primary-education',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'display_name' => 'Permanent Staff',
+            'name' => 'permanent-staff',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_staff',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'display_name' => 'Contract Staff',
+            'name' => 'contract-staff',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_staff',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'display_name' => 'Volunteer Staff',
+            'name' => 'volunteer-staff',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_staff',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'display_name' => 'Executive Director',
+            'name' => 'executive-director',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_staff',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
     }
 
 }

@@ -15,12 +15,17 @@ class CreateDirectoriesTable extends Migration
         Schema::create('directories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('appreviation')->nullable();
             $table->string('hash')->unique();
             $table->string('short_description', 256)->nullable();
-            $table->string('social_issues', 256);
-            $table->string('solutions', 256);
-            $table->string('main_activities', 256);
-            $table->string('impact', 256);
+            $table->string('social_issues')->nullable();
+            $table->string('solutions')->nullable();
+            $table->string('main_activities')->nullable();
+            $table->string('impact')->nullable();
+            $table->string('background')->nullable();
+            $table->string('vision')->nullable();
+            $table->string('mission')->nullable();
+            $table->string('goal')->nullable();
             $table->string('description', 1200);
             $table->integer('logo_id')->nullable();
             $table->integer('category_id')->nullable();
