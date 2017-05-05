@@ -25,7 +25,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'title', 'description', 'photo_url'];
+    protected $fillable = ['name', 'email', 'password', 'title', 'description', 'photo_url', 'role'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -56,5 +56,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function item(){
         return $this->hasMany('FlexCMS\BasicCMS\Models\Item','item_id');
+    }
+
+    public function directory()
+    {
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Directory', 'directory_users', 'user_id', 'directory_id');
     }
 }
