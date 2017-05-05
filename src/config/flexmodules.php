@@ -24,6 +24,22 @@
         0 => 'list',
         1 => 'create',
       ),
+      'members' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+      ),
+      'libraries' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+      ),
+      'users' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+        2 => 'view',
+      ),
     ),
     'login' => 
     array (
