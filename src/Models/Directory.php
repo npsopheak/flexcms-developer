@@ -41,7 +41,13 @@ class Directory extends Model
         'social_issues',
         'main_activities',
         'impact',
-        'solutions'
+        'solutions',
+
+        'appreviation',
+        'background',
+        'vision',
+        'mission',
+        'goal'
     ];
 
     protected $dates = ['deleted_at'];
@@ -90,5 +96,10 @@ class Directory extends Model
     public function categories()
     {
         return $this->belongsToMany('FlexCMS\BasicCMS\Models\Item', 'directory_categories', 'directory_id', 'category_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\User', 'directory_users', 'directory_id', 'user_id');
     }
 }   

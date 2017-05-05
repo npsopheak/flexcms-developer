@@ -3,10 +3,11 @@
 namespace FlexCMS\BasicCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DirectoryStaff extends Model
 {
-    
+    use SoftDeletes;
     /**
      * The database table used by the model.
      *
@@ -20,7 +21,7 @@ class DirectoryStaff extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'role', 'role_id', 'email', 'phone', 'description', 'directory_id', 
+        'name', 'gender', 'type', 'type_id', 'description', 'directory_id', 
         'user_id', 'seq_no', 'is_active', 'created_by', 'updated_by', 'deleted_by',
         'created_at', 'updated_at'
     ];

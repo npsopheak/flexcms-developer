@@ -3,10 +3,11 @@
 namespace FlexCMS\BasicCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DirectoryLibrary extends Model
 {
-    
+    use SoftDeletes;
     /**
      * The database table used by the model.
      *

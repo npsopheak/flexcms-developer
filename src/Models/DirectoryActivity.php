@@ -3,6 +3,7 @@
 namespace FlexCMS\BasicCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DirectoryActivity extends Model
 {

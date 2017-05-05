@@ -3,16 +3,17 @@
 namespace FlexCMS\BasicCMS\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DirectoryDonor extends Model
 {
-    
+    use SoftDeletes;
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'directory_donor';
+    protected $table = 'directory_donors';
 
     /**
      * The attributes that are mass assignable.
