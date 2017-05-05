@@ -45,6 +45,8 @@ class BasicCMSServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('api.guest', \FlexCMS\BasicCMS\Middleware\ApiRedirectIfAuthenticated::class);
         $this->app['router']->aliasMiddleware('app.auth', \FlexCMS\BasicCMS\Middleware\AuthorizedApp::class);
         $this->app['router']->aliasMiddleware('csrf', \FlexCMS\BasicCMS\Middleware\VerifyCsrfToken::class);
+        $this->app['router']->aliasMiddleware('no.csrf', \FlexCMS\BasicCMS\Middleware\IgnoreVerifyCsrfToken::class);
+        
         $this->app['router']->aliasMiddleware('cors', \Barryvdh\Cors\HandleCors::class);
 
         // Load route 
