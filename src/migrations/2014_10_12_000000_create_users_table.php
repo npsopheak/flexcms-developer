@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name',30);
             $table->string('email', 30)->unique();
+            $table->string('role',30);
             $table->string('password', 60);
             $table->string('access_token',256)->nullable();
             $table->dateTime('expires_in')->nullable();

@@ -15,8 +15,8 @@ class DirectoryUser extends Migration
     {
         Schema::create('directory_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('role');
+            $table->string('name')->nullable();
+            $table->string('role')->nullable();
             $table->integer('role_id')->nullable();
             $table->string('email', 256)->nullable();
             $table->string('phone', 256)->nullable();
