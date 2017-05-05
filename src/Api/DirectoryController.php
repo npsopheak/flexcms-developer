@@ -4,6 +4,12 @@ use \Input;
 use \Hash;
 use \Uuid;
 use FlexCMS\BasicCMS\Models\Directory;
+use FlexCMS\BasicCMS\Models\DirectoryStaff;
+use FlexCMS\BasicCMS\Models\DirectoryBudget;
+use FlexCMS\BasicCMS\Models\DirectoryDonor;
+use FlexCMS\BasicCMS\Models\DirectoryActivity;
+use FlexCMS\BasicCMS\Models\DirectoryCategory;
+use FlexCMS\BasicCMS\Models\DirectoryLibrary;
 use FlexCMS\BasicCMS\Models\Item;
 use \Auth;
 use \DateTime;
@@ -99,6 +105,7 @@ class DirectoryController extends ApiController {
 	            'websites' => 'required',
 	            'emails' => 'required',
 	            'address' => 'required',
+				// 'category_id' => 'required'
 	            'category_ids' => 'required|array'
 	        ]);
 	        if ($validation->passes()){
@@ -176,6 +183,21 @@ class DirectoryController extends ApiController {
 			if (Input::get('category_ids') && is_array(Input::get('category_ids'))){
 				$directory->categories()->sync(Input::get('category_ids'));
 			}
+			if (Input::get('appreviation')){
+				$directory->appreviation = Input::get('appreviation');
+			}
+			if (Input::get('background')){
+				$directory->background = Input::get('background');
+			}
+			if (Input::get('vision')){
+				$directory->vision = Input::get('vision');
+			}
+			if (Input::get('mission')){
+				$directory->mission = Input::get('mission');
+			}
+			if (Input::get('goal')){
+				$directory->goal = Input::get('goal');
+			}
 	        $directory->updated_by = Auth::user()->id;
 			$directory->save();
 			return $this->show($directory->id);
@@ -209,4 +231,484 @@ class DirectoryController extends ApiController {
 		}
 	}
 
+	// GLOBAL FUNCTION 
+
+	public function showGeneric($Model, $directoryId, $id, $closure = null){
+		try{
+			
+			$directory = $this->getCheckDirectory($directoryId);
+			$item = $Model::where('id', '=', $id)->where('directory_id', '=', $directoryId);
+
+			if ($closure){
+				$closure($item);
+			}
+			
+			$item =$item->get()->first();
+			return $this->ok($item);
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeGeneric($Model, $directoryId, $closure = null){
+		try{
+			$directory = $this->getCheckDirectory($directoryId);
+			$data = Input::all();
+			$item = null;
+			$data['directory_id'] = $directoryId;
+			if ($closure){
+				$data = $closure($data);
+			}
+			
+			$item = $Model::create($data);
+			return $this->showGeneric($Model, $directoryId, $item->id);
+			// $validation = \Validator::make($data, [
+	        //     'name' => 'required|max:255',
+	        //     'hash' => 'required',
+	        //     // 'category_id' => 'required|exists:items,id',
+	        //     'description' => 'required',
+	        //     'phones' => 'required',
+	        //     'websites' => 'required',
+	        //     'emails' => 'required',
+	        //     'address' => 'required',
+	        //     'category_ids' => 'required|array'
+	        // ]);
+	        // if ($validation->passes()){
+	        // 	$category_ids = $data['category_ids'];
+	        // 	unset($data['category_ids']);
+	        // 	$data['created_by'] = Auth::user()->id;
+	        // 	$data['updated_by'] = Auth::user()->id;
+	        // 	$directory = Directory::create($data);
+	        // 	$directory->categories()->sync($category_ids);
+	        // 	return $this->ok($directory);
+	        // }
+	        // else{
+	        // 	return $this->error($validation->messages(), 'validation-error');
+	        // }
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateGeneric($Model, $directoryId, $id, $closure = null){
+		try{
+			$directory = $this->getCheckDirectory($directoryId);
+			$item = $Model::find($id)->where('directory_id', '=', $directoryId);
+			if (!$item){
+				throw new \Exception('The item cannot be found to update');
+			}
+			if ($closure){
+				$closure($item);
+			}
+	        $item->updated_by = Auth::user()->id;
+			$item->save();
+			return $this->showGeneric($Model, $directoryId, $item->id);
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyGeneric($Model, $directoryId, $id){
+		try{
+
+			$directory = $this->getCheckDirectory($directoryId);
+
+			$item = $Model::find($id)->where('directory_id', '=', $directoryId);
+
+			if (!$item){
+				throw new \Exception('The item cannot be found to delete');
+			}	
+
+			$item = $item->delete();
+			return $this->ok(['id' => $id]);
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function indexGeneric($Model, $directoryId, $closure = null){
+		try{
+
+			$directory = $this->getCheckDirectory($directoryId);
+
+			$listing = [];
+
+			$listing = $Model::where('directory_id', '=', $directoryId);
+
+			if ($closure){
+				$listing = $closure($listing);
+			}
+
+			// if (Input::get('q')){
+			// 	$directories = $directories->whereRaw("name like ? OR short_description LIKE ? OR description LIKE ?", 
+			// 		['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%'])
+			// 		->orWhereRaw("id IN (SELECT dc.directory_id FROM items i INNER JOIN directory_categories dc ON i.id = dc.category_id WHERE item_type = 'category' AND display_name LIKE ?)", ['%' . Input::get('q') . '%']);
+			// }
+			$total = count($listing->get()->toArray());
+
+			if (Input::get('ignore-offset') != 1){
+				$listing = $listing->take(Input::get('limit') ? Input::get('limit') : 20);
+				$listing = $listing->skip(Input::get('offset') ? Input::get('offset') : 0);
+			}
+
+			if (Input::get('sort_field') && Input::get('sort') && (Input::get('sort') == 'asc') || Input::get('sort') == 'desc') {
+				$listing = $directorilistinges->orderBy(Input::get('sort_field'), Input::get('sort'));
+			}
+
+			$listing = $listing->get()->toArray();
+			if (Input::get('ignore-offset') != 1){
+				return $this->ok($listing, ['count' => $total, 'limit' => Input::get('limit') ? Input::get('limit') : 20, 'offset' => Input::get('offset') ? Input::get('offset') : 0]);
+			}
+			else{
+				return $this->ok($listing, ['count' => $total]);
+			}
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	private function getCheckDirectory($id){
+		$directory = Directory::find($id);
+
+		if (!$directory){
+			throw new \Exception('The item cannot be found to delete');
+		}	
+		return $directory;
+	}
+
+	// DONOR
+	// Directory donor 
+
+	public function indexDonor($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDonor";
+			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function showDonor($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDonor";
+			return $this->showGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging donor generic show');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeDonor($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDonor";
+			return $this->storeGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging donor generic store');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateDonor($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDonor";
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging donor generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	// BUDGET
+	// Directory donor 
+
+	public function indexBudget($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryBudget";
+			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function showBudget($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryBudget";
+			return $this->showGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Budget generic show');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeBudget($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryBudget";
+			return $this->storeGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging Budget generic store');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateBudget($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryBudget";
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Budget generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	// ACTIVITY
+	// Directory donor 
+
+	public function indexActivity($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
+			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function showActivity($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
+			return $this->showGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Activity generic show');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeActivity($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
+			return $this->storeGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging Activity generic store');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateActivity($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Activity generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	// STAFF
+	// Directory donor 
+
+	public function indexStaff($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryStaff";
+			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function showStaff($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryStaff";
+			return $this->showGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Staff generic show');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeStaff($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryStaff";
+			
+			return $this->storeGeneric($directoryClass, $directory, function ($data) {
+				\Log::info('Logging Staff generic store');
+				return $data;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateStaff($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryStaff";
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Staff generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	// CONTACT
+	// Directory donor 
+
+	public function indexContact($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryContact";
+			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function showContact($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryContact";
+			return $this->showGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Contact generic show');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeContact($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryContact";
+			return $this->storeGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging Contact generic store');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateContact($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryContact";
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Contact generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	// LIBRARY
+	// Directory donor 
+
+	public function indexLibrary($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
+			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function showLibrary($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
+			return $this->showGeneric($directoryClass, $id, function ($query) {
+				\Log::info('Logging Library generic show');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeLibrary($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
+			return $this->storeGeneric($directoryClass, $directory, function ($query) {
+				\Log::info('Logging Library generic store');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateLibrary($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging Library generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
 }
