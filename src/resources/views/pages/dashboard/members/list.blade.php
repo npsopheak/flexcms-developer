@@ -33,12 +33,12 @@
             <div class="buttons" layout-align="end center">
                 <md-button class="md-icon-button md-button md-ink-ripple"
                     style="width: 100px"
-                    type="button" ng-click="blockItems($event)" aria-label="Block Items">
+                    type="button" ng-click="view($event)" aria-label="Block Items">
                     <md-icon md-font-icon="icon-blocked" class="md-font material-icons icon-office" 
                         style="display: inline-block;" aria-hidden="true"></md-icon>
                     Edit
                 </md-button>
-                <md-button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeItems($event)" aria-label="Remove" style="width: 120px">
+                <md-button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="remove($event)" aria-label="Remove" style="width: 120px">
                     <md-icon md-font-icon="icon-bin2" class="md-font material-icons icon-bin2" 
                         style="display: inline-block;" 
                         aria-hidden="true"></md-icon>

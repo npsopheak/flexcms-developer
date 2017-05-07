@@ -289,7 +289,7 @@ class ItemTableSeeder extends Seeder {
             'name' => 'executive-director',
             'description' => '',
             'parent_id' => 0,
-            'item_type' => 'directory_staff',
+            'item_type' => 'directory_position',
             'indeletable' => 1,
             'created_by' => 1,
             'updated_by' => 1,

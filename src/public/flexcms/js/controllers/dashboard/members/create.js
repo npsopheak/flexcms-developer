@@ -28,8 +28,17 @@
         $scope.budget_selected = [];
         $scope.activity_selected = [];
         $scope.contact_selected = [];
+		$scope.library_selected = [];
 		$scope.data = {};
 		$scope.mode = 'create';
+
+		function resetRelated(){
+			$scope.staffs = [];
+			$scope.donors = [];
+			$scope.budgets = [];
+			$scope.activities = [];
+			$scope.contact_selected = [];
+		}
 
         function loadRelated(memberId){
             CoResource.resources.MemberStaff
@@ -57,9 +66,56 @@
 			    .get({ id: memberId }, function (s){
                     $scope.contacts = s.result;
                 });
+            CoResource.resources.MemberLibrary
+			    .get({ id: memberId }, function (s){
+                    $scope.libraries = s.result;
+                });
         }
 
-        loadRelated();
+
+		$rootScope.$on('dataDirectoryStaffSaved', function (){
+			CoResource.resources.MemberStaff
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.staffs = s.result;
+                });
+		});
+
+
+		$rootScope.$on('dataDirectoryBudgetSaved', function (){
+			CoResource.resources.MemberBudget
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.budgets = s.result;
+                });
+		});
+
+		$rootScope.$on('dataDirectoryActivitySaved', function (){
+			CoResource.resources.MemberActivity
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.activities = s.result;
+                });
+		});
+
+		$rootScope.$on('dataDirectoryContactSaved', function (){
+			CoResource.resources.MemberContact
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.contacts = s.result;
+                });
+		});
+
+		$rootScope.$on('dataDirectoryDonorSaved', function (){
+			CoResource.resources.MemberDonor
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.donors = s.result;
+                });
+		});
+
+		$rootScope.$on('dataDirectoryLibrarySaved', function (){
+			CoResource.resources.MemberLibrary
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.libraries = s.result;
+                });
+		});
+        
 
 		$scope.data = CoResource.resources.Member
 			.get({ id: $scope.id || 'NO_DATA' }, function (s){
@@ -70,27 +126,8 @@
 				if (!s.result){
 					$scope.mode = 'create';
 					$scope.data = {};
-
-				    // if (navigator.geolocation) {
-				    //     navigator.geolocation.getCurrentPosition(function (position){
-				    //     	$scope.map.center.latitude = position.coords.latitude; // || 11.5449;
-				    //     	$scope.map.center.longitude = position.coords.longitude; // || 104.8922;
-				    //     	$scope.marker.coords.latitude = position.coords.latitude; // || 11.5449;
-				    //     	$scope.marker.coords.longitude = position.coords.longitude; // || 104.8922;
-				    //     	$scope.$apply();
-				    //     });
-				    // }
+					resetRelated();
 					$scope.data.is_recommended = false;
-
-					// if (!$scope.data.locale){
-					// 	$scope.data.locale =  {
-					// 		kh: {}
-					// 	};
-					// }
-
-					// if (!$scope.data.locale.kh){
-					// 	$scope.data.locale.kh = $scope.data.locale.kh || {};
-					// }
 
                     $timeout(function() {
                         $('#post-editor').val('');
@@ -98,19 +135,16 @@
                     }, 500);
 				}
 				else{
+					
 					$scope.data = $scope.data.result;
 					$scope.mode = 'edit';
 					$scope.data.is_active = $scope.data.is_active ? true : false;
-
-		        	// $scope.map.center.latitude = $scope.data.latitude; // || 11.5449;
-		        	// $scope.map.center.longitude = $scope.data.longitude; // || 104.8922;
-		        	// $scope.marker.coords.latitude = $scope.data.latitude; // || 11.5449;
-		        	// $scope.marker.coords.longitude = $scope.data.longitude; // || 104.8922;
 
 			    	$scope.selectedCategories = _.map($scope.data.category, function (v){
 			    		return v;
 			    	});
 
+					loadRelated($scope.data.id);
 
                     $timeout(function() {
                         $('#post-editor').val($scope.data.description);
@@ -127,53 +161,7 @@
 			});
 
 		$scope.categories = [];
-		// $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 13 ,
-		// 	control: {
-
-		// 	},
-		// 	events: {
-		// 		click: function (e, v, args){
-		// 			$scope.marker.coords.latitude = args[0].latLng.lat();
-		// 			$scope.marker.coords.longitude = args[0].latLng.lng();
-		// 			$scope.data.latitude = args[0].latLng.lat();
-		// 			$scope.data.longitude = args[0].latLng.lng();
-		// 			$scope.$apply();
-		// 		}
-		// 	}
-		// };
-
-		// $scope.onLatLngChanged = function (){
-		// 	if ($scope.data.latitude * 1.0 &&  $scope.data.longitude * 1.0){
-		// 		$scope.marker.coords.latitude = $scope.data.latitude;
-		// 		$scope.marker.coords.longitude = $scope.data.longitude;
-		// 		$scope.map.center.latitude = $scope.data.latitude;
-		// 		$scope.map.center.longitude = $scope.data.longitude;
-		// 	}
-		// };
-
-		// $scope.marker = {
-	    //   	id: 0,
-	    //   	coords: {
-	    //     	latitude: 40.1451,
-	    //     	longitude: -99.6680
-	    //   	},
-	    //   	options: {
-	    //   		draggable: true ,
-	    //   		title: 'Your selected position is here'
-	    //   	},
-	    //   	events: {
-	    //     	dragend: function (marker, eventName, args) {
-		// 			var lat = marker.getPosition().lat();
-		// 			var lon = marker.getPosition().lng();
-		// 			$scope.data.latitude = lat;
-		// 			$scope.data.longitude = lon;
-		// 			// if ($scope.mode == 'edit'){
-		// 			// 	$scope.submit(true);
-		// 			// }
-	    //     	}
-	    //   	}
-	    // };
-
+		
 
     	$scope.uploadingFile = {
     		src: '',
@@ -745,6 +733,255 @@
         		return v;
         	});
         };
+
+		// Additional dialog
+		$scope.showDialog = function (type, item, ev){
+			switch (type){
+				case 'staff':
+					$mdDialog.show({
+						controller: 'DashboardStaffsViewDialogCtrl',
+						templateUrl: '/partials/dashboard.staffs.viewDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						locals: {
+							$current: item || {
+								directory_id: $scope.data.id
+							}
+						}
+					})
+					.then(function(answer) {}, function() {});
+				break;
+				case 'budget':
+					$mdDialog.show({
+						controller: 'DashboardBudgetsViewDialogCtrl',
+						templateUrl: '/partials/dashboard.budgets.viewDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						locals: {
+							$current: item || {
+								directory_id: $scope.data.id
+							}
+						}
+					})
+					.then(function(answer) {}, function() {});
+				break;
+				case 'activity':
+					$mdDialog.show({
+						controller: 'DashboardActivitiesViewDialogCtrl',
+						templateUrl: '/partials/dashboard.activities.viewDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						locals: {
+							$current: item || {
+								directory_id: $scope.data.id
+							}
+						}
+					})
+					.then(function(answer) {}, function() {});
+				break;
+				case 'contact':
+					$mdDialog.show({
+						controller: 'DashboardContactsViewDialogCtrl',
+						templateUrl: '/partials/dashboard.contacts.viewDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						locals: {
+							$current: item || {
+								directory_id: $scope.data.id
+							}
+						}
+					})
+					.then(function(answer) {}, function() {});
+				break;
+				case 'donor':
+					$mdDialog.show({
+						controller: 'DashboardDonorsViewDialogCtrl',
+						templateUrl: '/partials/dashboard.donors.viewDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						locals: {
+							$current: item || {
+								directory_id: $scope.data.id
+							}
+						}
+					})
+					.then(function(answer) {}, function() {});
+				break;
+				case 'library':
+					$mdDialog.show({
+						controller: 'DashboardLibrariesViewDialogCtrl',
+						templateUrl: '/partials/dashboard.libraries.viewDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						locals: {
+							$current: item || {
+								directory_id: $scope.data.id
+							}
+						}
+					})
+					.then(function(answer) {}, function() {});
+				break;
+			}
+		};
+
+		function capitalizeFirstLetter(string) {
+			return string.charAt(0).toUpperCase() + string.slice(1);
+		}
+
+		$scope.removeDialog = function (type, item, ev){
+			var resources = {
+				'staff': CoResource.resources.MemberStaff,
+				'activity': CoResource.resources.MemberActivity,
+				'budget': CoResource.resources.MemberBudget,
+				'donor': CoResource.resources.MemberDonor,
+				'contact': CoResource.resources.MemberContact,
+			};
+			if (item){
+
+				var confirm = $mdDialog.confirm()
+	                .parent(angular.element(document.body))
+	                .title('Remove ' + type + '?')
+	                .content('Are sure to remove this ' + type + ' info? You cannot undo after you delete it')
+	                .ariaLabel('Remove '+ type + '')
+	                .ok('Yes')
+	                .cancel('No')
+	                .targetEvent(ev);
+	            $mdDialog.show(confirm).then(function() {
+	                $rootScope.loading('show');
+					var query = {
+	                	id: $scope.data.id,
+	                };
+					query[type + 'Id'] = item.id;
+	                resources[type].delete(query, {}, function (s){
+	                	$rootScope.loading('hide');
+						$rootScope.$emit('dataDirectory' + capitalizeFirstLetter(type) + 'Saved');
+	                }, function (e){
+	                	$rootScope.loading('hide');
+	                	alert('Sorry, this item cannot be set due to some reason, please contact administrator for more information');
+	                });
+
+	            }, function() {
+	            });
+			}
+		};
+
+		// Staff
+		$scope.removeStaff = function (ev){
+			var item = $scope.staff_selected[0];
+			$scope.removeDialog('staff', item, ev);
+		};
+		
+		$scope.editStaff = function (ev){
+			var item = $scope.staff_selected[0];
+			if (item){
+				$scope.showDialog('staff', item);
+			}
+			else{
+				// There is nothing to edit!
+			}
+		};
+
+		$scope.addStaff = function (ev){
+			$scope.showDialog('staff', null);
+		};
+
+		// Budget
+		$scope.removeBudget = function (ev){
+			var item = $scope.budget_selected[0];
+			$scope.removeDialog('budget', item, ev);
+		};
+		
+		$scope.editBudget = function (ev){
+			var item = $scope.budget_selected[0];
+			if (item){
+				$scope.showDialog('budget', item);
+			}
+			else{
+				// There is nothing to edit!
+			}
+		};
+
+		$scope.addBudget = function (ev){
+			$scope.showDialog('budget', null);
+		};
+
+		// Contact
+		$scope.removeContact = function (ev){
+			var item = $scope.contact_selected[0];
+			$scope.removeDialog('contact', item, ev);
+		};
+		
+		$scope.editContact = function (ev){
+			var item = $scope.contact_selected[0];
+			if (item){
+				$scope.showDialog('contact', item);
+			}
+			else{
+				// There is nothing to edit!
+			}
+		};
+
+		$scope.addContact = function (ev){
+			$scope.showDialog('contact', null);
+		};
+
+		// Activity
+		$scope.removeActivity = function (ev){
+			var item = $scope.activity_selected[0];
+			$scope.removeDialog('activity', item, ev);
+		};
+		
+		$scope.editActivity = function (ev){
+			var item = $scope.activity_selected[0];
+			if (item){
+				$scope.showDialog('activity', item);
+			}
+			else{
+				// There is nothing to edit!
+			}
+		};
+
+		$scope.addActivity = function (ev){
+			$scope.showDialog('activity', null);
+		};
+
+		// Donor
+		$scope.removeDonor = function (ev){
+			var item = $scope.donor_selected[0];
+			$scope.removeDialog('donor', item, ev);
+		};
+		
+		$scope.editDonor = function (ev){
+			var item = $scope.donor_selected[0];
+			if (item){
+				$scope.showDialog('donor', item);
+			}
+			else{
+			}
+		};
+
+		$scope.addDonor = function (ev){
+			$scope.showDialog('donor', null);
+		};
+
+		// Library
+		$scope.removeLibrary = function (ev){
+			var item = $scope.library_selected[0];
+			$scope.removeDialog('library', item, ev);
+		};
+		
+		$scope.editLibrary = function (ev){
+			var item = $scope.library_selected[0];
+			if (item){
+				$scope.showDialog('library', item);
+			}
+			else{
+			}
+		};
+
+		$scope.addLibrary = function (ev){
+			$scope.showDialog('library', null);
+		};
 
         $timeout(function() {
             // console.log($scope.map);

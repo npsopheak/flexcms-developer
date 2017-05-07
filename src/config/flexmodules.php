@@ -33,12 +33,33 @@
       array (
         0 => 'list',
         1 => 'create',
+        2 => 'viewDialog',
       ),
       'users' => 
       array (
         0 => 'list',
         1 => 'create',
         2 => 'view',
+      ),
+      'staffs' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'budgets' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'contacts' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'donors' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'activities' => 
+      array (
+        0 => 'viewDialog',
       ),
     ),
     'login' => 

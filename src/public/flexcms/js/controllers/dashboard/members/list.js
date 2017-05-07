@@ -12,7 +12,8 @@
 			query: $location.search().search || ''
 		};
 
-		$scope.view = function(item){
+		$scope.view = function(){
+			var item = $scope.selected[0];
 			$location.path('members/' + item.id);
 		};	
 

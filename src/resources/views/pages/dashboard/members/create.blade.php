@@ -24,12 +24,12 @@
 				      	<div flex-gt-xs>
 				      		<div layout-gt-xs="column">
 					      		<md-input-container flex-gt-xs>
-						          	<label>Title</label>
-						          	<input ng-model="data.title" name="name" required ng-disabled="loading">
+						          	<label>Member name</label>
+						          	<input ng-model="data.name" name="name" required ng-disabled="loading">
 						          	<div ng-messages="siteForm.name.$error"
 						          		 ng-show="siteForm.name.$dirty &&
 						          		 	siteForm.name.$invalid">
-							          	<div ng-message="required">Title is needed</div>
+							          	<div ng-message="required">Member name is needed</div>
 							        </div>
 						        </md-input-container>
                                 <md-input-container fake-md-no-float  flex-gt-xs>
@@ -45,7 +45,7 @@
 							    </md-input-container>
 							    <md-input-container  flex-gt-xs>
 							      	<md-icon md-font-icon="icon-earth" class="icon-contact" style="display:inline-block;"></md-icon>
-							      	<input ng-model="data.website" ng-disabled="loading" type="text" placeholder="Website"  name="website">
+							      	<input ng-model="data.websites" ng-disabled="loading" type="text" placeholder="Website"  name="website">
 							    </md-input-container>
 							    <md-input-container  flex-gt-xs>
 							      	<md-icon md-font-icon="icon-location2" class="icon-contact" style="display:inline-block;"></md-icon>
@@ -143,8 +143,9 @@
 							      	</div>
 					        	</md-content>
 					      	</md-tab>
-                            {{-- staff --}}
+                  {{-- staff --}}
 					      	<md-tab label="staff">
+										{{-- staff toolbar --}}
 					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="staff_selected.length" aria-hidden="false"
 									style="min-height: 45px;">
 						          <div class="md-toolbar-tools layout-align-space-between-stretch" layout-align="space-between">
@@ -152,13 +153,18 @@
 						            <div class="buttons" layout-align="end center">
 						                <md-button class="md-icon-button md-button md-ink-ripple"
 						                    ng-hide="staff_selected.length > 1"
-						                    type="button" ng-click="edit($event)" aria-label="edit">
+						                    type="button" ng-click="editStaff($event)" aria-label="edit">
 						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														<md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="staff_selected.length > 1"
+						                    type="button" ng-click="removeStaff($event)" aria-label="remove">
+						                    <md-icon md-font-icon="icon-cancel-circle" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
 						                </md-button>
 						            </div>
 						          </div>
 						        </md-toolbar>
-
+										{{-- staff table --}}
 						        <md-table-container class="box-shadow-content">
 						          <table md-table md-row-select ng-model="staff_selected" md-progress="promise">
 						            <thead md-head md-order="query.order" md-on-reorder="items">
@@ -174,15 +180,35 @@
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in staffs">
 						                <td md-cell><% item.name %></td>
 						                <td md-cell><% item.description %></td>
-						                <td md-cell><% item.gender %></td>
-						                <td md-cell><% item.type %></td>
+						                <td md-cell><% item.gender == 'm' ? 'Male' : 'Female' %></td>
+						                <td md-cell><% item.type.display_name %></td>
 						                <td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
+													<tr md-row ng-show="staffs.length <= 0">
+														<td md-cell colspan="4">There is no staff data.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addStaff($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+													<tr md-row ng-show="staffs.length > 0">
+														<td md-cell colspan="4">Add more staff.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addStaff($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-plus" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
 						            </tbody>
 						          </table>
 						        </md-table-container>
 					      	</md-tab>
-                            {{-- budget --}}
+                  {{-- budget --}}
 					      	<md-tab label="budget">
 					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="budget_selected.length" aria-hidden="false"
 									style="min-height: 45px;">
@@ -191,8 +217,13 @@
 						            <div class="buttons" layout-align="end center">
 						                <md-button class="md-icon-button md-button md-ink-ripple"
 						                    ng-hide="budget_selected.length > 1"
-						                    type="button" ng-click="edit($event)" aria-label="edit">
+						                    type="button" ng-click="editBudget($event)" aria-label="edit">
 						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														<md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="budget_selected.length > 1"
+						                    type="button" ng-click="removeBudget($event)" aria-label="remove">
+						                    <md-icon md-font-icon="icon-cancel-circle" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
 						                </md-button>
 						            </div>
 						          </div>
@@ -205,21 +236,42 @@
 						                <th md-column md-order-by="nameToLower"><span>Budget Year</span></th>
 						                <th md-column><span>Organizational Budget</span></th>
 						                <th md-column>Project cost</th>
-                                        <th md-column>Admin cost</th>
-                                        <th md-column>Other cost</th>
-                                        <th md-column>Education Project Budget</th>
+														<th md-column>Admin cost</th>
+														<th md-column>Other cost</th>
+														<th md-column>Education Project Budget</th>
 						                <th md-column>Updated at</th>
 						              </tr>
 						            </thead>
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in budgets">
-						                <td md-cell><% item.name %></td>
-						                <td md-cell><% item.description %></td>
-						                <td md-cell><% item.gender %></td>
-						                <td md-cell><% item.type %></td>
-                                        <td md-cell><% item.type %></td>
+						                <td md-cell><% item.year %></td>
+						                <td md-cell><% item.org_budget %></td>
+						                <td md-cell><% item.project_cost %></td>
+						                <td md-cell><% item.admin_cost %></td>
+                            <td md-cell><% item.other_cost %></td>
+														<td md-cell><% item.edu_project_cost %></td>
 						                <td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
+													<tr md-row ng-show="budgets.length <= 0">
+														<td md-cell colspan="6">There is no budget data.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addBudget($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+													<tr md-row ng-show="budgets.length > 0">
+														<td md-cell colspan="6">Add more budget.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addBudget($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-plus" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
 						            </tbody>
 						          </table>
 						        </md-table-container>
@@ -233,8 +285,13 @@
 						            <div class="buttons" layout-align="end center">
 						                <md-button class="md-icon-button md-button md-ink-ripple"
 						                    ng-hide="donor_selected.length > 1"
-						                    type="button" ng-click="edit($event)" aria-label="edit">
+						                    type="button" ng-click="editDonor($event)" aria-label="edit">
 						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														<md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="donor_selected.length > 1"
+						                    type="button" ng-click="removeDonor($event)" aria-label="remove">
+						                    <md-icon md-font-icon="icon-cancel-circle" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
 						                </md-button>
 						            </div>
 						          </div>
@@ -252,16 +309,36 @@
 						            </thead>
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in donors">
+						                <td md-cell><% item.year %></td>
 						                <td md-cell><% item.name %></td>
 						                <td md-cell><% item.description %></td>
-						                <td md-cell><% item.gender %></td>
 						                <td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
+													<tr md-row ng-show="donors.length <= 0">
+														<td md-cell colspan="3">There is no donor data.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addDonor($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+													<tr md-row ng-show="donors.length > 0">
+														<td md-cell colspan="3">Add more donor.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addDonor($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-plus" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
 						            </tbody>
 						          </table>
 						        </md-table-container>
 					      	</md-tab>
-                            {{-- activities --}}
+                  {{-- activities --}}
 					      	<md-tab label="activity">
 					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="activity_selected.length" aria-hidden="false"
 									style="min-height: 45px;">
@@ -270,8 +347,13 @@
 						            <div class="buttons" layout-align="end center">
 						                <md-button class="md-icon-button md-button md-ink-ripple"
 						                    ng-hide="activity_selected.length > 1"
-						                    type="button" ng-click="edit($event)" aria-label="edit">
+						                    type="button" ng-click="editActivity($event)" aria-label="edit">
 						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														<md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="staff_selected.length > 1"
+						                    type="button" ng-click="removeActivity($event)" aria-label="remove">
+						                    <md-icon md-font-icon="icon-cancel-circle" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
 						                </md-button>
 						            </div>
 						          </div>
@@ -284,23 +366,43 @@
 						                <th md-column md-order-by="nameToLower"><span>Project Name</span></th>
 						                <th md-column><span>Location</span></th>
 						                <th md-column>Description</th>
-                                        <th md-column>Date</th>
+                            <th md-column>Date</th>
 						                <th md-column>Updated at</th>
 						              </tr>
 						            </thead>
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in activities">
 						                <td md-cell><% item.name %></td>
+						                <td md-cell><% item.location %></td>
 						                <td md-cell><% item.description %></td>
-						                <td md-cell><% item.gender %></td>
-                                        <td md-cell><% item.gender %></td>
+                            <td md-cell><% item.activity_date %></td>
 						                <td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
+													<tr md-row ng-show="activities.length <= 0">
+														<td md-cell colspan="4">There is no activity data.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addActivity($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+													<tr md-row ng-show="activities.length > 0">
+														<td md-cell colspan="4">Add more activity.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addActivity($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-plus" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
 						            </tbody>
 						          </table>
 						        </md-table-container>
 					      	</md-tab>
-                            {{-- contact --}}
+                  {{-- contact --}}
 					      	<md-tab label="contact">
 					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="contact_selected.length" aria-hidden="false"
 									style="min-height: 45px;">
@@ -309,8 +411,13 @@
 						            <div class="buttons" layout-align="end center">
 						                <md-button class="md-icon-button md-button md-ink-ripple"
 						                    ng-hide="contact_selected.length > 1"
-						                    type="button" ng-click="edit($event)" aria-label="edit">
+						                    type="button" ng-click="editContact($event)" aria-label="edit">
 						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														<md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="contact_selected.length > 1"
+						                    type="button" ng-click="removeContact($event)" aria-label="remove">
+						                    <md-icon md-font-icon="icon-cancel-circle" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
 						                </md-button>
 						            </div>
 						          </div>
@@ -323,20 +430,104 @@
 						                <th md-column md-order-by="nameToLower"><span>Name</span></th>
 						                <th md-column><span>Position</span></th>
 						                <th md-column>Email</th>
-                                        <th md-column>Phone</th>
-                                        <th md-column>Social Network</th>
+														<th md-column>Phone</th>
+														<th md-column>Social Network</th>
 						                <th md-column>Updated at</th>
 						              </tr>
 						            </thead>
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in contacts">
 						                <td md-cell><% item.name %></td>
-						                <td md-cell><% item.description %></td>
-						                <td md-cell><% item.gender %></td>
-                                        <td md-cell><% item.gender %></td>
-                                        <td md-cell><% item.gender %></td>
-						                <td md-cell><% formatUtcDate(item.updated_at) %></td>
+						                <td md-cell><% item.position.display_name %></td>
+						                <td md-cell><% item.email %></td>
+														<td md-cell><% item.phone %></td>
+														<td md-cell><% item.social_network %></td>
+														<td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
+													<tr md-row ng-show="contacts.length <= 0">
+														<td md-cell colspan="5">There is no contact data.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addContact($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+													<tr md-row ng-show="contacts.length > 0">
+														<td md-cell colspan="5">Add more contact.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addContact($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-plus" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+						            </tbody>
+						          </table>
+						        </md-table-container>
+					      	</md-tab>
+									{{-- library --}}
+					      	<md-tab label="library">
+					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="contact_selected.length" aria-hidden="false"
+									style="min-height: 45px;">
+						          <div class="md-toolbar-tools layout-align-space-between-stretch" layout-align="space-between">
+						            <div class="title"><% library_selected.length %> items selected</div>
+						            <div class="buttons" layout-align="end center">
+						                <md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="contact_selected.length > 1"
+						                    type="button" ng-click="editLibrary($event)" aria-label="edit">
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														<md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="library_selected.length > 1"
+						                    type="button" ng-click="removeLibrary($event)" aria-label="remove">
+						                    <md-icon md-font-icon="icon-cancel-circle" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+						            </div>
+						          </div>
+						        </md-toolbar>
+
+						        <md-table-container class="box-shadow-content">
+						          <table md-table md-row-select ng-model="contact_selected" md-progress="promise">
+						            <thead md-head md-order="query.order" md-on-reorder="donors">
+						              <tr md-row>
+						                <th md-column md-order-by="nameToLower"><span>Name</span></th>
+						                <th md-column><span>Description</span></th>
+						                <th md-column>Language</th>
+														<th md-column>Downloads</th>
+						                <th md-column>Updated at</th>
+						              </tr>
+						            </thead>
+						            <tbody md-body>
+						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in libraries">
+						                <td md-cell><% item.name %></td>
+						                <td md-cell><% item.description %></td>
+						                <td md-cell><% item.language %></td>
+														<td md-cell><% item.download_count %></td>
+														<td md-cell><% formatUtcDate(item.updated_at) %></td>
+						              </tr>
+													<tr md-row ng-show="libraries.length <= 0">
+														<td md-cell colspan="4">There is no library data.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addLibrary($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+													<tr md-row ng-show="libraries.length > 0">
+														<td md-cell colspan="4">Add more library.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addLibrary($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-plus" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
 						            </tbody>
 						          </table>
 						        </md-table-container>

@@ -135,6 +135,18 @@ namespace.endpoints = function ($resource, base) {
 	  		},
 
 		}),
+		MemberLibrary: $resource(base + 'directories/:id/libraries/:libraryId', {
+			id: '@id',
+			cache : false,
+			libraryId: '@id'
+		}, {
+	  		'update': { method:'PUT' },
+	  		'list': {
+	  			method: 'GET',
+				cache : false
+	  		},
+
+		}),
 		User: $resource(base + 'users/:id', {
 			id: '@id',
 			cache : false
