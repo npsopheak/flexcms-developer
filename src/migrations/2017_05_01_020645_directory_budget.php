@@ -17,7 +17,7 @@ class DirectoryBudget extends Migration
             $table->increments('id');
             $table->string('year');
             $table->string('short_description', 256)->nullable();
-            $table->string('description', 1200);
+            $table->string('description', 1200)->nullable();
             $table->integer('directory_id')->nullable();
             $table->string('org_budget', 200)->nullable();
             $table->string('project_cost', 200)->nullable();

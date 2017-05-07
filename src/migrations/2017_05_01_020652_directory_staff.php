@@ -17,7 +17,7 @@ class DirectoryStaff extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('gender')->nullable();
-            $table->string('type')->nullable();
+            // $table->string('type')->nullable();
             $table->integer('type_id')->nullable();
             $table->string('short_description', 256)->nullable();
             $table->string('description', 1200);

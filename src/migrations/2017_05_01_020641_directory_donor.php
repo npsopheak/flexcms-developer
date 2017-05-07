@@ -16,8 +16,8 @@ class DirectoryDonor extends Migration
         Schema::create('directory_donors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('short_description', 256)->nullable();
-            $table->string('description', 1200);
+            $table->string('year', 256)->nullable();
+            $table->string('description', 1200)->nullable();
             $table->integer('directory_id')->nullable();
             $table->integer('seq_no')->default(0);
             $table->integer('created_by')->nullable();

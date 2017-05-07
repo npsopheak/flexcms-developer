@@ -22,10 +22,10 @@ class CreateDirectoriesTable extends Migration
             $table->string('solutions')->nullable();
             $table->string('main_activities')->nullable();
             $table->string('impact')->nullable();
-            $table->string('background')->nullable();
-            $table->string('vision')->nullable();
-            $table->string('mission')->nullable();
-            $table->string('goal')->nullable();
+            $table->text('background')->nullable();
+            $table->text('vision')->nullable();
+            $table->text('mission')->nullable();
+            $table->text('goal')->nullable();
             $table->string('description', 1200);
             $table->integer('logo_id')->nullable();
             $table->integer('category_id')->nullable();
