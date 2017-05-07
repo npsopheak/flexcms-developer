@@ -21,10 +21,14 @@ class DirectoryContact extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'position', 'position_id', 'email', 'phone', 'social_network', 'description', 'directory_id', 
+        'name', 'position_id', 'email', 'phone', 'social_network', 'description', 'directory_id', 
         'seq_no', 'is_active', 'created_by', 'updated_by', 'deleted_by',
         'created_at', 'updated_at'
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function position(){
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','position_id');
+    }
 }

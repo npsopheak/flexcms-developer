@@ -21,7 +21,7 @@ class DirectoryDonor extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'role', 'role_id', 'email', 'phone', 'description', 'directory_id', 
+        'name', 'year', 'description', 'directory_id', 
         'user_id', 'seq_no', 'is_active', 'created_by', 'updated_by', 'deleted_by',
         'created_at', 'updated_at'
     ];
