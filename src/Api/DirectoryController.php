@@ -295,7 +295,7 @@ class DirectoryController extends ApiController {
 	public function updateGeneric($Model, $directoryId, $id, $closure = null){
 		try{
 			$directory = $this->getCheckDirectory($directoryId);
-			$item = $Model::find($id)->where('directory_id', '=', $directoryId);
+			$item = $Model::where('id', '=', $id)->where('directory_id', '=', $directoryId)->first();
 			if (!$item){
 				throw new \Exception('The item cannot be found to update');
 			}
@@ -316,7 +316,7 @@ class DirectoryController extends ApiController {
 
 			$directory = $this->getCheckDirectory($directoryId);
 
-			$item = $Model::find($id)->where('directory_id', '=', $directoryId);
+			$item = $Model::where('id', '=', $id)->where('directory_id', '=', $directoryId);
 
 			if (!$item){
 				throw new \Exception('The item cannot be found to delete');
@@ -426,7 +426,29 @@ class DirectoryController extends ApiController {
 	public function updateDonor($directory, $id){
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDonor";
-			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($item) {
+				\Log::info('Logging donor generic update');
+				if (\Input::get('name') != null){
+					$item->name = \Input::get('name');
+				}
+				if (\Input::get('year') != null){
+					$item->year = \Input::get('year');
+				}
+				if (\Input::get('description') != null){
+					$item->description = \Input::get('description');
+				}
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyDonor($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDonor";
+			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
 				\Log::info('Logging donor generic update');
 				return $query;
 			});
@@ -481,8 +503,42 @@ class DirectoryController extends ApiController {
 	public function updateBudget($directory, $id){
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryBudget";
-			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($item) {
+				if (\Input::get('org_budget') != null){
+					$item->org_budget = \Input::get('org_budget');
+				}
+				if (\Input::get('year') != null){
+					$item->year = \Input::get('year');
+				}
+				if (\Input::get('project_cost') != null){
+					$item->project_cost = \Input::get('project_cost');
+				}
+				if (\Input::get('admin_cost') != null){
+					$item->admin_cost = \Input::get('admin_cost');
+				}
+				if (\Input::get('other_cost') != null){
+					$item->other_cost = \Input::get('other_cost');
+				}
+				if (\Input::get('edu_project_cost') != null){
+					$item->edu_project_cost = \Input::get('edu_project_cost');
+				}
+				if (\Input::get('seq_no') != null){
+					$item->seq_no = \Input::get('seq_no');
+				}
 				\Log::info('Logging Budget generic update');
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyBudget($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryBudget";
+			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging budget generic update');
 				return $query;
 			});
 		}
@@ -536,8 +592,33 @@ class DirectoryController extends ApiController {
 	public function updateActivity($directory, $id){
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
-			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($item) {
 				\Log::info('Logging Activity generic update');
+				if (\Input::get('name') != null){
+					$item->name = \Input::get('name');
+				}
+				if (\Input::get('activity_date') != null){
+					$item->activity_date = \Input::get('activity_date');
+				}
+				if (\Input::get('location') != null){
+					$item->location = \Input::get('location');
+				}
+				if (\Input::get('description') != null){
+					$item->description = \Input::get('description');
+				}
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyActivity($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
+			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging activity generic update');
 				return $query;
 			});
 		}
@@ -553,6 +634,7 @@ class DirectoryController extends ApiController {
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryStaff";
 			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				$query = $query->with('type');
 				\Log::info('Logging donor generic');
 				return $query;
 			});
@@ -592,8 +674,34 @@ class DirectoryController extends ApiController {
 	public function updateStaff($directory, $id){
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryStaff";
-			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($item) {
+				if (\Input::get('gender') != null){
+					$item->gender = \Input::get('gender');
+				}
+				if (\Input::get('type_id') != null){
+					$item->type_id = \Input::get('type_id');
+				}
+				if (\Input::get('name') != null){
+					$item->name = \Input::get('name');
+				}
+				if (\Input::get('description') != null){
+					$item->description = \Input::get('description');
+				}
+				
 				\Log::info('Logging Staff generic update');
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyStaff($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryStaff";
+			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging staff generic update');
 				return $query;
 			});
 		}
@@ -610,6 +718,7 @@ class DirectoryController extends ApiController {
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryContact";
 			return $this->indexGeneric($directoryClass, $directory, function ($query) {
 				\Log::info('Logging donor generic');
+				$query = $query->with('position');
 				return $query;
 			});
 		}
@@ -647,8 +756,39 @@ class DirectoryController extends ApiController {
 	public function updateContact($directory, $id){
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryContact";
-			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($item) {
 				\Log::info('Logging Contact generic update');
+				if (\Input::get('name') != null){
+					$item->name = \Input::get('name');
+				}
+				if (\Input::get('position_id') != null){
+					$item->position_id = \Input::get('position_id');
+				}
+				if (\Input::get('email') != null){
+					$item->email = \Input::get('email');
+				}
+				if (\Input::get('phone') != null){
+					$item->phone = \Input::get('phone');
+				}
+				if (\Input::get('social_network') != null){
+					$item->social_network = \Input::get('social_network');
+				}
+				if (\Input::get('seq_no') != null){
+					$item->seq_no = \Input::get('seq_no');
+				}
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyContract($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryContract";
+			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging contract generic update');
 				return $query;
 			});
 		}
@@ -702,8 +842,48 @@ class DirectoryController extends ApiController {
 	public function updateLibrary($directory, $id){
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
-			return $this->updateGeneric($directoryClass, $directory, $id, function ($query) {
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($item) {
 				\Log::info('Logging Library generic update');
+				if (\Input::get('name') != null){
+					$item->name = \Input::get('name');
+				}
+				if (\Input::get('type_id') != null){
+					$item->type_id = \Input::get('type_id');
+				}
+				if (\Input::get('description') != null){
+					$item->description = \Input::get('description');
+				}
+				if (\Input::get('document_english_id') != null){
+					$item->document_english_id = \Input::get('document_english_id');
+				}
+				if (\Input::get('document_khmer_id') != null){
+					$item->document_khmer_id = \Input::get('document_khmer_id');
+				}
+				if (\Input::get('document_english_download') != null){
+					$item->document_english_download = \Input::get('document_english_download');
+				}
+				if (\Input::get('document_khmer_download') != null){
+					$item->document_khmer_download = \Input::get('document_khmer_download');
+				}
+				if (\Input::get('description') != null){
+					$item->description = \Input::get('description');
+				}
+				if (\Input::get('seq_no') != null){
+					$item->seq_no = \Input::get('seq_no');
+				}
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyLibrary($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
+			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging library generic update');
 				return $query;
 			});
 		}
