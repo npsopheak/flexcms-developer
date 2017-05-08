@@ -295,6 +295,42 @@ class ItemTableSeeder extends Seeder {
             'updated_by' => 1,
             'status' => 'active'
         ]);
+
+        $item = Item::create([
+            'display_name' => 'Text',
+            'name' => 'text',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_library',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'display_name' => 'Image',
+            'name' => 'image',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_library',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'display_name' => 'User',
+            'name' => 'user',
+            'description' => '',
+            'parent_id' => 0,
+            'item_type' => 'directory_user',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
     }
 
 }
