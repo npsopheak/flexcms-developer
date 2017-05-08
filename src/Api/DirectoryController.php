@@ -10,6 +10,8 @@ use FlexCMS\BasicCMS\Models\DirectoryDonor;
 use FlexCMS\BasicCMS\Models\DirectoryActivity;
 use FlexCMS\BasicCMS\Models\DirectoryCategory;
 use FlexCMS\BasicCMS\Models\DirectoryLibrary;
+use FlexCMS\BasicCMS\Models\DirectoryUser;
+use FlexCMS\BasicCMS\Models\User;
 use FlexCMS\BasicCMS\Models\Item;
 use \Auth;
 use \DateTime;
@@ -333,11 +335,20 @@ class DirectoryController extends ApiController {
 	public function indexGeneric($Model, $directoryId, $closure = null){
 		try{
 
-			$directory = $this->getCheckDirectory($directoryId);
+			if ($directoryId){
+				$directory = $this->getCheckDirectory($directoryId);
+			}
+			
 
 			$listing = [];
 
-			$listing = $Model::where('directory_id', '=', $directoryId);
+			if ($directoryId){
+				$listing = $Model::where('directory_id', '=', $directoryId);
+			}
+			else{
+				$listing = $Model::whereRaw('1 = 1');
+			}
+			
 
 			if ($closure){
 				$listing = $closure($listing);
@@ -800,10 +811,14 @@ class DirectoryController extends ApiController {
 	// LIBRARY
 	// Directory donor 
 
-	public function indexLibrary($directory){
+	public function indexLibrary($directory = null){
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
 			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				$query = $query->with('documentEnglish')->with('documentKhmer');
+				if (\Input::get('scope') == 'detail'){
+					$query = $query->with('directory')->with('type');
+				}
 				\Log::info('Logging donor generic');
 				return $query;
 			});
@@ -817,6 +832,7 @@ class DirectoryController extends ApiController {
 		try{
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
 			return $this->showGeneric($directoryClass, $id, function ($query) {
+				$query = $query->with('documentEnglish')->with('documentKhmer');
 				\Log::info('Logging Library generic show');
 				return $query;
 			});
@@ -884,6 +900,125 @@ class DirectoryController extends ApiController {
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryLibrary";
 			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
 				\Log::info('Logging library generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+	// USER
+	// Directory donor 
+
+	public function indexUser($directory){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryUser";
+			return $this->indexGeneric($directoryClass, $directory, function ($query) {
+				$query = $query->with('role');
+				\Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function showUser($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryUser";
+			return $this->showGeneric($directoryClass, $id, function ($query) {
+				$query = $query->with('role');
+				\Log::info('Logging User generic show');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function storeUser($directory){
+		try{
+			$data = Input::all();
+			$validation = \Validator::make($data, [
+	            'name' => 'required|max:255',
+	            'email' => 'required|max:255|unique:users',
+	            'password' => 'required'
+	        ]);
+	        if ($validation->passes()){
+                
+	        }
+	        else{
+	        	return $this->error($validation->messages(), 'validation-error');
+	        }
+			
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryUser";
+			return $this->storeGeneric($directoryClass, $directory, function ($item) use ($data){
+				\Log::info('Logging User generic store');
+	        	$user = User::create([
+					'name' => $data['name'],
+					'email' => $data['email'],
+					'role' => 'member',
+					'password' => \Hash::make($data['password']),
+					// 'role_id' => isset($data['role_id']) ? $data['role_id'] : ''
+				]);
+	        	$item['user_id'] = $user->id;
+
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateUser($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryUser";
+			return $this->updateGeneric($directoryClass, $directory, $id, function ($item) {
+				\Log::info('Logging User generic update');
+				if (\Input::get('name') != null){
+					$item->name = \Input::get('name');
+				}
+				if (\Input::get('role_id') != null){
+					$item->role_id = \Input::get('role_id');
+				}
+				$user = User::find($item->user_id);
+				if (!$user){
+					throw new \Exception('The user cannot be found to update');
+				}
+				if (Input::get('name')){
+					$user->name = Input::get('name');
+				}
+
+				if (Input::get('email')){
+					$existing = User::where('email', '=', Input::get('email'))
+						->where('id', '!=', $user->id)->get()->toArray();
+					if (count($existing) > 0){
+						throw new \Exception('Email is already taken');
+					}
+					$user->email = Input::get('email');
+				}	
+
+				if (\Input::get('password') != null){
+					$user->password = \Hash::make(\Input::get('password'));
+				}
+				// $user->updated_by = Auth::user()->id;
+				$user->save();
+				return $item;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function destroyUser($directory, $id){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryUser";
+			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
+				\Log::info('Logging User generic update');
 				return $query;
 			});
 		}

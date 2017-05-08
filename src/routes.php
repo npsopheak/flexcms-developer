@@ -51,6 +51,9 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api'], func
     Route::get('articles/{id}', 'ArticleController@show');
 
     Route::get('/directories/categories', 'DirectoryController@indexByCategory');
+    // Directory endpoint for libray list all
+    Route::get('/directories/libraries', 'DirectoryController@indexLibrary');
+    
     Route::get('directories', 'DirectoryController@index');
     Route::get('directories/{id}', 'DirectoryController@show');
 
@@ -71,6 +74,9 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::get('articles/{id}', 'ArticleController@show');
 
     Route::get('/directories/categories', 'DirectoryController@indexByCategory');
+    // Directory endpoint for libray list all
+    Route::get('/directories/libraries', 'DirectoryController@indexLibrary');
+    
     Route::get('directories', 'DirectoryController@index');
     Route::get('directories/{id}', 'DirectoryController@show');
 
@@ -166,6 +172,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::put('directories/{directoryId}/contacts/{id}', 'DirectoryController@updateContact');
     Route::delete('directories/{directoryId}/contacts/{id}', 'DirectoryController@destroyContact');
     Route::get('directories/{directoryId}/contacts/{id}', 'DirectoryController@showContact');
+
+    // Directory endpoint for users
+    Route::get('directories/{directoryId}/users', 'DirectoryController@indexUser');
+    Route::post('directories/{directoryId}/users', 'DirectoryController@storeUser');
+    Route::put('directories/{directoryId}/users/{id}', 'DirectoryController@updateUser');
+    Route::delete('directories/{directoryId}/users/{id}', 'DirectoryController@destroyUser');
+    Route::get('directories/{directoryId}/users/{id}', 'DirectoryController@showUser');
+
 
 });
 

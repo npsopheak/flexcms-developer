@@ -23,6 +23,8 @@ class UserController extends ApiController {
 				$items = $items->whereRaw('name = ?', [$name]);
 			}
 
+			$items = $items->with('directory');
+
 			$total = count($items->get()->toArray());
 
 			if (Input::get('ignore-offset') != 1){
@@ -102,7 +104,7 @@ class UserController extends ApiController {
                 }
 				$item->email = Input::get('email');
 			}	
-	        $item->updated_by = Auth::user()->id;
+	        // $item->updated_by = Auth::user()->id;
 			$item->save();
 			return $this->ok($item);
 		}
