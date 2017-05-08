@@ -39,31 +39,144 @@
 
                     {{-- Upload khmer version --}}
                     {{--TODO CHANGE STYLE--}}
-                    <div flex-gt-xs>
-                        <div layout-padding-row="16" class="logo-container">
-                            <div class="logo-inner" layout="column" layout-align="center center"
-                                style="background-image: url('<% uploadingFile.src ? uploadingFile.src : data.primary_media.file_name %>')">
 
-                                <span class="icon-camera" ng-show="!data.primary_media"></span>
-                                <span class="upload-text" ng-show="!data.primary_media">Upload Khmer Version Here</span>
-                                {{-- <span class="upload-text" ng-show="mode === 'create'">Please, save your listing first before upload</span> --}}
-                                <div class="overlay"
-                                    ng-class="{'show': uploadingFile.loading}"
-                                    ng-show="mode === 'edit'"></div>
-                                <md-progress-circular md-mode="determinate"
-                                    ng-show="uploadingFile.loading"
-                                    value="<% uploadingFile.progress %>"></md-progress-circular>
+                    <md-input-container flex-gt-xs>
+                        <p>Document in Khmer</p>
+                        <div class="document-group" layout-gt-xs="row">
+                            <div flex-gt-xs flex="20" class="document-preview">
+
+                                <div flex-gt-xs style="background-image: url('<% uploadingFile_document_khmer_id.src ? uploadingFile_document_khmer_id.src : data.document_khmer.file_name %>')">
+                                    
+                                </div>
                             </div>
-                            
-                            {{-- <span class="icon-upload3" ng-class="{'center': !data.primary_media}" ng-show="!uploadingFile.loading"
-                                ngf-select ng-model="files" ngf-change="uploadLogo(files)" multiple="false">
-                            </span> --}}
-                            <div class="center icon-remove-2 icon-cross selected" ng-show="data.primary_media" ng-click="deletePhotoLogo($event)"></div>
+                            <div flex-gt-xs flex="80" class="document-description">
+                                <div layout-gt-xs="column">
+                                    <div flex-gt-xs class="document-name" >
+                                        <span ng-show="data.document_khmer && !uploadingFile_document_khmer_id" ng-init="splitItem = data.document_khmer.file_name.split('/')">
+                                            Filename: <% splitItem[splitItem.length - 1] %>
+                                        </span>
+                                        <span ng-show="!data.document_khmer && !uploadingFile_document_khmer_id">
+                                            Upload new file
+                                        </span>
 
+                                        <span ng-show="uploadingFile_document_khmer_id">
+                                            New file selected: <% uploadingFile_document_english_id.file.name %>
+                                        </span>
+
+                                        <br>
+                                        <span class="" style="font-size: 12px; color: gray">
+                                            Size: <% data.document_english ? data.document_english.content_length / 1024 : '(TBD)' %> KB
+                                        </span>
+                                    </div>
+                                    <div flex-gt-xs class="document-progress"
+                                        ng-show="uploadingFile_document_khmer_id.loading">
+                                        <div class="document-progress-bar">
+                                            <div class="bar-inner" style="width: <% uploadingFile_document_khmer_id.progress %>%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div flex-gt-xs flex="20" class="document-action">
+                                <div layout-gt-xs="column">
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-if="!data.document_khmer"
+                                        ngf-select ng-model="files" ngf-change="uploadDocument(files, 'document_khmer_id', $event)" multiple="false">
+                                        Upload
+                                    </md-button>
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-if="data.document_khmer"
+                                        ngf-select ng-model="files" ngf-change="uploadDocument(files, 'document_khmer_id', $event)" multiple="false">
+                                        Replace
+                                    </md-button>
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-click="previewDocument(data.document_khmer)"
+                                        ng-if="data.document_khmer">
+                                        Preview
+                                    </md-button>
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-if="data.document_khmer" 
+                                        ng-click="deleteKhmerDocument(null, $event)">
+                                        Remove
+                                    </md-button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </md-input-container>
+                    
 
                     {{-- Upload english version --}}
+                    <md-input-container flex-gt-xs>
+                        <p>Document in English</p>
+                        <div class="document-group" layout-gt-xs="row">
+                            <div flex-gt-xs flex="20" class="document-preview">
+
+                                <div flex-gt-xs style="background-image: url('<% uploadingFile_document_english_id.src ? uploadingFile_document_english_id.src : data.document_english.file_name %>')">
+                                    
+                                </div>
+                            </div>
+                            <div flex-gt-xs flex="80" class="document-description">
+                                <div layout-gt-xs="column">
+                                    <div flex-gt-xs class="document-name" >
+                                        <span ng-show="data.document_english && !uploadingFile_document_english_id" ng-init="splitItem = data.document_english.file_name.split('/')">
+                                            Filename: <% splitItem[splitItem.length - 1] %>
+                                        </span>
+                                        <span ng-show="!data.document_english && !uploadingFile_document_english_id">
+                                            Upload new file
+                                        </span>
+
+                                        <span ng-show="uploadingFile_document_english_id">
+                                            New file selected: <% uploadingFile_document_english_id.file.name %>
+                                        </span>
+
+                                        <br>
+                                        <span class="" style="font-size: 12px; color: gray">
+                                            Size: <% data.document_english ? data.document_english.content_length / 1024 : '(TBD)' %> KB
+                                        </span>
+                                    </div>
+                                    <div flex-gt-xs class="document-progress"
+                                        ng-show="uploadingFile_document_english_id.loading">
+                                        <div class="document-progress-bar">
+                                            <div class="bar-inner" style="width: <% uploadingFile_document_english_id.progress %>%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div flex-gt-xs flex="20" class="document-action">
+                                <div layout-gt-xs="column">
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-if="!data.document_english"
+                                        ngf-select ng-model="files" ngf-change="uploadDocument(files, 'document_english_id', $event)" multiple="false">
+                                        Upload
+                                    </md-button>
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-if="data.document_english"
+                                        ngf-select ng-model="files" ngf-change="uploadDocument(files, 'document_english_id', $event)" multiple="false">
+                                        Replace
+                                    </md-button>
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-click="previewDocument(data.document_english)"
+                                        ng-if="data.document_english">
+                                        Preview
+                                    </md-button>
+
+                                    <md-button  type="button" class="md-primary"
+                                        ng-if="data.document_english" 
+                                        ng-click="deleteEnglishDocument(null, $event)">
+                                        Remove
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </md-input-container>
 
                 </div>
             </div>

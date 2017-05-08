@@ -20,7 +20,7 @@ namespace.menus = [{
         {
             name: 'Libraries',
             extraScreen: 'libraries',
-            icon: 'icon-office',
+            icon: 'icon-libreoffice',
             enabled: true,
             path: '/libraries'
         }
@@ -29,8 +29,8 @@ namespace.menus = [{
     name: 'user',
     text: 'User',
     items: [
-        { name: 'List', extraScreen: 'List accoount information', icon: 'icon-mail3', enabled: true, path: '/accounts' },
-        { name: 'Your account', extraScreen: 'Your account', icon: 'icon-user', enabled: false, path: '/account' },
+        { name: 'List', extraScreen: 'List accoount information', icon: 'icon-users', enabled: true, path: '/accounts' },
+        // { name: 'Your account', extraScreen: 'Your account', icon: 'icon-user', enabled: false, path: '/account' },
     ]
 }, {
     name: 'settings',

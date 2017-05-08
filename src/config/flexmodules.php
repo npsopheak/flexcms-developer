@@ -40,6 +40,7 @@
         0 => 'list',
         1 => 'create',
         2 => 'view',
+        3 => 'viewDialog',
       ),
       'staffs' => 
       array (

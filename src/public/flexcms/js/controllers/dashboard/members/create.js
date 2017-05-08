@@ -1,9 +1,9 @@
 (function(app) {
     app.controller('DashboardMembersCreateCtrl', ['$scope', '$timeout', '$mdSidenav',
         '$mdUtil', '$log', '$rootScope', '$mdDialog', '$routeParams', '$location',
-        '$mdToast', 'CoResource', 'filterFilter', function($scope, $timeout, $mdSidenav,
+        '$mdToast', 'CoResource', 'filterFilter', 'Upload', function($scope, $timeout, $mdSidenav,
         $mdUtil, $log, $rootScope, $mdDialog, $routeParams, $location,
-        $mdToast, CoResource, filterFilter) {
+        $mdToast, CoResource, filterFilter, Upload) {
 
 	    
 		$scope.id = $routeParams.id;
@@ -29,6 +29,7 @@
         $scope.activity_selected = [];
         $scope.contact_selected = [];
 		$scope.library_selected = [];
+		$scope.user_selected = [];
 		$scope.data = {};
 		$scope.mode = 'create';
 
@@ -69,6 +70,10 @@
             CoResource.resources.MemberLibrary
 			    .get({ id: memberId }, function (s){
                     $scope.libraries = s.result;
+                });
+			CoResource.resources.MemberUser
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.users = s.result;
                 });
         }
 
@@ -113,6 +118,13 @@
 			CoResource.resources.MemberLibrary
 			    .get({ id: $scope.data.id }, function (s){
                     $scope.libraries = s.result;
+                });
+		});
+
+		$rootScope.$on('dataDirectoryUserSaved', function (){
+			CoResource.resources.MemberUser
+			    .get({ id: $scope.data.id }, function (s){
+                    $scope.users = s.result;
                 });
 		});
         
@@ -274,7 +286,7 @@
 			$rootScope.loading('show');
 
 			var url = namespace.domain + 'media'; // + $scope.data.id + '/' + (filetmp.type == 'logo' ? 'logo' : 'galleries');
-
+			
 			console.log(url, Upload);
 			// return;
 
@@ -287,7 +299,7 @@
                 headers: {
                 }, // only for html5
                 data: {
-					imagable_type: 'Article',
+					imagable_type: 'Directory',
 					imagable_id: $scope.data.id,
 					caption: $scope.data.title,
 					description: $scope.data.title,
@@ -821,6 +833,20 @@
 					})
 					.then(function(answer) {}, function() {});
 				break;
+				case 'user':
+					$mdDialog.show({
+						controller: 'DashboardUsersViewDialogCtrl',
+						templateUrl: '/partials/dashboard.users.viewDialog',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						locals: {
+							$current: item || {
+								directory_id: $scope.data.id
+							}
+						}
+					})
+					.then(function(answer) {}, function() {});
+				break;
 			}
 		};
 
@@ -835,6 +861,8 @@
 				'budget': CoResource.resources.MemberBudget,
 				'donor': CoResource.resources.MemberDonor,
 				'contact': CoResource.resources.MemberContact,
+				'library': CoResource.resources.MemberLibrary,
+				'user': CoResource.resources.MemberLibrary,
 			};
 			if (item){
 
@@ -981,6 +1009,25 @@
 
 		$scope.addLibrary = function (ev){
 			$scope.showDialog('library', null);
+		};
+
+		// Library
+		$scope.removeUser = function (ev){
+			var item = $scope.user_selected[0];
+			$scope.removeDialog('user', item, ev);
+		};
+		
+		$scope.editUser = function (ev){
+			var item = $scope.user_selected[0];
+			if (item){
+				$scope.showDialog('user', item);
+			}
+			else{
+			}
+		};
+
+		$scope.addUser = function (ev){
+			$scope.showDialog('user', null);
 		};
 
         $timeout(function() {

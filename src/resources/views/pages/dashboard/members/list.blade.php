@@ -54,6 +54,7 @@
               <tr md-row>
               	<th md-column><span>Logo</span></th>
                 <th md-column><span>Name</span></th>
+                <th md-column><span>Category</span></th>
                 <th md-column><span>Appreviation</span></th>
                 <th md-column><span>Description</span></th>
                 <th md-column><span>Seq No</span></th>
@@ -66,21 +67,20 @@
             <tbody md-body>
               <tr md-row md-select="item" md-select-id="id" ng-click="viewDetail(item)" md-auto-select ng-repeat="item in data">
                 <td md-cell>
-                	<img ng-src="<% item.logo.thumbnail_url_link %>" style="height: 40px;"/>
+                	<img ng-src="<% item.logo.file_name %>" style="height: 40px;"/>
                 </td>
                 <td md-cell><% item.name %></td>
-                
+                <td md-cell><% item.category.display_name %></td>
                 <td md-cell><% item.appreviation %></td>
                 <td md-cell><% item.short_description %></td>
                 <td md-cell><% item.seq_no %></td>
                 <td md-cell><% formatUtcDate(item.created_at) %></td>
                 <td md-cell>
-                    <label class="label label-info" ng-show="item.status == 'published'">Published</label>
-                    <label class="label label-info" ng-show="item.status !== 'published'">Pending</label>
+                    Active
                 </td>
               </tr>
               <tr md-row ng-show="!data.length">
-                <td md-cell colspan="7">There is no advertisement data</td>
+                <td md-cell colspan="8">There is no advertisement data</td>
               </tr>
             </tbody>
           </table>

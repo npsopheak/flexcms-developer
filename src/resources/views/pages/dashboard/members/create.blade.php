@@ -58,10 +58,10 @@
 				      	<div flex-gt-xs>
 					         <div layout-padding-row="16" class="logo-container">
 					         	<div class="logo-inner" layout="column" layout-align="center center"
-					         		style="background-image: url('<% uploadingFile.src ? uploadingFile.src : data.primary_media.file_name %>')">
+					         		style="background-image: url('<% uploadingFile.src ? uploadingFile.src : data.logo.file_name %>')">
 
-					         		<span class="icon-camera" ng-show="!data.primary_media"></span>
-					         		<span class="upload-text" ng-show="!data.primary_media">Article Cover Logo Here</span>
+					         		<span class="icon-camera" ng-show="!data.logo"></span>
+					         		<span class="upload-text" ng-show="!data.logo">Member Logo Here</span>
 					         		{{-- <span class="upload-text" ng-show="mode === 'create'">Please, save your listing first before upload</span> --}}
 					         		<div class="overlay"
 					         			ng-class="{'show': uploadingFile.loading}"
@@ -71,10 +71,10 @@
 					         			value="<% uploadingFile.progress %>"></md-progress-circular>
 					         	</div>
 					         	
-					         	{{-- <span class="icon-upload3" ng-class="{'center': !data.primary_media}" ng-show="!uploadingFile.loading"
+					         	<span class="icon-upload3" ng-class="{'center': !data.logo}" ng-show="!uploadingFile.loading"
 					         		ngf-select ng-model="files" ngf-change="uploadLogo(files)" multiple="false">
-					         	</span> --}}
-					         	<div class="center icon-remove-2 icon-cross selected" ng-show="data.primary_media" ng-click="deletePhotoLogo($event)"></div>
+					         	</span>
+					         	<div class="center icon-remove-2 icon-cross selected" ng-show="data.logo" ng-click="deletePhotoLogo($event)"></div>
 
 					         </div>
 				      	</div>
@@ -470,13 +470,13 @@
 					      	</md-tab>
 									{{-- library --}}
 					      	<md-tab label="library">
-					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="contact_selected.length" aria-hidden="false"
+					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="library_selected.length" aria-hidden="false"
 									style="min-height: 45px;">
 						          <div class="md-toolbar-tools layout-align-space-between-stretch" layout-align="space-between">
 						            <div class="title"><% library_selected.length %> items selected</div>
 						            <div class="buttons" layout-align="end center">
 						                <md-button class="md-icon-button md-button md-ink-ripple"
-						                    ng-hide="contact_selected.length > 1"
+						                    ng-hide="library_selected.length > 1"
 						                    type="button" ng-click="editLibrary($event)" aria-label="edit">
 						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
 						                </md-button>
@@ -490,13 +490,15 @@
 						        </md-toolbar>
 
 						        <md-table-container class="box-shadow-content">
-						          <table md-table md-row-select ng-model="contact_selected" md-progress="promise">
+						          <table md-table md-row-select ng-model="library_selected" md-progress="promise">
 						            <thead md-head md-order="query.order" md-on-reorder="donors">
 						              <tr md-row>
 						                <th md-column md-order-by="nameToLower"><span>Name</span></th>
 						                <th md-column><span>Description</span></th>
-						                <th md-column>Language</th>
-														<th md-column>Downloads</th>
+						                <th md-column>English</th>
+														<th md-column>Khmer</th>
+														<th md-column>Downloads (Eng)</th>
+														<th md-column>Downloads (Khm)</th>
 						                <th md-column>Updated at</th>
 						              </tr>
 						            </thead>
@@ -504,12 +506,14 @@
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in libraries">
 						                <td md-cell><% item.name %></td>
 						                <td md-cell><% item.description %></td>
-						                <td md-cell><% item.language %></td>
-														<td md-cell><% item.download_count %></td>
+						                <td md-cell style="<% item.document_english ? 'font-weight: bold': ''%>"><% item.document_english ? 'Yes' : 'No' %></td>
+														<td md-cell style="<% item.document_khmer ? 'font-weight: bold': ''%>"><% item.document_khmer ? 'Yes' : 'No' %></td>
+														<td md-cell style="<% item.document_english ? 'font-weight: bold': ''%>"><% item.document_english_download %></td>
+														<td md-cell style="<% item.document_khmer ? 'font-weight: bold': ''%>"><% item.document_khmer_download %></td>
 														<td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
 													<tr md-row ng-show="libraries.length <= 0">
-														<td md-cell colspan="4">There is no library data.</td>
+														<td md-cell colspan="6">There is no library data.</td>
 														<td md-cell colspan="1">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addLibrary($event)" aria-label="addStaff">
@@ -519,7 +523,7 @@
 														</td>
 													</tr>
 													<tr md-row ng-show="libraries.length > 0">
-														<td md-cell colspan="4">Add more library.</td>
+														<td md-cell colspan="6">Add more library.</td>
 														<td md-cell colspan="1">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addLibrary($event)" aria-label="addStaff">
@@ -532,50 +536,69 @@
 						          </table>
 						        </md-table-container>
 					      	</md-tab>
-				      		{{-- Media & Gallery --}}
-				      		<md-tab label="gallery">
-				        		<md-content class="md-padding">
-				        			<h1 class="md-display-2">Media & Gallery </h1>
 
-							      	<section layout="row" layout-sm="column"
-							      		class="media-gallery"
-							      		style="margin-top: 15px; margin-bottom: 15px;">
-							      		<div class="media" flex="33">
-							      			<div class="logo-inner" layout="column" layout-align="center center">
-								         		<span class="icon-camera"></span>
-								         		<span class="upload-text">Upload your gallery here</span>
-								         		{{-- <span class="upload-text" ng-show="mode === 'create'">Please, save your listing first before upload</span> --}}
-								         		<div class="overlay" ng-show="mode === 'edit'"></div>
-								         	</div>
-								         	<span class="icon-upload3 center"
-								         		ngf-select ng-model="files" ngf-change="uploadMedia(files)"
-								         		multiple="false">
-								         	</span>
-							      		</div>
-							      		{{-- Media --}}
-							      		<div class="media uploaded" flex="33" ng-repeat="media in data.photos">
-							      			<div class="logo-inner" layout="column" layout-align="center center"
-							      				style="background-image: url('<% media.file_name %>')">
-								         		<div class="overlay"></div>
-								         		<div class="remove icon-cross" ng-click="deletePhoto(media)"></div>
-								         	</div>
-								         	{{-- <span class="icon-search left" href="<% mediaUrl ? mediaUrl + media.file_name : '/' + media.file_name %>" data-title="<% data.name %>"></span> --}}
-								         	<span class="icon-heart center" ng-class="{'selected': data.primary_photo_id == media.id}" href="javascript:void(0)" ng-click="updateCover(media, $event)" data-title="<% data.name %>"></span>
-							      		</div>
-							      		{{-- Pending --}}
-							      		<div class="media" flex="33" ng-repeat="media in pendingFiles">
-							      			<div class="logo-inner" layout="column" layout-align="center center"
-							      				style="background-image: url('<% media.src %>')">
-								         		<div class="overlay" ng-show="mode === 'edit'"></div>
-								         		<md-progress-circular md-mode="determinate"
-								         			ng-show="media.loading"
-								         			value="<% media.progress %>"></md-progress-circular>
-								         		<div ng-show="!media.loading" class="remove icon-cross" ng-click="deletePendingPhoto(media)"></div>
-								         	</div>
-							      		</div>
-							      	</section>
-				        		</md-content>
-				      		</md-tab>
+									{{-- user --}}
+					      	<md-tab label="user">
+					        	<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="user_selected.length" aria-hidden="false"
+									style="min-height: 45px;">
+						          <div class="md-toolbar-tools layout-align-space-between-stretch" layout-align="space-between">
+						            <div class="title"><% user_selected.length %> items selected</div>
+						            <div class="buttons" layout-align="end center">
+						                <md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="user_selected.length > 1"
+						                    type="button" ng-click="editUser($event)" aria-label="edit">
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														<md-button class="md-icon-button md-button md-ink-ripple"
+						                    ng-hide="user_selected.length > 1"
+						                    type="button" ng-click="removeUser($event)" aria-label="remove">
+						                    <md-icon md-font-icon="icon-cancel-circle" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+						            </div>
+						          </div>
+						        </md-toolbar>
+
+						        <md-table-container class="box-shadow-content">
+						          <table md-table md-row-select ng-model="user_selected" md-progress="promise">
+						            <thead md-head md-order="query.order" md-on-reorder="users">
+						              <tr md-row>
+						                <th md-column md-order-by="nameToLower"><span>Name</span></th>
+						                <th md-column>Email</th>
+														<th md-column>Role</th>
+						                <th md-column>Updated at</th>
+						              </tr>
+						            </thead>
+						            <tbody md-body>
+						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in users">
+						                <td md-cell><% item.name %></td>
+						                <td md-cell><% item.email %></td>
+														<td md-cell><% item.role.display_name %></td>
+														<td md-cell><% formatUtcDate(item.updated_at) %></td>
+						              </tr>
+													<tr md-row ng-show="users.length <= 0">
+														<td md-cell colspan="3">There is no user data.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addUser($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+													<tr md-row ng-show="users.length > 0">
+														<td md-cell colspan="3">Add more user.</td>
+														<td md-cell colspan="1">
+															 <md-button class="md-primary md-button md-ink-ripple"
+						                    type="button" ng-click="addUser($event)" aria-label="addStaff">
+																Add
+						                    <md-icon md-font-icon="icon-plus" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+						                </md-button>
+														</td>
+													</tr>
+						            </tbody>
+						          </table>
+						        </md-table-container>
+					      	</md-tab>
 				    	</md-tabs>
 
 			      	</div>

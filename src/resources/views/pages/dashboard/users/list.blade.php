@@ -55,10 +55,10 @@
                 <th md-column><span>Name</span></th>
                 <th md-column><span>Email</span></th>
                 <th md-column><span>Role</span></th>
-                <th md-column>Created at</th>
                 <th md-column>
-                	Status
+                	Linked Member
                 </th>
+                <th md-column>Created at</th>
               </tr>
             </thead>
             <tbody md-body>
@@ -67,12 +67,11 @@
                 <td md-cell><% item.name %></td>
                 
                 <td md-cell><% item.email %></td>
-                <td md-cell><% item.role %></td>
-                <td md-cell><% formatUtcDate(item.created_at) %></td>
+                <td md-cell style="<% item.role == 'member' ? 'font-weight: bold' : ''%>"><% item.role %></td>
                 <td md-cell>
-                    <label class="label label-info" ng-show="item.status == 'published'">Published</label>
-                    <label class="label label-info" ng-show="item.status !== 'published'">Pending</label>
+                    <% item.directory[0].name %>
                 </td>
+                <td md-cell><% formatUtcDate(item.created_at) %></td>
               </tr>
               <tr md-row ng-show="!data.length">
                 <td md-cell colspan="7">There is no advertisement data</td>
