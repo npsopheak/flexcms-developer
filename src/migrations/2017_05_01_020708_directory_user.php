@@ -16,11 +16,10 @@ class DirectoryUser extends Migration
         Schema::create('directory_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->string('role')->nullable();
             $table->integer('role_id')->nullable();
             $table->string('email', 256)->nullable();
             $table->string('phone', 256)->nullable();
-            $table->string('description', 1200);
+            $table->string('description', 1200)->nullable();
             $table->integer('directory_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('seq_no')->default(0);

@@ -16,7 +16,7 @@ class DirectoryLibrary extends Migration
         Schema::create('directory_libraries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('type')->nullable();
+            // $table->string('type')->nullable();
             $table->integer('type_id')->nullable();
             $table->string('description', 1200)->nullable();
             $table->integer('directory_id')->nullable();
