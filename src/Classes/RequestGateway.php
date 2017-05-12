@@ -13,8 +13,10 @@ class RequestGateway extends AuthGateway {
 
     public function __construct(){
         // echo env('REMOTE_API'); die();
-        $this->address = env('REMOTE_API','http://hhapi.demo.flexitech.io/v1.1');
-        $this->ws_address = env('REMOTE_API', 'http://hhapi.demo.flexitech.io/v1.1');
+        $endpoint = config('flexcms.api.endpoint');
+        $wsEndpoint = config('flexcms.api.web_socket');
+        $this->address = $endpoint;
+        $this->ws_address = $wsEndpoint;
     }
 
     public function getServerAddress()
@@ -63,36 +65,32 @@ class RequestGateway extends AuthGateway {
     }
 
     private function translateHeaders($header){
+        // Based by user login
         if (AuthGateway::isLogin()){
             $user = AuthGateway::user();
             $header['Authorization'] = 'Bearer ' . $user['access_token'];
         }
-
-        if (Config::get('meem.useXForwardFor') == true){
+        
+        if (config('flexcms.api.use_x_forward_for') == true){
             $header['X-Forwarded-For'] = \Request::getClientIp();    
         }
 
         if (!isset($header['Content-Type'])){
-            $header['Content-Type'] = 'application/json';
+            $header['Content-Type'] = config('flexcms.api.default_content_type');
         }
 
-        // 'YzUzYzcxNjJkODhjMWEzZGZjNWE4Yzc2MWNkYTZkYzU5MTllZDJhOTYyMmFkZDY1ZDUwZGIwMjI4YTNkYzFhNQ==';
-        // if (!isset($header['X-HH-Request-ID'])){
-        $header['X-GT-Request-ID'] = 'MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw==';
-        // }
-
-        if (!isset($header['X-GT-Connect-ID'])){
-            $header['X-GT-Connect-ID'] = base64_encode(\Session::getId());
+        if (!isset($header[config('flexcms.system.request_id')])){
+            $header[config('flexcms.system.request_id')] = config('flexcms.api.request_id');
         }
-        // $header['X-HH-Request-ID'] = 'ZDZmY2FhZWZjMmNhOGNmOWM4MGVkMTZhYjhmMWE0ZjdjOWZjMmI1M2VhYzEwZDlhYzIyNzEwZWRmZjAzNThmYw==';
-        // $header['X-HH-Connect-ID'] = Config::get('meem.sm_api_token');
 
-        // echo '<pre>'. print_r($header,true).'</pre>'; die();
+        if (!isset($header[config('flexcms.system.session_id')])){
+            $header[config('flexcms.system.session_id')] = base64_encode(\Session::getId());
+        }
 
         $result = array();
         foreach($header as $key => $value){
             if ($key == 'key'){
-                $result[] = 'X-GT-Sign-Key: ' . $value;
+                $result[] = config('flexcms.system.encrypt_key_id') + ': ' . $value;
             }
             else{
                 $result[] = $key . ': ' . $value;    
@@ -114,7 +112,7 @@ class RequestGateway extends AuthGateway {
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $uri,
-            CURLOPT_USERAGENT => 'GoTukTuk',
+            CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
             CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
             CURLOPT_SSL_VERIFYPEER => false
         ));
@@ -135,7 +133,7 @@ class RequestGateway extends AuthGateway {
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $uri,
-            CURLOPT_USERAGENT => 'GoTukTuk',
+            CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
@@ -159,7 +157,7 @@ class RequestGateway extends AuthGateway {
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $uri,
-            CURLOPT_USERAGENT => 'GoTukTuk',
+            CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
             CURLOPT_CUSTOMREQUEST => 'PUT',
@@ -181,7 +179,7 @@ class RequestGateway extends AuthGateway {
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $uri,
-            CURLOPT_USERAGENT => 'GoTukTuk',
+            CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
             CURLOPT_CUSTOMREQUEST => 'DELETE',
@@ -202,7 +200,7 @@ class RequestGateway extends AuthGateway {
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
-                    CURLOPT_USERAGENT => 'GoTukTuk',
+                    CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
                     CURLOPT_POSTFIELDS => json_encode($data),
                     CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
                     CURLOPT_CUSTOMREQUEST => 'DELETE',
@@ -213,7 +211,7 @@ class RequestGateway extends AuthGateway {
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
-                    CURLOPT_USERAGENT => 'GoTukTuk',
+                    CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
                     CURLOPT_POSTFIELDS => json_encode($data),
                     CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
                     CURLOPT_CUSTOMREQUEST => 'PUT',
@@ -224,7 +222,7 @@ class RequestGateway extends AuthGateway {
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
-                    CURLOPT_USERAGENT => 'GoTukTuk',
+                    CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
                     CURLOPT_POST => 1,
                     CURLOPT_POSTFIELDS => $data,
                     CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
@@ -236,7 +234,7 @@ class RequestGateway extends AuthGateway {
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
-                    CURLOPT_USERAGENT => 'GoTukTuk',
+                    CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
                     CURLOPT_HTTPHEADER => $this->translateHeaders($headers),
                     CURLOPT_SSL_VERIFYPEER => false
                 ));
