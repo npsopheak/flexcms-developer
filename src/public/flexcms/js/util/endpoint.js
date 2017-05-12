@@ -8,7 +8,7 @@ namespace.endpoints = function ($resource, base) {
 	  		'update': { method:'PUT' },
 	  		'list': {
 	  			method: 'GET',
-					cache : false
+				cache : false
 	  		}
 	 	}),
 		// ItemLocale: $resource(base + 'dimensions/:itemId/locale', null, {}),

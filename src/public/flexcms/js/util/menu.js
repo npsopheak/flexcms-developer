@@ -36,7 +36,8 @@ namespace.menus = [{
     name: 'settings',
     text: 'Settings',
     items: [
-        { name: 'Message', extraScreen: 'Message information', icon: 'icon-mail3', enabled: true, path: '/messages' },
+        { name: 'Item', extraScreen: 'Item information', icon: 'icon-file-text', enabled: true, path: '/items' },   
+        // { name: 'Message', extraScreen: 'Message information', icon: 'icon-mail3', enabled: true, path: '/messages' },
         { name: 'Your account', extraScreen: 'Your account', icon: 'icon-user', enabled: false, path: '/account' },
         { name: 'Sign out', extraScreen: 'Sign out', icon: 'icon-lock', enabled: false, path: '/signout', 'event': function ($scope){
             $scope.logout();

@@ -62,6 +62,11 @@
       array (
         0 => 'viewDialog',
       ),
+      'items' => 
+      array (
+        0 => 'list',
+        1 => 'viewDialog',
+      ),
     ),
     'login' => 
     array (

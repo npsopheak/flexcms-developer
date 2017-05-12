@@ -1,10 +1,18 @@
 
 namespace.routes = [
 // Shop endpoint
+// {
+//     url: '',
+//     template: '/partials/dashboard.articles.list',
+//     controller: 'DashboardArticlesListCtrl',
+//     reloadOnSearch: false
+//     // template: '/partials/posts',
+//     // controller: 'PostCtrl'
+// },
 {
     url: '',
-    template: '/partials/dashboard.articles.list',
-    controller: 'DashboardArticlesListCtrl',
+    template: '/partials/dashboard.members.list',
+    controller: 'DashboardMembersListCtrl',
     reloadOnSearch: false
     // template: '/partials/posts',
     // controller: 'PostCtrl'
@@ -71,6 +79,15 @@ namespace.routes = [
     template: '/partials/dashboard.users.create',
     controller: 'DashboardUsersCreateCtrl',
     reloadOnSearch: false
+},
+// Item
+{
+    url: 'items',
+    template: '/partials/dashboard.items.list',
+    controller: 'DashboardItemsListCtrl',
+    reloadOnSearch: false
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
 },
 // Shop endpoint
 {

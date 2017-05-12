@@ -12,14 +12,9 @@
 		<meta name="developer" content="nexGenDev"/>
 		<meta name="contact" content="biz@flexitech.io"/>
 
-        <meta name="se:remoteUrl" content="{{ base64_encode(env('REMOTE_API', '')) }}">
-
-        <!-- -->
-        <meta name="api:session" content="{{ base64_encode(\Session::getId()) }}">
-
         @if (AuthGateway::isAdminLogin())
             <meta name="api:bearer" content="{{ AuthGateway::admin()['access_token'] }}">
-            <meta name="api:request" content="{{ 'MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw==' }}">
+            <meta name="api:request" content="{{ config('flexcms.api.request_id') }}">
         @endif
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
@@ -42,7 +37,6 @@
             {{-- <link href="{{ elixir('css/admin_style.css') }}" rel="stylesheet"> --}}
 
         {{-- @endif --}}
-
 
 
 	    <style>
@@ -85,6 +79,7 @@
         <script type="text/javascript">
             // CONFIGURE DOMAIN
             namespace.domain = '{{ config("flexcms.api.endpoint") }}';
+            namespace.sessionId = '{{ config("flexcms.api.session_id") }}';
         </script>
 
 
