@@ -47,7 +47,9 @@ class Directory extends Model
         'background',
         'vision',
         'mission',
-        'goal'
+        'goal',
+
+        'project_type_id'
     ];
 
     protected $dates = ['deleted_at'];
@@ -88,6 +90,10 @@ class Directory extends Model
 
     public function logo(){
         return $this->belongsTo('FlexCMS\BasicCMS\Models\Media','logo_id');
+    }
+
+    public function projectType(){
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','project_type_id');
     }
 
     /**

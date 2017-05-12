@@ -17,6 +17,7 @@ class DirectoryActivity extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('location', 256)->nullable();
+            $table->integer('location_id')->nullable();
             $table->string('short_description', 256)->nullable();
             $table->string('description', 1200);
             $table->integer('directory_id')->nullable();

@@ -156,6 +156,8 @@
 			    		return v;
 			    	});
 
+					console.log($scope.data);	
+
 					loadRelated($scope.data.id);
 
                     $timeout(function() {
@@ -364,9 +366,16 @@
             filteredItem = _.filter(s.result, function (v){
                 return v.name == 'general-news';
             });
-            if (filteredItem && filteredItem[0]){
-                $scope.data.category_id = filteredItem[0].id;
-            }
+            // if (filteredItem && filteredItem[0]){
+            //     $scope.data.category_id = filteredItem[0].id;
+            // }
+
+			$scope.ngo_types = _.filter(s.result, function (v){
+                return v.item_type == 'directory_category';
+            });
+			$scope.project_types = _.filter(s.result, function (v){
+                return v.item_type == 'directory_project_type';
+            });
 	    });
 		$scope.select_categories = [];
 		$scope.itemChange = function (v){

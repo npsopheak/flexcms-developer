@@ -23,9 +23,18 @@
                         </div>
                     </md-input-container>
 
-                    <md-input-container flex-gt-xs>
+                    {{-- <md-input-container flex-gt-xs>
                         <label>Location</label>
                         <input placeholder="Location" ng-model="data.location" name="location">
+                    </md-input-container>--}}
+
+                    <md-input-container flex-gt-xs>
+                        <label>Location:</label>
+                        <md-select placeholder="Location" ng-model="data.location_id" 
+                                style="padding-bottom: 0px;" flex-gt-xs>
+                            <md-option value="">Select item type</md-option>
+                            <md-option value="<% item.id %>" ng-repeat="(k, item) in locations"><% item.display_name %></md-option>
+                        </md-select> 
                     </md-input-container>
 
                     <md-input-container flex-gt-xs>

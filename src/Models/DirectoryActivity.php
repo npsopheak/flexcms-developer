@@ -28,4 +28,8 @@ class DirectoryActivity extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function locationObj(){
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','location_id');
+    }
 }

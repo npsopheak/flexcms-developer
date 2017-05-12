@@ -22,7 +22,7 @@ class DirectoryController extends ApiController {
 	public function index(){
 		try{
 			$directories = [];
-			$directories = Directory::with(['logo', 'category', 'photos', 'categories']);
+			$directories = Directory::with(['logo', 'category', 'photos', 'categories', 'projectType']);
 			if (Input::get('active') && Input::get('active') === 1){
 				$directories = $directories->where('is_active', '=', 1);
 			}
@@ -82,10 +82,10 @@ class DirectoryController extends ApiController {
 		try{
 			if (is_numeric($id)){
 
-				$directory = Directory::with(['logo', 'category', 'photos', 'categories'])->where('id', '=', $id)->get()->first();
+				$directory = Directory::with(['logo', 'category', 'photos', 'categories', 'projectType'])->where('id', '=', $id)->get()->first();
 			}
 			else{
-				$directory = Directory::with(['logo', 'category', 'photos', 'categories'])->where('hash', '=', $id)->get()->first();	
+				$directory = Directory::with(['logo', 'category', 'photos', 'categories', 'projectType'])->where('hash', '=', $id)->get()->first();	
 			}
 			
 			return $this->ok($directory);
@@ -199,6 +199,9 @@ class DirectoryController extends ApiController {
 			}
 			if (Input::get('goal')){
 				$directory->goal = Input::get('goal');
+			}
+			if (\Input::get('project_type_id') != null){
+				$directory->project_type_id = \Input::get('project_type_id');
 			}
 	        $directory->updated_by = Auth::user()->id;
 			$directory->save();
@@ -566,6 +569,7 @@ class DirectoryController extends ApiController {
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
 			return $this->indexGeneric($directoryClass, $directory, function ($query) {
 				\Log::info('Logging donor generic');
+				$query = $query->with('locationObj');
 				return $query;
 			});
 		}
@@ -579,6 +583,7 @@ class DirectoryController extends ApiController {
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryActivity";
 			return $this->showGeneric($directoryClass, $directory, $id, function ($query) {
 				\Log::info('Logging Activity generic show');
+				$query = $query->with('locationObj');
 				return $query;
 			});
 		}
@@ -613,6 +618,9 @@ class DirectoryController extends ApiController {
 				}
 				if (\Input::get('location') != null){
 					$item->location = \Input::get('location');
+				}
+				if (\Input::get('location_id') != null){
+					$item->location_id = \Input::get('location_id');
 				}
 				if (\Input::get('description') != null){
 					$item->description = \Input::get('description');

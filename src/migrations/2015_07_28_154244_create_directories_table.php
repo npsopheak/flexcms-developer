@@ -29,6 +29,7 @@ class CreateDirectoriesTable extends Migration
             $table->string('description', 1200);
             $table->integer('logo_id')->nullable();
             $table->integer('category_id')->nullable();
+            $table->integer('project_type_id')->nullable();
             $table->string('phones', 50)->nullable();
             $table->string('websites', 400)->nullable();
             $table->string('address', 1000)->nullable();

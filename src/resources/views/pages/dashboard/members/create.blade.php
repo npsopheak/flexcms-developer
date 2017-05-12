@@ -77,6 +77,27 @@
 					         	<div class="center icon-remove-2 icon-cross selected" ng-show="data.logo" ng-click="deletePhotoLogo($event)"></div>
 
 					         </div>
+									 <div layout-padding="16">
+											<div layout-gt-xs="column">
+												<md-input-container flex-gt-xs>
+														<label>NGO Type:</label>
+														<md-select placeholder="NGO Type" ng-model="data.category_id" 
+																style="padding-bottom: 0px;" flex-gt-xs>
+																<md-option value="">Select item type</md-option>
+																<md-option value="<% item.id %>" ng-repeat="(k, item) in ngo_types"><% item.display_name %></md-option>
+														</md-select> 
+												</md-input-container>
+												<md-input-container flex-gt-xs>
+														<label>Project Type:</label>
+														<md-select placeholder="Project Type" ng-model="data.project_type_id" 
+																style="padding-bottom: 0px;" flex-gt-xs>
+																<md-option value="">Select item type</md-option>
+																<md-option value="<% item.id %>" ng-repeat="(k, item) in project_types"><% item.display_name %></md-option>
+														</md-select> 
+												</md-input-container>
+												
+											</div>
+										</div>
 				      	</div>
 			      	</div>
 
@@ -373,7 +394,7 @@
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in activities">
 						                <td md-cell><% item.name %></td>
-						                <td md-cell><% item.location %></td>
+						                <td md-cell><% item.location_obj.display_name %></td>
 						                <td md-cell><% item.description %></td>
                             <td md-cell><% item.activity_date %></td>
 						                <td md-cell><% formatUtcDate(item.updated_at) %></td>

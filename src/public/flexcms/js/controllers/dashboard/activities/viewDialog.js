@@ -27,11 +27,11 @@
             };
 
             // Load resource staff type
-            // CoResource.resources.Item.list({
-            //     type: 'directory_staff'
-            // }, function (s) {
-            //     $scope.types = s.result;
-            // });
+            CoResource.resources.Item.list({
+                type: 'directory_location'
+            }, function (s) {
+                $scope.locations = s.result;
+            });
 
             // Edit the save
 
