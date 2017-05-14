@@ -24,6 +24,17 @@
                     </md-input-container>
 
                     <md-input-container flex-gt-xs>
+                        <label>Contact type:</label>
+                        <md-select placeholder="Type" ng-model="data.contact_type" 
+                            style="padding-bottom: 0px;" flex-gt-xs>
+                            <md-option value="">Select year type</md-option>
+                            <md-option value="contact-organization-senior">Contact Organization Senior</md-option>
+                            <md-option value="key-contact-person">Key Contact Person</md-option>
+                            <md-option value="alternative-contact-person">Alternative Contact Person</md-option>
+                        </md-select> 
+                    </md-input-container>
+
+                    <md-input-container flex-gt-xs>
                         <label>Email</label>
                         <input ng-model="data.email" name="email">
                     </md-input-container>

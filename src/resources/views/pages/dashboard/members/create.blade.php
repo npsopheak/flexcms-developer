@@ -32,9 +32,22 @@
 							          	<div ng-message="required">Member name is needed</div>
 							        </div>
 						        </md-input-container>
-                                <md-input-container fake-md-no-float  flex-gt-xs>
+										<md-input-container flex-gt-xs>
+												<label>Acronym</label>
+												<input ng-model="data.appreviation" name="appreviation" required ng-disabled="loading">
+												<div ng-messages="siteForm.appreviation.$error"
+													ng-show="siteForm.appreviation.$dirty &&
+														siteForm.appreviation.$invalid">
+													<div ng-message="required">Member appreviation is needed</div>
+											</div>
+										</md-input-container>
+                  <md-input-container fake-md-no-float  flex-gt-xs>
 							      	<md-icon md-font-icon="icon-mobile2" class="icon-contact"></md-icon>
 							      	<input ng-model="data.phones" ng-disabled="loading" type="text" placeholder="Phone Number (required)" ng-required="false"  name="phone">
+							    </md-input-container>
+                  <md-input-container fake-md-no-float  flex-gt-xs>
+							      	<md-icon md-font-icon="icon-mobile" class="icon-contact"></md-icon>
+							      	<input ng-model="data.faxes" ng-disabled="loading" type="text" placeholder="Fax" ng-required="false"  name="fax">
 							    </md-input-container>
 							    <md-input-container  flex-gt-xs>
 							      	<!-- Use floating placeholder instead of label -->
@@ -79,6 +92,7 @@
 					         </div>
 									 <div layout-padding="16">
 											<div layout-gt-xs="column">
+												
 												<md-input-container flex-gt-xs>
 														<label>NGO Type:</label>
 														<md-select placeholder="NGO Type" ng-model="data.category_id" 
@@ -93,6 +107,14 @@
 																style="padding-bottom: 0px;" flex-gt-xs>
 																<md-option value="">Select item type</md-option>
 																<md-option value="<% item.id %>" ng-repeat="(k, item) in project_types"><% item.display_name %></md-option>
+														</md-select> 
+												</md-input-container>
+												<md-input-container flex-gt-xs>
+														<label>Location:</label>
+														<md-select placeholder="Location" ng-model="data.location_id" 
+																style="padding-bottom: 0px;" flex-gt-xs>
+																<md-option value="">Select location</md-option>
+																<md-option value="<% item.id %>" ng-repeat="(k, item) in locations"><% item.display_name %></md-option>
 														</md-select> 
 												</md-input-container>
 												
@@ -110,7 +132,7 @@
 
 			            	            <md-input-container flex-gt-xs>
 			            	                <label>Order Number</label>
-			            	                <input ng-model="data.seq_no" step="any" name="order" type="number">
+			            	                <input ng-model="data.seq_number" step="any" name="order" type="number">
 			            		          	<div ng-messages="dialogFormType.order.$error"
 			            		          		 ng-show="dialogFormType.order.$dirty && dialogFormType.order.$invalid">
 			            			          	<div ng-message="invalid">Order number is not valid</div>
@@ -190,23 +212,21 @@
 						          <table md-table md-row-select ng-model="staff_selected" md-progress="promise">
 						            <thead md-head md-order="query.order" md-on-reorder="items">
 						              <tr md-row>
-						                <th md-column md-order-by="nameToLower"><span>Staff Name</span></th>
-						                <th md-column><span>Description</span></th>
-						                <th md-column>Gender</th>
-                                        <th md-column>Type</th>
+						                <th md-column md-order-by="nameToLower"><span>Staff Type</span></th>
+						                <th md-column><span>Qty</span></th>
+						                <th md-column>Female</th>
 						                <th md-column>Updated at</th>
 						              </tr>
 						            </thead>
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in staffs">
-						                <td md-cell><% item.name %></td>
-						                <td md-cell><% item.description %></td>
-						                <td md-cell><% item.gender == 'm' ? 'Male' : 'Female' %></td>
 						                <td md-cell><% item.type.display_name %></td>
+						                <td md-cell><% item.quantity %></td>
+														<td md-cell><% item.female_quantity %></td>
 						                <td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
 													<tr md-row ng-show="staffs.length <= 0">
-														<td md-cell colspan="4">There is no staff data.</td>
+														<td md-cell colspan="3">There is no staff data.</td>
 														<td md-cell colspan="1">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addStaff($event)" aria-label="addStaff">
@@ -216,7 +236,7 @@
 														</td>
 													</tr>
 													<tr md-row ng-show="staffs.length > 0">
-														<td md-cell colspan="4">Add more staff.</td>
+														<td md-cell colspan="3">Add more staff.</td>
 														<td md-cell colspan="1">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addStaff($event)" aria-label="addStaff">
@@ -449,6 +469,7 @@
 						            <thead md-head md-order="query.order" md-on-reorder="donors">
 						              <tr md-row>
 						                <th md-column md-order-by="nameToLower"><span>Name</span></th>
+														<th md-column><span>Contact Type</span></th>
 						                <th md-column><span>Position</span></th>
 						                <th md-column>Email</th>
 														<th md-column>Phone</th>
@@ -459,6 +480,7 @@
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in contacts">
 						                <td md-cell><% item.name %></td>
+														<td md-cell><% contact_types[item.contact_type] %></td>
 						                <td md-cell><% item.position.display_name %></td>
 						                <td md-cell><% item.email %></td>
 														<td md-cell><% item.phone %></td>

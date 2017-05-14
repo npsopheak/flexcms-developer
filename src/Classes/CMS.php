@@ -495,6 +495,27 @@ class CMS {
             return [];
         }
     }
+        // Get posts by category
+    public function itemsByItemType($type, $options = []){
+        $order = isset($options['order']) && $options['order'] ? $options['order'] : null;
+        $limit = isset($options['limit']) && $options['limit'] ? $options['limit'] : null;
+        $offset = isset($options['offset']) && $options['offset'] ? $options['offset'] : null;
+        $lang = isset($options['lang']) && $options['lang'] ? $options['lang'] : 'en';
+        $with = isset($options['with']) && is_array($options['with']) ? $options['with'] : [];
+        
+        $items = \FlexCMS\BasicCMS\Models\Item::with($with)->where('item_type', '=', $type);
+        if ($order){
+            $items = $items->orderByRaw($order);
+        }
+        if ($limit){
+            $items = $items->take($limit);
+        }
+        if ($offset){
+            $items = $items->offset($offset);
+        }
+        $items = $items->get()->toArray();
+        return $items;
+    }
 
     // Get posts by category
     public function itemById($id, $options = []){
@@ -554,4 +575,186 @@ class CMS {
         
         return $album->toArray();
     }
+
+    // Helper action 
+	public function resourceList($Model, $options = [], $closure = null){
+    
+
+        $listing = [];
+
+        $listing = $Model::whereRaw('1 = 1');
+        
+
+        if ($closure){
+            $listing = $closure($listing);
+        }
+
+        $total = count($listing->get()->toArray());
+
+        if (!isset($options['limit'])){
+            $options['limit'] = 20;
+        }
+        if (!isset($options['offset'])){
+            $options['offset'] = 0;
+        }
+
+        if (!isset($options['ignore-offset']) || $options['ignore-offset'] != 1){
+            $listing = $listing->take($options['limit']);
+            $listing = $listing->skip($options['offset']);
+        }
+
+        // if (Input::get('sort_field') && Input::get('sort') && (Input::get('sort') == 'asc') || Input::get('sort') == 'desc') {
+        // 	$listing = $listing->orderBy(Input::get('sort_field'), Input::get('sort'));
+        // }
+
+        $listing = $listing->get()->toArray();
+        if (!isset($options['ignore-offset']) || $options['ignore-offset'] != 1){
+            return [
+                'result' => $listing, 
+                'options' => ['count' => $total, 'limit' => $options['limit'], 'offset' => $options['offset']]
+            ];
+        }
+        else{
+            return [
+                'result' => $listing, 
+                'options' => ['count' => $total]
+            ];
+            
+        }
+    }
+
+	public function resourceShow($Model, $id, $closure = null){
+
+        $item = $Model::where('id', '=', $id);
+
+        if ($closure){
+            $closure($item);
+        }
+        
+        $item = $item->get()->first()->toArray();
+        return $item;
+	}
+
+    public function generatePagination($total_pages, $limit, $page){
+        // How many adjacent pages should be shown on each side?
+        $adjacents = 3;
+        if($page) 
+            $start = ($page - 1) * $limit; 			//first item to display on this page
+        else
+            $start = 0;								//if no page var is given, set start to 0
+        
+        /* Setup page vars for display. */
+        if ($page == 0) $page = 1;					//if no page var is given, default to 1.
+        $prev = $page - 1;							//previous page is page - 1
+        $next = $page + 1;							//next page is page + 1
+        $lastpage = ceil($total_pages/$limit);		//lastpage is = total pages / items per page, rounded up.
+        $lpm1 = $lastpage - 1;						//last page minus 1
+        
+        /* 
+            Now we apply our rules and draw the pagination object. 
+            We're actually saving the code to a variable in case we want to draw it more than once.
+        */
+        $pagination = "";
+        if($lastpage > 1)
+        {	
+            $pagination .= "<ul class=\"pagination pagination-sm\">";
+            //previous button
+            if ($page > 1) 
+                $pagination.= "<li class=\"page-item\">
+                    <a href=\"/members?page=$prev\" class=\"page-link\" aria-label=\"Previous\">
+                        <span aria-hidden=\"true\">&laquo;</span>
+                    </a>
+                    </li>";
+                    // <a href=\"diggstyle.php?page=$prev\">« previous</a>";
+            else
+                $pagination.= "<li class=\"page-item\">
+                    <a href=\"#\" class=\"page-link\" aria-label=\"Previous\">
+                        <span aria-hidden=\"true\">&laquo;</span>
+                    </a>
+                    </li>";	
+            
+            //pages	
+            if ($lastpage < 7 + ($adjacents * 2))	//not enough pages to bother breaking it up
+            {	
+                for ($counter = 1; $counter <= $lastpage; $counter++)
+                {
+                    if ($counter == $page)
+                        $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
+                        // $pagination.= "<span class=\"current\">$counter</span>";
+                    else
+                        $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';	
+                        // $pagination.= "<a href=\"diggstyle.php?page=$counter\">$counter</a>";					
+                }
+            }
+            elseif($lastpage > 5 + ($adjacents * 2))	//enough pages to hide some
+            {
+                //close to beginning; only hide later pages
+                if($page < 1 + ($adjacents * 2))		
+                {
+                    for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+                    {
+                        if ($counter == $page)
+                            $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
+                        else
+                            $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';			
+                    }
+                    $pagination.= "...";
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lpm1 . '">' . $lpm1 . '</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lastpage . '">' . $lastpage . '</a></li>';
+                        //"<a href=\"diggstyle.php?page=$lpm1\">$lpm1</a>";
+                    // $pagination.= "<a href=\"diggstyle.php?page=$lastpage\">$lastpage</a>";		
+                }
+                //in middle; hide some front and some back
+                elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+                {
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=1">1</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=2">2</a></li>';
+                    // $pagination.= "<a href=\"diggstyle.php?page=1\">1</a>";
+                    // $pagination.= "<a href=\"diggstyle.php?page=2\">2</a>";
+                    $pagination.= "...";
+                    for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+                    {
+                        if ($counter == $page)
+                            $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
+                            // $pagination.= "<span class=\"current\">$counter</span>";
+                        else
+                            $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';		
+                            // $pagination.= "<a href=\"diggstyle.php?page=$counter\">$counter</a>";					
+                    }
+                    $pagination.= "...";
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lpm1 . '">' . $lpm1 . '</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lastpage . '">' . $lastpage . '</a></li>';
+                    // $pagination.= "<a href=\"diggstyle.php?page=$lpm1\">$lpm1</a>";
+                    // $pagination.= "<a href=\"diggstyle.php?page=$lastpage\">$lastpage</a>";		
+                }
+                //close to end; only hide early pages
+                else
+                {
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=1">1</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=2">2</a></li>';
+                    // $pagination.= "<a href=\"diggstyle.php?page=1\">1</a>";
+                    // $pagination.= "<a href=\"diggstyle.php?page=2\">2</a>";
+                    $pagination.= "...";
+                    for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
+                    {
+                        if ($counter == $page)
+                            $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
+                        else
+                            $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';		
+                    }
+                }
+            }
+            
+            //next button
+            if ($page < $counter - 1) 
+                $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $next . '"><span aria-hidden="true">&raquo;</span></a></li>';		
+                // $pagination.= "<a href=\"diggstyle.php?page=$next\">next »</a>";
+            else
+                // $pagination.= "<span class=\"disabled\">next »</span>";
+                $pagination.= '<li class="page-item"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>';
+            $pagination.= "</ul>\n";		
+        }
+        return $pagination;
+    }
+
 }

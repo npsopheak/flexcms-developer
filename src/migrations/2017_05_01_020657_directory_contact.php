@@ -19,6 +19,7 @@ class DirectoryContact extends Migration
             // $table->string('position');
             $table->integer('position_id')->nullable();
             $table->string('email', 256)->nullable();
+            $table->string('contacty_type', 100)->nullable();
             $table->string('phone', 256)->nullable();
             $table->string('social_network', 256)->nullable();
             $table->string('description', 1200)->nullable();

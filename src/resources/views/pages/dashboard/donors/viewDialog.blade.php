@@ -15,8 +15,13 @@
                 <div style="margin-top: 15px;" layout-gt-xs="column">
 
                     <md-input-container flex-gt-xs>
-                        <label>Year</label>
-                        <input ng-model="data.year" name="year" required>
+                        <label>Year:</label>
+                        <md-select placeholder="Type" ng-model="data.year" 
+                            style="padding-bottom: 0px;" flex-gt-xs required>
+                            <md-option value="">Select year type</md-option>
+                            <md-option value="This Year">This Year</md-option>
+                            <md-option value="Last Year">Last Year</md-option>
+                        </md-select> 
                         <div ng-messages="dialogFormType.year.$error"
                                 ng-show="dialogFormType.year.$dirty && dialogFormType.year.$invalid">
                             <div ng-message="required">Year is required</div>

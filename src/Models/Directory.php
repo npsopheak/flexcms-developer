@@ -42,12 +42,14 @@ class Directory extends Model
         'main_activities',
         'impact',
         'solutions',
-
+        'location_id',
         'appreviation',
         'background',
         'vision',
         'mission',
         'goal',
+
+        'faxes',
 
         'project_type_id'
     ];
@@ -96,6 +98,10 @@ class Directory extends Model
         return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','project_type_id');
     }
 
+    public function location(){
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','location_id');
+    }
+
     /**
      * The roles that belong to the user.
      */
@@ -107,5 +113,27 @@ class Directory extends Model
     public function users()
     {
         return $this->belongsToMany('FlexCMS\BasicCMS\Models\User', 'directory_users', 'directory_id', 'user_id');
+    }
+
+    /* Detailed item */
+
+    public function budgets(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryBudget')->orderBy('year', 'DESC');
+    }
+
+    public function activities(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryActivity');
+    }
+
+    public function contacts(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryContact');
+    }
+
+    public function donors(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryDonor')->orderBy('year', 'DESC');
+    }
+
+    public function staffs(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryStaff');
     }
 }   

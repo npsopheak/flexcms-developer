@@ -32,6 +32,11 @@
 		$scope.user_selected = [];
 		$scope.data = {};
 		$scope.mode = 'create';
+		$scope.contact_types = {
+			'contact-organization-senior': 'Contact Organization Senior',
+			'key-contact-person': 'Key Contact Person',
+			'alternative-contact-person': 'Alternative Contact Person'
+		};
 
 		function resetRelated(){
 			$scope.staffs = [];
@@ -376,6 +381,9 @@
 			$scope.project_types = _.filter(s.result, function (v){
                 return v.item_type == 'directory_project_type';
             });
+			$scope.locations = _.filter(s.result, function (v){
+                return v.item_type == 'directory_location';
+            });
 	    });
 		$scope.select_categories = [];
 		$scope.itemChange = function (v){
@@ -467,9 +475,9 @@
 						        .ok('Got it!')
 						)
 		                .then(function(answer) {
-		                    $location.path('articles/' + $scope.data.id);
+		                    $location.path('members/' + $scope.data.id);
 		                }, function() {
-		                    $location.path('articles/' + $scope.data.id);
+		                    $location.path('members/' + $scope.data.id);
 		                });
 	 				}
 	 			}, function (f){

@@ -100,23 +100,30 @@ class DirectoryController extends ApiController {
 			$data = Input::all();
 			$validation = \Validator::make($data, [
 	            'name' => 'required|max:255',
-	            'hash' => 'required',
+	            // 'hash' => 'required',
 	            // 'category_id' => 'required|exists:items,id',
-	            'description' => 'required',
+	            // 'description' => 'required',
 	            'phones' => 'required',
 	            'websites' => 'required',
 	            'emails' => 'required',
 	            'address' => 'required',
 				// 'category_id' => 'required'
-	            'category_ids' => 'required|array'
+	            // 'category_ids' => 'required|array'
 	        ]);
 	        if ($validation->passes()){
-	        	$category_ids = $data['category_ids'];
-	        	unset($data['category_ids']);
+				$category_ids = false;
+				if (isset($data['category_ids'])){
+					$category_ids = $data['category_ids'];
+					unset($data['category_ids']);
+				}
+	        	
+	        	
 	        	$data['created_by'] = Auth::user()->id;
 	        	$data['updated_by'] = Auth::user()->id;
 	        	$directory = Directory::create($data);
-	        	$directory->categories()->sync($category_ids);
+				if ($category_ids != false){
+	        		$directory->categories()->sync($category_ids);
+				}
 	        	return $this->ok($directory);
 	        }
 	        else{
@@ -202,6 +209,12 @@ class DirectoryController extends ApiController {
 			}
 			if (\Input::get('project_type_id') != null){
 				$directory->project_type_id = \Input::get('project_type_id');
+			}
+			if (\Input::get('faxes')){
+				$directory->faxes = Input::get('faxes');
+			}
+			if (\Input::get('location_id')){
+				$directory->location_id = Input::get('location_id');
 			}
 	        $directory->updated_by = Auth::user()->id;
 			$directory->save();
@@ -706,6 +719,12 @@ class DirectoryController extends ApiController {
 				if (\Input::get('description') != null){
 					$item->description = \Input::get('description');
 				}
+				if (\Input::get('quantity') != null){
+					$item->quantity = \Input::get('quantity');
+				}
+				if (\Input::get('female_quantity') != null){
+					$item->female_quantity = \Input::get('female_quantity');
+				}
 				
 				\Log::info('Logging Staff generic update');
 				return $item;
@@ -794,6 +813,9 @@ class DirectoryController extends ApiController {
 				}
 				if (\Input::get('seq_no') != null){
 					$item->seq_no = \Input::get('seq_no');
+				}
+				if (\Input::get('contact_type') != null){
+					$item->contact_type = \Input::get('contact_type');
 				}
 				return $item;
 			});

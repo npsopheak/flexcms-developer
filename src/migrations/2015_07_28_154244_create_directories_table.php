@@ -16,7 +16,7 @@ class CreateDirectoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('appreviation')->nullable();
-            $table->string('hash')->unique();
+            $table->string('hash')->unique()->nullable();
             $table->string('short_description', 256)->nullable();
             $table->string('social_issues')->nullable();
             $table->string('solutions')->nullable();
@@ -26,11 +26,13 @@ class CreateDirectoriesTable extends Migration
             $table->text('vision')->nullable();
             $table->text('mission')->nullable();
             $table->text('goal')->nullable();
-            $table->string('description', 1200);
+            $table->string('description', 1200)->nullable();
             $table->integer('logo_id')->nullable();
             $table->integer('category_id')->nullable();
             $table->integer('project_type_id')->nullable();
+            $table->integer('location_id')->nullable();
             $table->string('phones', 50)->nullable();
+            $table->string('faxes', 50)->nullable();
             $table->string('websites', 400)->nullable();
             $table->string('address', 1000)->nullable();
             $table->string('emails', 100)->nullable();

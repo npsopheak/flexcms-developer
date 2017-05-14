@@ -21,7 +21,7 @@ class DirectoryStaff extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'gender', 'type_id', 'description', 'directory_id', 
+        'name', 'gender', 'quantity', 'female_quantity', 'type_id', 'description', 'directory_id', 
         'user_id', 'seq_no', 'is_active', 'created_by', 'updated_by', 'deleted_by',
         'created_at', 'updated_at'
     ];

@@ -21,7 +21,7 @@ class DirectoryContact extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'position_id', 'email', 'phone', 'social_network', 'description', 'directory_id', 
+        'name', 'position_id', 'contact_type', 'email', 'phone', 'social_network', 'description', 'directory_id', 
         'seq_no', 'is_active', 'created_by', 'updated_by', 'deleted_by',
         'created_at', 'updated_at'
     ];

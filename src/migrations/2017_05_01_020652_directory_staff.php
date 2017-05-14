@@ -15,10 +15,12 @@ class DirectoryStaff extends Migration
     {
         Schema::create('directory_staffs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('gender')->nullable();
             // $table->string('type')->nullable();
             $table->integer('type_id')->nullable();
+            $table->integer('quantity')->default(0);
+            $table->integer('female_quantity')->default(0);
             $table->string('short_description', 256)->nullable();
             $table->string('description', 1200);
             $table->integer('directory_id')->nullable();

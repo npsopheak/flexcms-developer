@@ -13,39 +13,27 @@
         <md-dialog-content class="dimension-create">
             <div layout-gt-xs="column" style="margin-top: 15px;">
                 <div style="margin-top: 15px;" layout-gt-xs="column">
+                
                     <md-input-container flex-gt-xs>
-                        <label>Name</label>
-                        <input ng-model="data.name" name="name" required>
-                        <div ng-messages="dialogFormType.name.$error"
-                                ng-show="dialogFormType.name.$dirty && dialogFormType.name.$invalid">
-                            <div ng-message="required">Name is required</div>
-                        </div>
-                    </md-input-container>
-
-                    <md-input-container flex-gt-xs >
-                        <label>Description</label>
-                        <textarea ng-model="data.description" columns="1" name="description"
-                            fmd-maxlength="150"></textarea>
-                    </md-input-container>
-
-                    <md-input-container flex-gt-xs>
-                        <label>Gender</label>
-                        <md-select placeholder="Gender" ng-model="data.gender" 
-                            style="padding-bottom: 0px;" flex-gt-xs>
-                            <md-option value="">None</md-option>
-                            <md-option value="m">Male</md-option>
-                            <md-option value="f">Female</md-option>
-                        </md-select> 
-                    </md-input-container>
-
-                    <md-input-container flex-gt-xs>
-                        <label>Position</label>
-                        <md-select placeholder="Position" ng-model="data.type_id" 
+                        <label>Staff Type</label>
+                        <md-select placeholder="Staff Type" ng-model="data.type_id" 
                             style="padding-bottom: 0px;" flex-gt-xs>
                             <md-option value="">None</md-option>
                             <md-option value="<% item.id %>" ng-repeat="item in types"><% item.display_name %></md-option>
                         </md-select> 
                     </md-input-container>
+
+                    <md-input-container flex-gt-xs >
+                        <label>Quantity</label>
+                        <input ng-model="data.quantity" name="quantity" required>
+                    </md-input-container>
+
+                    <md-input-container flex-gt-xs >
+                        <label>Female Quantity</label>
+                        <input ng-model="data.female_quantity" name="female_quantity" required>
+                    </md-input-container>
+
+                    
                 </div>
             </div>
         </md-dialog-content>
