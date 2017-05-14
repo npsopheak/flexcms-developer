@@ -635,6 +635,22 @@ class CMS {
         return $item;
 	}
 
+	public function resourceUpdate($Model, $id, $closure = null){
+		
+        $item = $Model::where('id', '=', $id)->first();
+        if (!$item){
+            throw new \Exception('The item cannot be found to update');
+        }
+        if ($closure){
+            $item = $closure($item);
+        }
+        // TODO: Add save user
+        // $item->updated_by = Auth::user()->id;
+        $item->save();
+        return $item;
+		
+	}
+
     public function generatePagination($total_pages, $limit, $page, $baseUrl){
         // How many adjacent pages should be shown on each side?
         $adjacents = 3;
