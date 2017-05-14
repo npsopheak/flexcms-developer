@@ -635,7 +635,7 @@ class CMS {
         return $item;
 	}
 
-    public function generatePagination($total_pages, $limit, $page){
+    public function generatePagination($total_pages, $limit, $page, $baseUrl){
         // How many adjacent pages should be shown on each side?
         $adjacents = 3;
         if($page) 
@@ -661,7 +661,7 @@ class CMS {
             //previous button
             if ($page > 1) 
                 $pagination.= "<li class=\"page-item\">
-                    <a href=\"/members?page=$prev\" class=\"page-link\" aria-label=\"Previous\">
+                    <a href=\"" . $baseUrl . "?page=$prev\" class=\"page-link\" aria-label=\"Previous\">
                         <span aria-hidden=\"true\">&laquo;</span>
                     </a>
                     </li>";
@@ -682,7 +682,7 @@ class CMS {
                         $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
                         // $pagination.= "<span class=\"current\">$counter</span>";
                     else
-                        $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';	
+                        $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $counter . '">' . $counter . '</a></li>';	
                         // $pagination.= "<a href=\"diggstyle.php?page=$counter\">$counter</a>";					
                 }
             }
@@ -696,19 +696,19 @@ class CMS {
                         if ($counter == $page)
                             $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
                         else
-                            $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';			
+                            $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $counter . '">' . $counter . '</a></li>';			
                     }
                     $pagination.= "...";
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lpm1 . '">' . $lpm1 . '</a></li>';
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lastpage . '">' . $lastpage . '</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $lpm1 . '">' . $lpm1 . '</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $lastpage . '">' . $lastpage . '</a></li>';
                         //"<a href=\"diggstyle.php?page=$lpm1\">$lpm1</a>";
                     // $pagination.= "<a href=\"diggstyle.php?page=$lastpage\">$lastpage</a>";		
                 }
                 //in middle; hide some front and some back
                 elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
                 {
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=1">1</a></li>';
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=2">2</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=1">1</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=2">2</a></li>';
                     // $pagination.= "<a href=\"diggstyle.php?page=1\">1</a>";
                     // $pagination.= "<a href=\"diggstyle.php?page=2\">2</a>";
                     $pagination.= "...";
@@ -718,20 +718,20 @@ class CMS {
                             $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
                             // $pagination.= "<span class=\"current\">$counter</span>";
                         else
-                            $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';		
+                            $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $counter . '">' . $counter . '</a></li>';		
                             // $pagination.= "<a href=\"diggstyle.php?page=$counter\">$counter</a>";					
                     }
                     $pagination.= "...";
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lpm1 . '">' . $lpm1 . '</a></li>';
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $lastpage . '">' . $lastpage . '</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $lpm1 . '">' . $lpm1 . '</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $lastpage . '">' . $lastpage . '</a></li>';
                     // $pagination.= "<a href=\"diggstyle.php?page=$lpm1\">$lpm1</a>";
                     // $pagination.= "<a href=\"diggstyle.php?page=$lastpage\">$lastpage</a>";		
                 }
                 //close to end; only hide early pages
                 else
                 {
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=1">1</a></li>';
-                    $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=2">2</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=1">1</a></li>';
+                    $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=2">2</a></li>';
                     // $pagination.= "<a href=\"diggstyle.php?page=1\">1</a>";
                     // $pagination.= "<a href=\"diggstyle.php?page=2\">2</a>";
                     $pagination.= "...";
@@ -740,14 +740,14 @@ class CMS {
                         if ($counter == $page)
                             $pagination.= '<li class="page-item active"><a class="page-link" href="#">' . $counter . '</a></li>';
                         else
-                            $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $counter . '">' . $counter . '</a></li>';		
+                            $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $counter . '">' . $counter . '</a></li>';		
                     }
                 }
             }
             
             //next button
             if ($page < $counter - 1) 
-                $pagination.= '<li class="page-item"><a class="page-link" href="/members?page=' . $next . '"><span aria-hidden="true">&raquo;</span></a></li>';		
+                $pagination.= '<li class="page-item"><a class="page-link" href="' . $baseUrl . '?page=' . $next . '"><span aria-hidden="true">&raquo;</span></a></li>';		
                 // $pagination.= "<a href=\"diggstyle.php?page=$next\">next »</a>";
             else
                 // $pagination.= "<span class=\"disabled\">next »</span>";
@@ -755,6 +755,36 @@ class CMS {
             $pagination.= "</ul>\n";		
         }
         return $pagination;
+    }
+
+    public function formatSizeUnits($bytes)
+    {
+        if ($bytes >= 1073741824)
+        {
+            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+        }
+        elseif ($bytes >= 1048576)
+        {
+            $bytes = number_format($bytes / 1048576, 2) . ' MB';
+        }
+        elseif ($bytes >= 1024)
+        {
+            $bytes = number_format($bytes / 1024, 2) . ' KB';
+        }
+        elseif ($bytes > 1)
+        {
+            $bytes = $bytes . ' bytes';
+        }
+        elseif ($bytes == 1)
+        {
+            $bytes = $bytes . ' byte';
+        }
+        else
+        {
+            $bytes = '0 bytes';
+        }
+
+        return $bytes;
     }
 
 }
