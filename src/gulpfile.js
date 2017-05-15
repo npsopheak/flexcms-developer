@@ -137,15 +137,10 @@ elixir(function(mix) {
             .pipe(gulp.dest('./public/build/css/'));
     });
 
-    // gulp.task('copy_file', function(cb) {
-
-    //     gulp.src('./public/fonts/BLOKKNeue/*')
-    //          .pipe(gulp.dest('./public/build/fonts/BLOKKNeue'));
-
-    //     return gulp.src('./public/fonts/icomoon-front/fonts/*')
-    //          .pipe(gulp.dest('./public/build/css/fonts'));
-
-    // });
+    gulp.task('copy_file', function(cb) {
+        return gulp.src('./public/flexcms/fonts/icomoon/fonts/*')
+             .pipe(gulp.dest('./public/build/css/fonts'));
+    });
 
     gulp.task('version_admin', function() {
         mix.version(["public/build/*"]);
@@ -156,6 +151,6 @@ elixir(function(mix) {
             .pipe(clean());
     });
 
-    gulp.task('prod_admin', ['clean_before','mix_css_admin', 'minify_css_admin', 'minify_js_admin']);
+    gulp.task('prod_admin', ['clean_before','mix_css_admin', 'minify_css_admin', 'minify_js_admin', 'copy_file']);
 
 });
