@@ -5,21 +5,21 @@ namespace FlexCMS\BasicCMS\Commands;
 use Illuminate\Console\Command;
 use \RecursiveDirectoryIterator;
 
-class ClearPublic extends Command
+class ClearResource extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'flex:clear-public';
+    protected $signature = 'flex:clear-resource';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Clear public folder';
+    protected $description = 'Clear resource folder';
 
     /**
      * Create a new command instance.
@@ -39,9 +39,8 @@ class ClearPublic extends Command
     public function handle()
     {
         
-        $publicPath = public_path('vendor/flexcms');
-
-		try{
+        $publicPath = public_path('../resources/views/vendor/flexcms');
+        try{
 
             $it = new \RecursiveDirectoryIterator($publicPath, \RecursiveDirectoryIterator::SKIP_DOTS);
             $files = new \RecursiveIteratorIterator($it,
@@ -58,6 +57,6 @@ class ClearPublic extends Command
         catch (\Exception $e){
 
         }
-		$this->info('Public folder has been cleared.');
+		$this->info('Resource folder has been cleared.');
     }
 }

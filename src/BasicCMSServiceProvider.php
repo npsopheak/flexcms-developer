@@ -9,6 +9,7 @@ use Illuminate\Foundation\AliasLoader;
 use FlexCMS\BasicCMS\Commands\AddPage;
 use FlexCMS\BasicCMS\Commands\ClearPublic;
 use FlexCMS\BasicCMS\Commands\AddScript;
+use FlexCMS\BasicCMS\Commands\ClearResource;
 
 class BasicCMSServiceProvider extends ServiceProvider
 {
@@ -87,6 +88,7 @@ class BasicCMSServiceProvider extends ServiceProvider
                 AddPage::class,
                 ClearPublic::class,
                 AddScript::class,
+                ClearResource::class
             ]);
         }
 
