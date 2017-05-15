@@ -14,8 +14,8 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
 
     var basePath = null;
-    basePath = './public/flexcms';
-    // basePath = './public/vendor/flexcms';
+    basePath = './public/vendor/flexcms';
+    // basePath = './public/flexcms';
 
     var gulp = require('gulp');
     var sass = require('gulp-sass');
@@ -38,12 +38,6 @@ elixir(function(mix) {
     var clean = require('gulp-rimraf');
 
     var autoprefixer = require('gulp-autoprefixer');
-
-    gulp.task('bcss', function() {
-        mix.sass('main.scss', 'public/flexcms/css/main.css');
-        mix.sass('theme.scss', 'public/flexcms/css/theme.css');
-        mix.sass('vendor.scss', 'public/flexcms/css/vendor.css');
-    });
 
     // minify js for admin 
     gulp.task('minify_js_admin', function() {
