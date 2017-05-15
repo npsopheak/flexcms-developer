@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    
+    "publish": "(rm -R ./public/build || true) && gulp prod_admin && php ../../../../artisan flex:clear-public && php ../../../../artisan flex:clear-resource && php ../../../../artisan vendor:publish --tag=public ",
+    "publish-test": "php ../../../../artisan flex:clear-public && php ../../../../artisan vendor:publish --tag=public "
   },
   "devDependencies": {
     "laravel-mix": "^0.6.0",
