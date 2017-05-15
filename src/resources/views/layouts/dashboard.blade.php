@@ -38,7 +38,7 @@
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
-            
+
             <link href="{{ elixir('/vendor/build/css/admin_style.css') }}" rel="stylesheet">
 
         @endif
@@ -73,16 +73,6 @@
 
     <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&libraries=places'></script>
 
-    @if (App::environment('production')) 
-        <script src="{{ elixir('/vendor/build/js/hh-admin-script.js') }}"></script>
-
-        <script type="text/javascript">
-            // CONFIGURE DOMAIN
-            namespace.domain = '{{ config("flexcms.api.endpoint") }}';
-            namespace.sessionId = '{{ config("flexcms.api.session_id") }}';
-        </script>
-
-    @endif
 
     @if (App::environment('local')) 
 
@@ -132,6 +122,17 @@
         {!! \CMS::generateScripts('customs', [ 'directives/coEditor', 
             'services/crypt', 'services/resource', 'services/request', 
             'controllers/loading', 'controllers/alert', 'controllers/left']) !!}
+    
+    @else
+
+        <script src="{{ elixir('/vendor/build/js/hh-admin-script.js') }}"></script>
+
+        <script type="text/javascript">
+            // CONFIGURE DOMAIN
+            namespace.domain = '{{ config("flexcms.api.endpoint") }}';
+            namespace.sessionId = '{{ config("flexcms.api.session_id") }}';
+        </script>
+
     @endif
 
     @section('scripts')
