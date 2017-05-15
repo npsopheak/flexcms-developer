@@ -22,21 +22,25 @@
 		<link href="{{ URL::asset('img/red.png') }}" type="image/x-icon" rel="shortcut icon" />
 
 
-        {{-- @if(App::environment('local')) --}}
+        @if (App::environment('local'))
 
-		<link href="{{ asset('vendor/flexcms/css/vendor.css') }}" rel="stylesheet">
-        <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
-		
-		<link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('vendor/flexcms/css/main.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/css/vendor.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+            
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
+            <link href="{{ asset('vendor/flexcms/css/main.css') }}" rel="stylesheet">
 
-        {{-- @else --}}
+        @else
+            <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+            
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
+            <link href="{{ elixir('build/css/admin_style.css') }}" rel="stylesheet">
 
-            {{-- <link href="{{ elixir('css/admin_style.css') }}" rel="stylesheet"> --}}
-
-        {{-- @endif --}}
+        @endif
 
 
 	    <style>
@@ -68,8 +72,18 @@
 
     <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&libraries=places'></script>
 
-    
-        <!-- Angular Material Dependencies -->
+    @if (App::environment('production')) 
+        <script src="{{ elixir('/build/js/hh-admin-script.js') }}"></script>
+
+        <script type="text/javascript">
+            // CONFIGURE DOMAIN
+            namespace.domain = '{{ config("flexcms.api.endpoint") }}';
+            namespace.sessionId = '{{ config("flexcms.api.session_id") }}';
+        </script>
+
+    @endif
+
+    @if (App::environment('local')) 
 
         <script src="/vendors/moment/min/moment.min.js"></script>
         <script src="/vendor/flexcms/vendors/lodash/dist/lodash.min.js"></script>
@@ -117,6 +131,7 @@
         {!! \CMS::generateScripts('customs', [ 'directives/coEditor', 
             'services/crypt', 'services/resource', 'services/request', 
             'controllers/loading', 'controllers/alert', 'controllers/left']) !!}
+    @endif
 
     @section('scripts')
 
