@@ -94,7 +94,7 @@
         <script src="/vendor/flexcms/vendors/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
 
         
-        <script type="text/javascript" src="{{ asset('vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/vendor/flexcms/vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
 
         <script src="/vendor/flexcms/vendors/ngmap/build/scripts/ng-map.min.js"></script>
         <script src="/vendor/flexcms/vendors/angular-resource/angular-resource.min.js"></script>
