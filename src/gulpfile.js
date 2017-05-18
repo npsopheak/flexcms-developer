@@ -153,4 +153,22 @@ elixir(function(mix) {
 
     gulp.task('prod_admin', ['clean_before','mix_css_admin', 'minify_css_admin', 'minify_js_admin', 'copy_file']);
 
+    // GULP FOR DEV ASSET
+    // TO Run: gulp dev watch
+    const SRC = './public/flexcms/**/*';
+    const DEST = './../../../../public/vendor/flexcms/**/*';
+
+    var execShell = require('child_process').exec;
+
+    gulp.task('dev-publish-public', function(){
+        execShell('npm run publish-dev-public', function (er, stdin, stdout){
+            console.log('Run completed', stdout);
+        });
+        return gulp.src(SRC);
+        });
+
+    gulp.task('watch-dev', function(){
+        gulp.watch(SRC, ['dev-publish-public']);
+    });
+
 });
