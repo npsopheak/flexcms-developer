@@ -56,7 +56,7 @@
                 <th md-column><span>Name</span></th>
                 <th md-column><span>Category</span></th>
                 <th md-column><span>Appreviation</span></th>
-                <th md-column><span>Description</span></th>
+                {{-- <th md-column><span>Description</span></th> --}}
                 <th md-column><span>Seq No</span></th>
                 <th md-column>Created at</th>
                 <th md-column>
@@ -72,7 +72,7 @@
                 <td md-cell><% item.name %></td>
                 <td md-cell><% item.category.display_name %></td>
                 <td md-cell><% item.appreviation %></td>
-                <td md-cell><% item.short_description %></td>
+                {{-- <td md-cell><% item.short_description %></td> --}}
                 <td md-cell><% item.seq_no %></td>
                 <td md-cell><% formatUtcDate(item.created_at) %></td>
                 <td md-cell>
@@ -80,7 +80,7 @@
                 </td>
               </tr>
               <tr md-row ng-show="!data.length">
-                <td md-cell colspan="8">There is no advertisement data</td>
+                <td md-cell colspan="7">There is no advertisement data</td>
               </tr>
             </tbody>
           </table>
