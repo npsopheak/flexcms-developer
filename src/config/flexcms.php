@@ -4,11 +4,11 @@ return [
 
 	'app' => [
 
-		'name' => 'Flex Dashboard',
+		'name' => 'NEP Documentation Dashboard',
 
 		'login' => [
 
-			'name' => 'Flex Dashboard',
+			'name' => 'NEP Documentation',
 
 			'description' => 'Accessing the content management system'
 			
@@ -22,13 +22,13 @@ return [
 		'request_id' => 'X-XX-Request-ID',
 
 		// The session id 
-		'session_id' => 'X-XX-Connect-ID',
+		'session_id' => 'X-XX-ConNEPt-ID',
 
 		// The key encryption name
 		'encrypt_key_id' => 'X-XX-Sign-Key',
 
 		// User Agent name
-		'user_agent' => 'Flex Dashboard'
+		'user_agent' => 'NEP Documentation Dashboard'
 	],
 
     'api' => [

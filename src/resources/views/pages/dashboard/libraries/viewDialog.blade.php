@@ -60,12 +60,12 @@
                                         </span>
 
                                         <span ng-show="uploadingFile_document_khmer_id">
-                                            New file selected: <% uploadingFile_document_english_id.file.name %>
+                                            New file selected: <% uploadingFile_document_khmer_id.file.name %>
                                         </span>
 
                                         <br>
                                         <span class="" style="font-size: 12px; color: gray">
-                                            Size: <% data.document_english ? data.document_english.content_length / 1024 : '(TBD)' %> KB
+                                            Size: <% data.document_khmer ? data.document_khmer.content_length / 1024 : '(TBD)' %> KB
                                         </span>
                                     </div>
                                     <div flex-gt-xs class="document-progress"

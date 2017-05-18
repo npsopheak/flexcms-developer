@@ -22,7 +22,7 @@ class DirectoryActivity extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'location', 'short_description', 'activity_date', 'description', 'directory_id', 
+        'name', 'location', 'location_id', 'short_description', 'activity_date', 'description', 'directory_id', 
         'seq_no', 'is_active', 'created_by', 'updated_by', 'deleted_by',
         'created_at', 'updated_at'
     ];

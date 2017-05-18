@@ -116,7 +116,8 @@ class DirectoryController extends ApiController {
 					$category_ids = $data['category_ids'];
 					unset($data['category_ids']);
 				}
-	        	
+				
+	        	$data['hash'] = time() . '-' . rand();
 	        	
 	        	$data['created_by'] = Auth::user()->id;
 	        	$data['updated_by'] = Auth::user()->id;
