@@ -60,7 +60,7 @@
                 <th md-column style="text-align: center"><span>Downloads (Khm)</span></th>
                 <th md-column style="text-align: center"><span>Preview (Eng)</span></th>
                 <th md-column style="text-align: center"><span>Preview (Khm)</span></th>
-                <th md-column><span>Description</span></th>
+                {{-- <th md-column><span>Description</span></th> --}}
                 <th md-column>Created at</th>
               </tr>
             </thead>
@@ -87,10 +87,10 @@
                     <md-icon md-font-icon="icon-eye" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
                 </td>
                 <td md-cell><% formatUtcDate(item.created_at) %></td>
-                <td md-cell>
+                {{-- <td md-cell>
                     <label class="label label-info" ng-show="item.status == 'published'">Published</label>
                     <label class="label label-info" ng-show="item.status !== 'published'">Pending</label>
-                </td>
+                </td>--}}
               </tr>
               <tr md-row ng-show="!data.length">
                 <td md-cell colspan="12">There is no library data</td>
