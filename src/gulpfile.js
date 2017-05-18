@@ -76,7 +76,7 @@ elixir(function(mix) {
             basePath + '/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
             basePath + '/vendors/angular-material-data-table/dist/md-data-table.min.js',
 
-            basePath + '/vendors/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js',
+            basePath + '/vendors/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js',
 
             basePath + '/vendors-download/ckeditor/ckeditor.js',
 

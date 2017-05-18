@@ -28,7 +28,7 @@
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
             
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
             <link href="{{ asset('vendor/flexcms/css/main.css') }}" rel="stylesheet">
 
@@ -36,7 +36,7 @@
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
             
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/css/material-datetimepicker.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
 
             <link href="{{ elixir('/vendor/build/css/admin_style.css') }}" rel="stylesheet">
@@ -91,7 +91,7 @@
         <script src="/vendor/flexcms/vendors-download/magnific-popup/jquery.magnific-popup.js"></script>
         <script src="/vendor/flexcms/vendors/angular-google-maps/dist/angular-google-maps.min.js"></script>
 
-        <script src="/vendor/flexcms/vendors/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
+        <script src="/vendor/flexcms/vendors/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
 
         
         <script type="text/javascript" src="{{ asset('vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
