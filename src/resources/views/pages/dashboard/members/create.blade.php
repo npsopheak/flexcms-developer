@@ -548,7 +548,7 @@
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in libraries">
 						                <td md-cell><% item.name %></td>
-						                <td md-cell><% item.description %></td>
+						                <td md-cell style="white-space: nowrap;max-width: 100px;text-overflow: ellipsis;overflow: hidden;"><% item.description %></td>
 						                <td md-cell style="<% item.document_english ? 'font-weight: bold': ''%>"><% item.document_english ? 'Yes' : 'No' %></td>
 														<td md-cell style="<% item.document_khmer ? 'font-weight: bold': ''%>"><% item.document_khmer ? 'Yes' : 'No' %></td>
 														<td md-cell style="<% item.document_english ? 'font-weight: bold': ''%>"><% item.document_english_download %></td>
