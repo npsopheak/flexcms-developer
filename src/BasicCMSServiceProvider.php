@@ -80,8 +80,14 @@ class BasicCMSServiceProvider extends ServiceProvider
         // Add publish view
         $this->publishes([
             __DIR__.'/public' => public_path('vendor'),
-            __DIR__ . '/resources/views' => base_path('resources/views/vendor/flexcms'),
+            // __DIR__ . '/resources/views' => base_path('resources/views/vendor/flexcms'),
         ], 'public');
+
+
+        $this->publishes([
+            // __DIR__.'/public' => public_path('vendor'),
+            __DIR__ . '/resources/views' => base_path('resources/views/vendor/flexcms'),
+        ], 'resource');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
