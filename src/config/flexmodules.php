@@ -67,6 +67,10 @@
         0 => 'list',
         1 => 'viewDialog',
       ),
+      'careers' => 
+      array (
+        0 => 'list',
+      ),
     ),
     'login' => 
     array (
