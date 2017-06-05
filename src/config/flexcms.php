@@ -42,6 +42,15 @@ return [
 
 		// Value for request id
 		'request_id' => 'MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw=='
-    ]
+    ],
+
+	'cms' => [
+		'modules' => [
+			// Main for module dashboard such as: dashboard/activities,
+			// Main for customs such as: customs/controllers/left, customs/services/crypt
+			'excepts' => ['dashboard/activities', 'dashboard/budgets', 'dashboard/contacts', 'dashboard/donors', 'dashboard/members',
+			'dashboard/staffs']
+		]
+	]
 
 ];

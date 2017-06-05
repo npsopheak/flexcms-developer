@@ -12,6 +12,7 @@ class CMS {
     // php artisan vendor:publish --tag=public 
     public function generateScripts($main, $scripts = []){
         $modules = config('flexmodules.modules');
+        $ignoreModules = config('flexcms.cms.modules.excepts');
 
         $base = 'vendor/flexcms/js';
 
@@ -22,7 +23,10 @@ class CMS {
 
             foreach($globals as $key => $value){
                 if (in_array($value, $scripts) || count($scripts) == 0){
-                    $files[] = $base . '/' . $value . '.js';
+                    // Ignore custom in flexcms configuration
+                    if (in_array($value, $ignoreModules) != 1){
+                        $files[] = $base . '/' . $value . '.js';
+                    }
                 
                 }
                 else{
@@ -76,12 +80,19 @@ class CMS {
                 foreach($mains as $key => $value){
                     if (is_array($value)){
                         foreach($value as $k => $v){
-                            $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $v . '.js';    
+                            // Ignore module dashboard in flexcms configuration
+                            if (in_array($main . '/' . $key, $ignoreModules) != 1){
+                                $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $v . '.js';    
+                            }
+                            
                         }
                         
                     }
                     else if (is_string($value)){ 
-                        $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $value . '.js';
+                        // Ignore module dashboard in flexcms configuration
+                        if (in_array($main . '/' . $key, $ignoreModules) != 1){
+                            $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $value . '.js';
+                        }
                     }
                     
                 }   
