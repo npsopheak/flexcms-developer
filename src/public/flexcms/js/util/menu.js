@@ -10,20 +10,34 @@ namespace.menus = [{
         //     enabled: true,
         //     path: '/articles'
         // },
+        // {
+        //     name: 'Members',
+        //     extraScreen: 'member',
+        //     icon: 'icon-office',
+        //     enabled: true,
+        //     path: '/members'
+        // },
+        // {
+        //     name: 'Libraries',
+        //     extraScreen: 'libraries',
+        //     icon: 'icon-libreoffice',
+        //     enabled: true,
+        //     path: '/libraries'
+        // },
         {
-            name: 'Members',
-            extraScreen: 'member',
-            icon: 'icon-office',
-            enabled: true,
-            path: '/members'
-        },
-        {
-            name: 'Libraries',
-            extraScreen: 'libraries',
+            name: 'Careers',
+            extraScreen: 'careers',
             icon: 'icon-libreoffice',
             enabled: true,
-            path: '/libraries'
-        }
+            path: '/careers'
+        }, {
+            name: 'Career Candidates',
+            extraScreen: 'career candidates',
+            icon: 'icon-libreoffice',
+            enabled: true,
+            path: '/careers/candidates'
+        },
+        { name: 'Quotes Request', extraScreen: 'quote request', icon: 'icon-mail3', enabled: true, path: '/quotes' },
     ]
 }, {
     name: 'user',
