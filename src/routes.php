@@ -131,54 +131,62 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::post('users/{id}/directory', 'UserController@assignDirectoryMember');
     Route::delete('users/{id}/directory', 'UserController@unassignDirectoryMember');
 
+    // @deprecated in this job
     // Directory endpoint for staff 
-    Route::get('directories/{directoryId}/staffs', 'DirectoryController@indexStaff');
-    Route::post('directories/{directoryId}/staffs', 'DirectoryController@storeStaff');
-    Route::put('directories/{directoryId}/staffs/{id}', 'DirectoryController@updateStaff');
-    Route::delete('directories/{directoryId}/staffs/{id}', 'DirectoryController@destroyStaff');
-    Route::get('directories/{directoryId}/staffs/{id}', 'DirectoryController@showStaff');
+    // Route::get('directories/{directoryId}/staffs', 'DirectoryController@indexStaff');
+    // Route::post('directories/{directoryId}/staffs', 'DirectoryController@storeStaff');
+    // Route::put('directories/{directoryId}/staffs/{id}', 'DirectoryController@updateStaff');
+    // Route::delete('directories/{directoryId}/staffs/{id}', 'DirectoryController@destroyStaff');
+    // Route::get('directories/{directoryId}/staffs/{id}', 'DirectoryController@showStaff');
 
-    // Directory endpoint for donor 
-    Route::get('directories/{directoryId}/donors', 'DirectoryController@indexDonor');
-    Route::post('directories/{directoryId}/donors', 'DirectoryController@storeDonor');
-    Route::put('directories/{directoryId}/donors/{id}', 'DirectoryController@updateDonor');
-    Route::delete('directories/{directoryId}/donors/{id}', 'DirectoryController@destroyDonor');
-    Route::get('directories/{directoryId}/donors/{id}', 'DirectoryController@showDonor');
+    // // Directory endpoint for donor 
+    // Route::get('directories/{directoryId}/donors', 'DirectoryController@indexDonor');
+    // Route::post('directories/{directoryId}/donors', 'DirectoryController@storeDonor');
+    // Route::put('directories/{directoryId}/donors/{id}', 'DirectoryController@updateDonor');
+    // Route::delete('directories/{directoryId}/donors/{id}', 'DirectoryController@destroyDonor');
+    // Route::get('directories/{directoryId}/donors/{id}', 'DirectoryController@showDonor');
 
-    // Directory endpoint for libray
-    Route::get('directories/{directoryId}/libraries', 'DirectoryController@indexLibrary');
-    Route::post('directories/{directoryId}/libraries', 'DirectoryController@storeLibrary');
-    Route::put('directories/{directoryId}/libraries/{id}', 'DirectoryController@updateLibrary');
-    Route::delete('directories/{directoryId}/libraries/{id}', 'DirectoryController@destroyLibrary');
-    Route::get('directories/{directoryId}/libraries/{id}', 'DirectoryController@showLibrary');
+    // // Directory endpoint for libray
+    // Route::get('directories/{directoryId}/libraries', 'DirectoryController@indexLibrary');
+    // Route::post('directories/{directoryId}/libraries', 'DirectoryController@storeLibrary');
+    // Route::put('directories/{directoryId}/libraries/{id}', 'DirectoryController@updateLibrary');
+    // Route::delete('directories/{directoryId}/libraries/{id}', 'DirectoryController@destroyLibrary');
+    // Route::get('directories/{directoryId}/libraries/{id}', 'DirectoryController@showLibrary');
 
-    // Directory endpoint for budgets
-    Route::get('directories/{directoryId}/budgets', 'DirectoryController@indexBudget');
-    Route::post('directories/{directoryId}/budgets', 'DirectoryController@storeBudget');
-    Route::put('directories/{directoryId}/budgets/{id}', 'DirectoryController@updateBudget');
-    Route::delete('directories/{directoryId}/budgets/{id}', 'DirectoryController@destroyBudget');
-    Route::get('directories/{directoryId}/budgets/{id}', 'DirectoryController@showBudget');
+    // // Directory endpoint for budgets
+    // Route::get('directories/{directoryId}/budgets', 'DirectoryController@indexBudget');
+    // Route::post('directories/{directoryId}/budgets', 'DirectoryController@storeBudget');
+    // Route::put('directories/{directoryId}/budgets/{id}', 'DirectoryController@updateBudget');
+    // Route::delete('directories/{directoryId}/budgets/{id}', 'DirectoryController@destroyBudget');
+    // Route::get('directories/{directoryId}/budgets/{id}', 'DirectoryController@showBudget');
 
-    // Directory endpoint for activities
-    Route::get('directories/{directoryId}/activities', 'DirectoryController@indexActivity');
-    Route::post('directories/{directoryId}/activities', 'DirectoryController@storeActivity');
-    Route::put('directories/{directoryId}/activities/{id}', 'DirectoryController@updateActivity');
-    Route::delete('directories/{directoryId}/activities/{id}', 'DirectoryController@destroyActivity');
-    Route::get('directories/{directoryId}/activities/{id}', 'DirectoryController@showActivity');
+    // // Directory endpoint for activities
+    // Route::get('directories/{directoryId}/activities', 'DirectoryController@indexActivity');
+    // Route::post('directories/{directoryId}/activities', 'DirectoryController@storeActivity');
+    // Route::put('directories/{directoryId}/activities/{id}', 'DirectoryController@updateActivity');
+    // Route::delete('directories/{directoryId}/activities/{id}', 'DirectoryController@destroyActivity');
+    // Route::get('directories/{directoryId}/activities/{id}', 'DirectoryController@showActivity');
 
-    // Directory endpoint for contacts
-    Route::get('directories/{directoryId}/contacts', 'DirectoryController@indexContact');
-    Route::post('directories/{directoryId}/contacts', 'DirectoryController@storeContact');
-    Route::put('directories/{directoryId}/contacts/{id}', 'DirectoryController@updateContact');
-    Route::delete('directories/{directoryId}/contacts/{id}', 'DirectoryController@destroyContact');
-    Route::get('directories/{directoryId}/contacts/{id}', 'DirectoryController@showContact');
+    // // Directory endpoint for contacts
+    // Route::get('directories/{directoryId}/contacts', 'DirectoryController@indexContact');
+    // Route::post('directories/{directoryId}/contacts', 'DirectoryController@storeContact');
+    // Route::put('directories/{directoryId}/contacts/{id}', 'DirectoryController@updateContact');
+    // Route::delete('directories/{directoryId}/contacts/{id}', 'DirectoryController@destroyContact');
+    // Route::get('directories/{directoryId}/contacts/{id}', 'DirectoryController@showContact');
 
-    // Directory endpoint for users
-    Route::get('directories/{directoryId}/users', 'DirectoryController@indexUser');
-    Route::post('directories/{directoryId}/users', 'DirectoryController@storeUser');
-    Route::put('directories/{directoryId}/users/{id}', 'DirectoryController@updateUser');
-    Route::delete('directories/{directoryId}/users/{id}', 'DirectoryController@destroyUser');
-    Route::get('directories/{directoryId}/users/{id}', 'DirectoryController@showUser');
+    // // Directory endpoint for users
+    // Route::get('directories/{directoryId}/users', 'DirectoryController@indexUser');
+    // Route::post('directories/{directoryId}/users', 'DirectoryController@storeUser');
+    // Route::put('directories/{directoryId}/users/{id}', 'DirectoryController@updateUser');
+    // Route::delete('directories/{directoryId}/users/{id}', 'DirectoryController@destroyUser');
+    // Route::get('directories/{directoryId}/users/{id}', 'DirectoryController@showUser');
+
+    // Endpoint for jobs
+    Route::get('jobs', 'JobController@indexJob');
+    Route::post('jobs', 'JobController@storeJob');
+    Route::put('jobs/{id}', 'JobController@updateJob');
+    Route::delete('jobs/{id}', 'JobController@destroyJob');
+    Route::get('jobs/{id}', 'JobController@showJob');
 
 
 });
