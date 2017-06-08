@@ -15,6 +15,18 @@ namespace.routes = [
     controller: 'DashboardCareersListCtrl',
     reloadOnSearch: false
 },
+{
+    url: 'careers/create',
+    template: '/partials/dashboard.careers.create',
+    controller: 'DashboardCareersCreateCtrl',
+    reloadOnSearch: false
+},
+{
+    url: 'careers/:id',
+    template: '/partials/dashboard.careers.create',
+    controller: 'DashboardCareersCreateCtrl',
+    reloadOnSearch: false
+},
 
 // DEVELOP ROUTE 
 // @deprecated

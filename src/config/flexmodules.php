@@ -70,6 +70,7 @@
       'careers' => 
       array (
         0 => 'list',
+        1 => 'create',
       ),
     ),
     'login' => 
