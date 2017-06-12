@@ -47,10 +47,10 @@
 				      	<!-- <div flex-gt-xs>
 					    </div> -->
 			      	</div>
-					<div class="" layout-gt-xs="row">
+					<div class="" layout-gt-xs="column">
 
 						<div flex-gt-xs>
-							<div layout-gt-xs="column">
+							<div layout-gt-xs="row">
 					      		<md-input-container flex-gt-xs>
 						          	<label>Job Location</label>
 						          	<input ng-model="data.location" name="location" required ng-disabled="loading">
@@ -70,17 +70,25 @@
 							          	<div ng-message="required">Job closing_date is needed</div>
 							        </div>
 						        </md-input-container>
+					      		<md-input-container flex-gt-xs>
+						          	<label>Number of Hiring</label>
+						          	<input ng-model="data.number_hire" name="number_hire" required ng-disabled="loading">
+						        </md-input-container>
 							</div>
 					    </div>
 						<div flex-gt-xs>
-							<div layout-gt-xs="column">
+							<div layout-gt-xs="row">
 					      		<md-input-container flex-gt-xs>
 						          	<label>Experience</label>
 						          	<input ng-model="data.experience" name="experience" required ng-disabled="loading">
 						        </md-input-container>
 					      		<md-input-container flex-gt-xs>
-						          	<label>Number of Hiring</label>
-						          	<input ng-model="data.number_hire" name="number_hire" required ng-disabled="loading">
+						          	<label>Age from</label>
+						          	<input ng-model="data.age_from" name="age_from" required ng-disabled="loading">
+						        </md-input-container>
+					      		<md-input-container flex-gt-xs>
+						          	<label>Age to</label>
+						          	<input ng-model="data.age_to" name="age_to" required ng-disabled="loading">
 						        </md-input-container>
 							</div>
 					    </div>
@@ -93,22 +101,21 @@
 					        	<md-content class="md-padding">
 					          		<div layout-gt-xs="column">
 
-			            	            <md-input-container flex-gt-xs>
-			            	                <label>Order Number</label>
-			            	                <input ng-model="data.seq_no" step="any" name="order" type="number">
-			            		          	<div ng-messages="dialogFormType.order.$error"
-			            		          		 ng-show="dialogFormType.order.$dirty && dialogFormType.order.$invalid">
-			            			          	<div ng-message="invalid">Order number is not valid</div>
-			            			        </div>
-			            	            </md-input-container>
+										<md-input-container  flex-gt-xs>
+							                <label>Qualification</label>
+							                <textarea ng-model="data.qualification"
+							                	style="min-height: 100px;"
+							                	ng-disabled="loading" columns="1" name="qualification"
+							                	md-maxlength="200"></textarea>
+								      	</md-input-container>
 			            	            
-								      	<md-input-container  flex-gt-xs>
+								      	{{-- <md-input-container  flex-gt-xs>
 							                <label>Description</label>
 							                <textarea ng-model="data.description"
 							                	style="min-height: 100px;"
 							                	ng-disabled="loading" columns="1" name="description"
 							                	md-maxlength="200"></textarea>
-								      	</md-input-container>
+								      	</md-input-container> --}}
 										<md-input-container  flex-gt-xs>
 											<label style="margin-bottom: 40px;">Responsibility</label>
 											<textarea name="post-editor"
@@ -125,6 +132,16 @@
 												cols="80">
 											</textarea>
 										</md-input-container>
+
+
+			            	            <md-input-container flex-gt-xs>
+			            	                <label>Order Number</label>
+			            	                <input ng-model="data.seq_no" step="any" name="order" type="number">
+			            		          	<div ng-messages="dialogFormType.order.$error"
+			            		          		 ng-show="dialogFormType.order.$dirty && dialogFormType.order.$invalid">
+			            			          	<div ng-message="invalid">Order number is not valid</div>
+			            			        </div>
+			            	            </md-input-container>
 							      	</div>
 					        	</md-content>
 					      	</md-tab>

@@ -4,11 +4,11 @@ return [
 
 	'app' => [
 
-		'name' => 'Flex Dashboard',
+		'name' => 'Tenglay Dashboard',
 
 		'login' => [
 
-			'name' => 'Flex Dashboard',
+			'name' => 'Tenglay Dashboard',
 
 			'description' => 'Accessing the content management system'
 			
@@ -28,7 +28,7 @@ return [
 		'encrypt_key_id' => 'X-XX-Sign-Key',
 
 		// User Agent name
-		'user_agent' => 'Flex Dashboard'
+		'user_agent' => 'Tenglay Dashboard'
 	],
 
     'api' => [
