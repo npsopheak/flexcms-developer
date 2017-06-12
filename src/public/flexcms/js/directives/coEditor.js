@@ -4,8 +4,7 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attribs){
-
-                    var id = element.id;
+                    var id = attribs.id;
                     if (!id){
                         id = (new Date()).getTime() + '';
                     }
@@ -14,7 +13,7 @@
                         filebrowserBrowseUrl: '/dashboard/browse-media',
                         filebrowserUploadUrl: '/api/v1/media/editor'
                     });
-
+ 
                     var modelAccessor = $parse(attribs['ngModel']);
                     editor.on( 'change', function( evt ) {
                         if (!CKEDITOR.instances[id]){
@@ -35,15 +34,23 @@
                             modelAccessor.assign(scope, CKEDITOR.instances[id].getData());
                         }, 500);
                     });
-
-                    scope.$watch(modelAccessor, function (val) {	     
+                    var timeoutItem = null;
+                    scope.$watch(modelAccessor, function (val) {	
+                        if (val == undefined){
+                            return;
+                        }     
                         if (!CKEDITOR.instances[id]){
                             return;
                         }     		
                         if (CKEDITOR.instances[id].getData() == val){
                             return;
                         }
-                        CKEDITOR.instances[id].setData(val);
+                        if (timeoutItem){
+                            clearTimeout(timeoutItem);
+                        }
+                        timeoutItem = setTimeout(function (v){
+                            CKEDITOR.instances[id].setData(val);
+                        }, 300);
                         element.val(val);
                     });
 
