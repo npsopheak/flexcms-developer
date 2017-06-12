@@ -109,6 +109,22 @@
 							                	ng-disabled="loading" columns="1" name="description"
 							                	md-maxlength="200"></textarea>
 								      	</md-input-container>
+										<md-input-container  flex-gt-xs>
+											<label style="margin-bottom: 40px;">Responsibility</label>
+											<textarea name="post-editor"
+												co-editor
+												id="res-editor" ng-model="data.responsibility" rows="10" 
+												cols="80">
+											</textarea>
+										</md-input-container>
+										<md-input-container  flex-gt-xs>
+											<label style="margin-bottom: 40px;">Requirement</label>
+											<textarea name="post-editor"
+												co-editor
+												id="requirement-editor" ng-model="data.requirement" rows="10" 
+												cols="80">
+											</textarea>
+										</md-input-container>
 							      	</div>
 					        	</md-content>
 					      	</md-tab>

@@ -81,12 +81,33 @@ class JobController extends GenericController {
 			$genericClass = "\\FlexCMS\\BasicCMS\\Models\\Job";
 			return $this->updateGeneric($genericClass, $id, function ($item) {
 				// \Log::info('Logging User generic update');
-				// if (\Input::get('name') != null){
-				// 	$item->name = \Input::get('name');
-				// }
-				// if (\Input::get('role_id') != null){
-				// 	$item->role_id = \Input::get('role_id');
-				// }
+				if (\Input::get('requirement') != null){
+					$item->requirement = \Input::get('requirement');
+				}
+				if (\Input::get('responsibility') != null){
+					$item->responsibility = \Input::get('responsibility');
+				}
+				if (\Input::get('description') != null){
+					$item->description = \Input::get('description');
+				}
+				if (\Input::get('closing_date') != null){
+					$item->closing_date = \Input::get('closing_date');
+				}
+				if (\Input::get('number_hire') != null){
+					$item->number_hire = \Input::get('number_hire');
+				}
+				if (\Input::get('location') != null){
+					$item->location = \Input::get('location');
+				}
+				if (\Input::get('experience') != null){
+					$item->experience = \Input::get('experience');
+				}
+				if (\Input::get('job_term') != null){
+					$item->job_term = \Input::get('job_term');
+				}
+				if (\Input::get('name') != null){
+					$item->name = \Input::get('name');
+				}
 				// $user = User::find($item->user_id);
 				// if (!$user){
 				// 	throw new \Exception('The user cannot be found to update');
