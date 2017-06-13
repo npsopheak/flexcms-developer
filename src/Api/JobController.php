@@ -117,6 +117,9 @@ class JobController extends GenericController {
 				if (\Input::get('qualification') != null){
 					$item->qualification = \Input::get('qualification');
 				}
+				if (\Input::get('gender') != null){
+					$item->gender = \Input::get('gender');
+				}
 				// $user = User::find($item->user_id);
 				// if (!$user){
 				// 	throw new \Exception('The user cannot be found to update');

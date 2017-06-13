@@ -84,12 +84,24 @@
 						        </md-input-container>
 					      		<md-input-container flex-gt-xs>
 						          	<label>Age from</label>
-						          	<input ng-model="data.age_from" name="age_from" required ng-disabled="loading">
+						          	<input ng-model="data.age_from" name="age_from" ng-disabled="loading">
 						        </md-input-container>
 					      		<md-input-container flex-gt-xs>
 						          	<label>Age to</label>
-						          	<input ng-model="data.age_to" name="age_to" required ng-disabled="loading">
+						          	<input ng-model="data.age_to" name="age_to" ng-disabled="loading">
 						        </md-input-container>
+							</div>
+					    </div>
+						<div flex-gt-xs>
+							<div layout-gt-xs="row">
+					      		<md-input-container flex-gt-xs>
+									<label>Gender</label>
+									<md-select ng-model="data.gender" name="gender" required ng-disabled="loading">
+										<md-option value="">Select a gender</md-option>
+										<md-option value="Male">Male</md-option>
+										<md-option value="Female">Female</md-option>
+									</md-select>
+								</md-input-container>
 							</div>
 					    </div>
 					</div>

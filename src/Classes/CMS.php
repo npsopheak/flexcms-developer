@@ -608,6 +608,9 @@ class CMS {
         if (!isset($options['offset'])){
             $options['offset'] = 0;
         }
+        if (isset($options['order'])){
+            $listing = $listing->orderBy($options['order'][0], $options['order'][1]);
+        }
 
         if (!isset($options['ignore-offset']) || $options['ignore-offset'] != 1){
             $listing = $listing->take($options['limit']);
