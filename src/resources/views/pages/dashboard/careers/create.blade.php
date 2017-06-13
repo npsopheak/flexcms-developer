@@ -38,6 +38,7 @@
 										<md-option value="">Select a term</md-option>
 										<md-option value="full-time">Full Time</md-option>
 										<md-option value="part-time">Part Time</md-option>
+										<md-option value="intern">Intern</md-option>
 									</md-select>
 								</md-input-container>
 
