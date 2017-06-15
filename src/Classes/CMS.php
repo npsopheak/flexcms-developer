@@ -665,6 +665,18 @@ class CMS {
 		
 	}
 
+	public function resourceStore($Model, $data = [], $closure = null){
+		
+        $item = null;
+        if ($closure){
+            $data = $closure($data);
+        }
+        
+        $item = $Model::create($data);
+        return $this->resourceShow($Model, $item->id);
+    
+	}
+
     public function generatePagination($total_pages, $limit, $page, $baseUrl){
         // How many adjacent pages should be shown on each side?
         $adjacents = 3;
