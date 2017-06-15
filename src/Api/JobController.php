@@ -162,4 +162,18 @@ class JobController extends GenericController {
 			return $this->error($e->getMessage());
 		}
 	}
+
+	public function indexJobApplication(){
+		try{
+			$genericClass = "\\FlexCMS\\BasicCMS\\Models\\JobApplication";
+			return $this->indexGeneric($genericClass, function ($query) {
+				$query = $query->with('job')->with('attachments');
+				// \Log::info('Logging donor generic');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
 }

@@ -27,4 +27,12 @@ class JobApplication extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function job(){
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Job','job_id');
+    }
+
+    public function attachments(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\Media', 'imagable_id')->where('imagable_type', '=', 'JobApplication')->where('type', '=', 'document');
+    }
 }

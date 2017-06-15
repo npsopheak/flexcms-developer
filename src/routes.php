@@ -85,6 +85,8 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::get('/media/{id}', 'MediaController@show');
     Route::get('/media', 'MediaController@index');
 
+    Route::get('jobs/applications', 'JobController@indexJobApplication');
+
 });
 
 
@@ -188,7 +190,7 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::delete('jobs/{id}', 'JobController@destroyJob');
     Route::get('jobs/{id}', 'JobController@showJob');
 
-
+    // Route::get('jobs/applications', 'JobController@indexJobApplication');
 });
 
 
