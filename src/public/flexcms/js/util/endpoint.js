@@ -64,6 +64,16 @@ namespace.endpoints = function ($resource, base) {
 	  			method: 'GET',
 				cache : false
 	  		},
+	  		'listCandidate': {
+				url: base + 'jobs/applications',
+	  			method: 'GET',
+				cache : false
+	  		},
+	  		'updateCandidate': {
+				url: base + 'jobs/applications/:id',
+	  			method: 'POST',
+				cache : false
+	  		}, 
 		}),
 		// @deprecated for this project
 		// Member: $resource(base + 'directories/:id', {

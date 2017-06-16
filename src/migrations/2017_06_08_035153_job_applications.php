@@ -21,6 +21,7 @@ class JobApplications extends Migration
             $table->string('email')->nullable();
             $table->string('salary_expection', 256)->nullable();
             $table->string('comment', 1200)->nullable();
+            $table->string('status', 20)->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();

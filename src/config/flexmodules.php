@@ -71,6 +71,7 @@
       array (
         0 => 'list',
         1 => 'create',
+        2 => 'candidateList',
       ),
     ),
     'login' => 

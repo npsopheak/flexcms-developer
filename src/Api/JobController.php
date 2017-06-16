@@ -17,7 +17,7 @@ class JobController extends GenericController {
 		try{
 			$genericClass = "\\FlexCMS\\BasicCMS\\Models\\Job";
 			return $this->indexGeneric($genericClass, function ($query) {
-				// $query = $query->with('role');
+				$query = $query->where('status', '!=', 'inactive');
 				// \Log::info('Logging donor generic');
 				return $query;
 			});
@@ -120,6 +120,9 @@ class JobController extends GenericController {
 				if (\Input::get('gender') != null){
 					$item->gender = \Input::get('gender');
 				}
+				if (\Input::get('status') != null){
+					$item->status = \Input::get('status');
+				}
 				// $user = User::find($item->user_id);
 				// if (!$user){
 				// 	throw new \Exception('The user cannot be found to update');
@@ -167,9 +170,26 @@ class JobController extends GenericController {
 		try{
 			$genericClass = "\\FlexCMS\\BasicCMS\\Models\\JobApplication";
 			return $this->indexGeneric($genericClass, function ($query) {
+				$query = $query->where('status', '!=', 'inactive');
 				$query = $query->with('job')->with('attachments');
+				$query = $query->orderBy('id', 'DESC');
 				// \Log::info('Logging donor generic');
 				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	public function updateJobApplication($id){
+		try{
+			$genericClass = "\\FlexCMS\\BasicCMS\\Models\\JobApplication";
+			return $this->updateGeneric($genericClass, $id, function ($item) {
+				if (\Input::get('status') != null){
+					$item->status = \Input::get('status');
+				}
+				return $item;
 			});
 		}
 		catch(\Exception $e){

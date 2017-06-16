@@ -30,6 +30,7 @@ class Jobs extends Migration
             $table->string('requirement', 3000)->default('');
             $table->integer('seq_no')->default(0);
             $table->boolean('is_active')->default(0);
+            $table->string('status', 20)->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();

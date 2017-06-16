@@ -16,6 +16,12 @@ namespace.routes = [
     reloadOnSearch: false
 },
 {
+    url: 'careers/candidates',
+    template: '/partials/dashboard.careers.candidateList',
+    controller: 'DashboardCareersCandidateListCtrl',
+    reloadOnSearch: false
+},
+{
     url: 'careers/create',
     template: '/partials/dashboard.careers.create',
     controller: 'DashboardCareersCreateCtrl',

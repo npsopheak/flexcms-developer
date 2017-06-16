@@ -85,8 +85,6 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::get('/media/{id}', 'MediaController@show');
     Route::get('/media', 'MediaController@index');
 
-    Route::get('jobs/applications', 'JobController@indexJobApplication');
-
 });
 
 
@@ -183,14 +181,17 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     // Route::delete('directories/{directoryId}/users/{id}', 'DirectoryController@destroyUser');
     // Route::get('directories/{directoryId}/users/{id}', 'DirectoryController@showUser');
 
+    // Job candidate
+    Route::get('jobs/applications', 'JobController@indexJobApplication');
+    Route::post('jobs/applications/{id}', 'JobController@updateJobApplication');
+
     // Endpoint for jobs
     Route::get('jobs', 'JobController@indexJob');
     Route::post('jobs', 'JobController@storeJob');
     Route::put('jobs/{id}', 'JobController@updateJob');
     Route::delete('jobs/{id}', 'JobController@destroyJob');
     Route::get('jobs/{id}', 'JobController@showJob');
-
-    // Route::get('jobs/applications', 'JobController@indexJobApplication');
+    
 });
 
 
