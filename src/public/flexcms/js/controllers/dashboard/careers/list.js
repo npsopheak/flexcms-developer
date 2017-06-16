@@ -10,7 +10,8 @@
             $scope.selected = [];
 
             $scope.search = {
-                query: $location.search().search || ''
+                query: $location.search().search || '',
+                status: $location.search().status || 'active',
             };
 
             $scope.view = function() {
@@ -56,6 +57,7 @@
                     'ignore-offset': 0,
                     'search': $scope.search.query || '',
                     'sort': 'name', // $scope.sort || '',
+                    'status': $scope.search.status || ''
                     // 'scope': 'foods,origins,categories,features,menu,drinks,payment_methods,parkings',
                 }, function(s) {
                     $scope.data = s.result;
@@ -75,6 +77,10 @@
 
             $scope.onPageChanged = function() {
                 $location.search('offset', $scope.pagination.offset);
+            };
+
+            $scope.onStatusChanged = function() {
+                $location.search('status', $scope.search.status);
             };
 
             $scope.sort = '';
@@ -150,12 +156,25 @@
                 startCalling();
             });
 
+            watchers['status'] = $scope.$watch(function() {
+                return $location.search().status;
+            }, function(v, old) {
+
+                if (v == old) {
+                    return;
+                }
+
+                $scope.search.status = v;
+                startCalling();
+            });
+
             $scope.$on('$destroy', function() {
                 for (var key in watchers) {
                     watchers[key]();
                 }
                 $location.search('offset', null);
                 $location.search('search', null);
+                $location.search('status', null);
             });
 
             // Remove function 
@@ -177,7 +196,9 @@
                             id: $scope.data.id,
                         };
                         query['id'] = item.id;
-                        CoResource.resources.Career.delete(query, {}, function(s) {
+                        CoResource.resources.Career.update(query, {
+                            status: 'inactive'
+                        }, function(s) {
                             loadData();
                             $rootScope.loading('hide');
                         }, function(e) {

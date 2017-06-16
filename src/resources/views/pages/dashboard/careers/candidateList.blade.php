@@ -30,16 +30,16 @@
             <div class="buttons" layout-align="end center">
                 <md-button class="md-icon-button md-button md-ink-ripple"
                     style="width: 100px"
-                    type="button" ng-click="view($event)" aria-label="Block Items">
-                    <md-icon md-font-icon="icon-blocked" class="md-font material-icons icon-office" 
+                    type="button" ng-click="view($event)" aria-label="Detail">
+                    <md-icon md-font-icon="icon-eye" class="md-font material-icons icon-office" 
                         style="display: inline-block;" aria-hidden="true"></md-icon>
-                    Shortlist
+                    Detail
                 </md-button>
-                <md-button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="remove($event)" aria-label="Remove" style="width: 120px">
-                    <md-icon md-font-icon="icon-bin2" class="md-font material-icons icon-bin2" 
+                <md-button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="callShortlist($event)" aria-label="Set Shortlist" style="width: 120px">
+                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-bin2" 
                         style="display: inline-block;" 
                         aria-hidden="true"></md-icon>
-                    Remove
+                    Shortlist
                 </md-button>
             </div>
           </div>
@@ -75,7 +75,9 @@
                 <td md-cell><% item.comment %></td>
                 <td md-cell><% formatUtcDate(item.created_at) %></td>
                 <td md-cell>
-                    Active
+                    <span ng-show="item.status == 'active'">Active</span>
+                    <span ng-show="item.status == 'inactive'">Inactive</span>
+                    <span ng-show="item.status == 'shortlisted'">Shortlisted</span>
                 </td>
               </tr>
               <tr md-row ng-show="!data.length">

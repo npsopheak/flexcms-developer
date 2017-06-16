@@ -48,6 +48,13 @@
                         $scope.mode = 'edit';
                         $scope.data.is_active = $scope.data.is_active ? true : false;
 
+                        CoResource.resources.Career.listCandidate({
+                            'ignore-offset': 0,
+                            'job_id': $scope.data.id,
+                        }, function(s) {
+                            $scope.candidates = s.result;
+                        });
+
                         $timeout(function() {
                             // $('#res-editor').val($scope.da`ta.responsibility);
                             // $('#requirement-editor').val(`$scope.data.requirement);
@@ -188,6 +195,26 @@
 
                     }, function() {});
                 }
+            };
+
+            // Customized
+            $scope.selected = [];
+            $scope.showDetail = function(ev) {
+                var item = $scope.selected[0];
+                $scope.showDialog(item, ev);
+            };
+
+            $scope.showDialog = function (item, ev){
+                $mdDialog.show({
+                    controller: 'DashboardCareersCandidateDetailCtrl',
+                    templateUrl: '/partials/dashboard.careers.candidateDetail',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    locals: {
+                        $current: item
+                    }
+                })
+                .then(function(answer) {}, function() {});
             };
 
 

@@ -194,6 +194,67 @@
             //     var item = $scope.selected[0];
             //     $scope.removeDialog(item, ev);
             // };
+
+
+
+            // Customized
+            $scope.selected = [];
+            $scope.view = function(ev) {
+                var item = $scope.selected[0];
+                $scope.showDialog(item, ev);
+            };
+
+            $scope.showDialog = function (item, ev){
+                $mdDialog.show({
+                    controller: 'DashboardCareersCandidateDetailCtrl',
+                    templateUrl: '/partials/dashboard.careers.candidateDetail',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    locals: {
+                        $current: item
+                    }
+                })
+                .then(function(answer) {}, function() {});
+            };
+
+            $scope.shortlist = function(item, ev) {
+                if (item) {
+
+                    var confirm = $mdDialog.confirm()
+                        .parent(angular.element(document.body))
+                        .title('Update Candidate to shortlist status?')
+                        .content('Are sure to update this job candidate status?')
+                        .ariaLabel('Update Candidate')
+                        .ok('Yes')
+                        .cancel('No')
+                        .targetEvent(ev);
+                    $mdDialog.show(confirm).then(function() {
+                        $rootScope.loading('show');
+                        var query = {
+                            id: $scope.data.id,
+                        };
+                        query['id'] = item.id;
+                        CoResource.resources.Career.updateCandidate(query, {
+                            status: 'shortlisted'
+                        }, function(s) {
+                            loadData();
+                            $rootScope.loading('hide');
+                        }, function(e) {
+                            $rootScope.loading('hide');
+                            alert('Sorry, this item cannot be set due to some reason, please contact administrator for more information');
+                        });
+
+                    }, function() {});
+                }
+            };
+
+            // Customized
+            $scope.selected = [];
+            $scope.callShortlist = function(ev) {
+                var item = $scope.selected[0];
+                $scope.shortlist(item, ev);
+            };
+
 	    
 
     }]);

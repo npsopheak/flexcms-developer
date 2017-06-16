@@ -17,7 +17,16 @@ class JobController extends GenericController {
 		try{
 			$genericClass = "\\FlexCMS\\BasicCMS\\Models\\Job";
 			return $this->indexGeneric($genericClass, function ($query) {
-				$query = $query->where('status', '!=', 'inactive');
+				if (\Input::get('status') != null){
+					\Log::info(\Input::get('status'));
+					$query = $query->where('status', '=', \Input::get('status'));
+				}
+				else{
+					$query = $query->whereIn('status', ['active']);
+				}
+				if (\Input::get('search') != null){
+					$query = $query->where('name', 'like', '%' . \Input::get('search') . '%');
+				}
 				// \Log::info('Logging donor generic');
 				return $query;
 			});
@@ -122,6 +131,8 @@ class JobController extends GenericController {
 				}
 				if (\Input::get('status') != null){
 					$item->status = \Input::get('status');
+					JobApplication::where('job_id', '=', $item->id)
+						->update(['status' => 'inactive']);
 				}
 				// $user = User::find($item->user_id);
 				// if (!$user){
@@ -170,7 +181,22 @@ class JobController extends GenericController {
 		try{
 			$genericClass = "\\FlexCMS\\BasicCMS\\Models\\JobApplication";
 			return $this->indexGeneric($genericClass, function ($query) {
-				$query = $query->where('status', '!=', 'inactive');
+				if (\Input::get('status') != null){
+					$query = $query->where('status', '=', \Input::get('status'));
+				}
+				else{
+					if (\Input::get('job_id') == null){
+						$query = $query->whereIn('status', ['active', 'shortlisted']);
+					}
+					else{
+
+					}
+				}
+				if (\Input::get('job_id') != null){
+					$query = $query->where('job_id', '=', \Input::get('job_id'));
+					$query = $query->whereIn('status', ['inactive', 'active']);
+				}
+				
 				$query = $query->with('job')->with('attachments');
 				$query = $query->orderBy('id', 'DESC');
 				// \Log::info('Logging donor generic');

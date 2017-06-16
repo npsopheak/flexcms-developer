@@ -33,7 +33,7 @@ namespace.menus = [{
         }, {
             name: 'Career Candidates',
             extraScreen: 'career candidates',
-            icon: 'icon-libreoffice',
+            icon: 'icon-user-tie',
             enabled: true,
             path: '/careers/candidates'
         },

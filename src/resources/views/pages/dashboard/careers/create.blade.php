@@ -158,6 +158,60 @@
 							      	</div>
 					        	</md-content>
 					      	</md-tab>
+							{{-- Candidate listing --}}
+							<md-tab label="candidates">
+								<md-toolbar class="md-table-toolbar alternate toolbar-selected-item" ng-show="selected.length" aria-hidden="false"
+										style="min-height: 45px;">
+									<div class="md-toolbar-tools layout-align-space-between-stretch" layout-align="space-between">
+										<div class="title"><% selected.length %> items selected</div>
+										<div class="buttons" layout-align="end center">
+											<md-button class="md-icon-button md-button md-ink-ripple"
+												ng-hide="selected.length > 1"
+												type="button" ng-click="showDetail($event)" aria-label="edit">
+												<md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-office" aria-hidden="true"></md-icon>
+											</md-button>
+										</div>
+									</div>
+									</md-toolbar>
+
+									<md-table-container class="box-shadow-content">
+										<table md-table md-row-select ng-model="selected" md-progress="promise">
+											<thead md-head md-order="query.order" md-on-reorder="listing">
+												<tr md-row>
+													<th md-column><span>No</span></th>
+													<th md-column><span>Candidate</span></th>
+													<th md-column><span>Phone</span></th>
+													<th md-column><span>Email</span></th>
+													<th md-column><span>Comment</span></th>
+													<th md-column>Created at</th>
+													<th md-column>
+														Status
+													</th>
+												</tr>
+												</thead>
+												<tbody md-body>
+												<tr md-row md-select="item" md-select-id="id" md-auto-select ng-repeat="item in candidates">
+													<td md-cell>
+														<% $index + 1 %>
+													</td>
+													<td md-cell><% item.full_name %></td>
+													<td md-cell><% item.phone_number %></td>
+													<td md-cell><% item.email %></td>
+													<td md-cell><% item.comment %></td>
+													<td md-cell><% formatUtcDate(item.created_at) %></td>
+													<td md-cell>
+														<span ng-show="item.status == 'active'">Active</span>
+														<span ng-show="item.status == 'inactive'">Inactive</span>
+														<span ng-show="item.status == 'shortlisted'">Shortlisted</span>
+													</td>
+												</tr>
+												<tr md-row ng-show="!data.length">
+													<td md-cell colspan="9">There is no jobs data</td>
+												</tr>
+												</tbody>
+										</table>
+									</md-table-container>
+								</md-tab>
 				    	</md-tabs>
 
 			      	</div>

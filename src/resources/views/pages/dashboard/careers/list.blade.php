@@ -24,6 +24,17 @@
                     <label>Search careers</label>
                     <input ng-model="search.query" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }">
                 </md-input-container>
+
+				<md-input-container flex-gt-xs>
+					<label>Select job status</label>
+					<md-select placeholder="Job status" ng-model="search.status" 
+						ng-change="onStatusChanged()"
+					style="padding-bottom: 0px;" flex-gt-xs>
+						<md-option value="">All</md-option>
+						<md-option value="active">Active</md-option>
+						<md-option value="inactive">Inactive</md-option>
+					</md-select>  
+				</md-input-container>
             </form>
         </md-content>
 
