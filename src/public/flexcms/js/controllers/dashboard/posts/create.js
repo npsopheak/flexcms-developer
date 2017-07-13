@@ -403,9 +403,9 @@
                         $scope.mode = "create";
                         $rootScope.loading('hide');
                     }                    
-                    setTimeout(function (){
-                        renderMagnific();
-                    }, 200);
+                    // setTimeout(function (){
+                    //     renderMagnific();
+                    // }, 200);
                 }, function() {
                     if ($scope.parentName){
 
@@ -891,9 +891,9 @@
                                     $scope.pendingFiles.splice(i, 1);
                                 }
                             }
-                            setTimeout(function (){
-                                renderMagnific();
-                            }, 200);
+                            // setTimeout(function (){
+                            //     renderMagnific();
+                            // }, 200);
                         });
                     }
                 });
@@ -958,9 +958,9 @@
                                 $scope.setPrimary($scope.data.photos[0]);
                             }
 
-                            setTimeout(function (){
-                                renderMagnific();
-                            }, 200);
+                            // setTimeout(function (){
+                            //     renderMagnific();
+                            // }, 200);
                         });
                     }
                 });
@@ -1025,9 +1025,9 @@
                     }
                     $scope.data.photos[index] = data.data;
                 }
-                $timeout(function(){
-                    renderMagnific();
-                }, 700);
+                // $timeout(function(){
+                //     renderMagnific();
+                // }, 700);
             });
 
             $scope.addYoutubeLink = function(object, ev) {
@@ -1242,51 +1242,51 @@
             }
 
             // Manific
-            function renderMagnific(){
-                $('.media-gallery .media.uploaded.photo').magnificPopup({
-                    type: 'image',
-                    removalDelay: 300,
-                    mainClass: 'mfp-with-zoom',
-                    delegate: 'span.icon-search', // the selector for gallery item,
-                    titleSrc: 'title',
-                    tLoading: '',
-                    gallery: {
-                        enabled: true
-                    },
-                    callbacks: {
-                        imageLoadComplete: function() {
-                            var self = this;
-                            setTimeout(function() {
-                                self.wrap.addClass('mfp-image-loaded');
-                            }, 16);
-                        },
-                        open: function() {
-                            // $('#header > nav').css('padding-right', getScrollBarWidth() + "px");
-                        },
-                        close: function() {
-                            this.wrap.removeClass('mfp-image-loaded');
-                            // $('#header > nav').css('padding-right', "0px");
-                        },
-                    }
-                });
+            // function renderMagnific(){
+            //     $('.media-gallery .media.uploaded.photo').magnificPopup({
+            //         type: 'image',
+            //         removalDelay: 300,
+            //         mainClass: 'mfp-with-zoom',
+            //         delegate: 'span.icon-search', // the selector for gallery item,
+            //         titleSrc: 'title',
+            //         tLoading: '',
+            //         gallery: {
+            //             enabled: true
+            //         },
+            //         callbacks: {
+            //             imageLoadComplete: function() {
+            //                 var self = this;
+            //                 setTimeout(function() {
+            //                     self.wrap.addClass('mfp-image-loaded');
+            //                 }, 16);
+            //             },
+            //             open: function() {
+            //                 // $('#header > nav').css('padding-right', getScrollBarWidth() + "px");
+            //             },
+            //             close: function() {
+            //                 this.wrap.removeClass('mfp-image-loaded');
+            //                 // $('#header > nav').css('padding-right', "0px");
+            //             },
+            //         }
+            //     });
 
-                $('.media-gallery .media.uploaded.youtube').magnificPopup({
-                    disableOn: 700,
-                    type: 'iframe',
-                    mainClass: 'mfp-with-zoom',
-                    removalDelay: 160,
-                    preloader: false,
-                    fixedContentPos: false,
-                    callbacks: {
-                        open: function() {
-                        },
-                        close: function() {
-                            this.wrap.removeClass('mfp-image-loaded');
-                        },
-                    },
-                    delegate: 'span.icon-search', // the selector for gallery item,
-                });
-            }
+            //     $('.media-gallery .media.uploaded.youtube').magnificPopup({
+            //         disableOn: 700,
+            //         type: 'iframe',
+            //         mainClass: 'mfp-with-zoom',
+            //         removalDelay: 160,
+            //         preloader: false,
+            //         fixedContentPos: false,
+            //         callbacks: {
+            //             open: function() {
+            //             },
+            //             close: function() {
+            //                 this.wrap.removeClass('mfp-image-loaded');
+            //             },
+            //         },
+            //         delegate: 'span.icon-search', // the selector for gallery item,
+            //     });
+            // }
 
 
         }
