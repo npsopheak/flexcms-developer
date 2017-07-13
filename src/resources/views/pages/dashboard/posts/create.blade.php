@@ -228,8 +228,7 @@
 		      	<div class="textarea-group" ng-show="status['description']">      		
 		      		<label class="label-container">Your text:</label>
 			      	<textarea name="post-editor-desc"
-			      		co-editor
-			      		id="post-editor-desc" ng-model="data.description" rows="10" 
+			      		co-editor ng-model="data.description" rows="10" 
 			      		cols="80">
 			            Your text goes here!
 			        </textarea>
