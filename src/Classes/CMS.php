@@ -331,12 +331,15 @@ class CMS {
         if ($locale == ''){
             return $post;
         }
-        else{
+        else if ($post && $post->id){
             $locale = \FlexCMS\BasicCMS\Models\Article::where('parent_id', '=', $post->id)->with('primaryMedia')->with('photos')->where('language', '=', $locale)->first();
             if (!$locale){
                 return $post;
             }
             return $locale;
+        }
+        else{
+            return null;
         }
     }
 
