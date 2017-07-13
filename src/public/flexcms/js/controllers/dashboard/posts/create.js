@@ -327,6 +327,8 @@
             }
         });
 
+        $scope.Date = Date;
+
 
         if ($routeParams.id || $routeParams.hash) {
             // Load data from mock

@@ -225,9 +225,10 @@
 		        	</div>
 		        </div>
 
-		      	<div class="textarea-group" ng-show="status['description']">      		
+		      	<div class="textarea-group" ng-if="status['description']">      		
 		      		<label class="label-container">Your text:</label>
 			      	<textarea name="post-editor-desc"
+                        id="<% Date.now() | date:'ddMMyyyyHHmmss' %>"
 			      		co-editor ng-model="data.description" rows="10" 
 			      		cols="80">
 			            Your text goes here!
