@@ -55,8 +55,8 @@
                     });
 
                     scope.$on('$destroyed', function (v){
-                        CKEDITOR.instances[id].removeAllListeners();
-                        CKEDITOR.remove(CKEDITOR.instances[id]);
+                        // CKEDITOR.instances[id].removeAllListeners();
+                        // CKEDITOR.remove(CKEDITOR.instances[id]);
                     });
 
                 }
