@@ -150,7 +150,7 @@
 			        	</div> 
 			        	<div class="textarea-group" ng-if="field.type === 'editor'">	        		  		
 				      		<label class="label-container"><% field.display_name %>:</label>
-					      	<textarea name="post-editor"
+					      	<textarea name="post-editor-v2"
 					      		co-editor ng-model="field.model" rows="10" 
 					      		cols="80">
 					            Your text goes here!
