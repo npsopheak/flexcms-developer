@@ -41,17 +41,23 @@ class ClearPublic extends Command
         
         $publicPath = public_path('vendor/flexcms');
 
-		$it = new \RecursiveDirectoryIterator($publicPath, \RecursiveDirectoryIterator::SKIP_DOTS);
-		$files = new \RecursiveIteratorIterator($it,
-		             \RecursiveIteratorIterator::CHILD_FIRST);
-		foreach($files as $file) {
-		    if ($file->isDir()){
-		        rmdir($file->getRealPath());
-		    } else {
-		        unlink($file->getRealPath());
-		    }
-		}
-		rmdir($publicPath);
+		try{
+
+            $it = new \RecursiveDirectoryIterator($publicPath, \RecursiveDirectoryIterator::SKIP_DOTS);
+            $files = new \RecursiveIteratorIterator($it,
+                        \RecursiveIteratorIterator::CHILD_FIRST);
+            foreach($files as $file) {
+                if ($file->isDir()){
+                    rmdir($file->getRealPath());
+                } else {
+                    unlink($file->getRealPath());
+                }
+            }
+            rmdir($publicPath);
+        }
+        catch (\Exception $e){
+
+        }
 		$this->info('Public folder has been cleared.');
     }
 }

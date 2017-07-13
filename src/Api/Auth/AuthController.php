@@ -93,8 +93,10 @@ class AuthController extends Controller
      */
     public function login(){
         $data = \Input::all();
+        
         if (\Auth::attempt(['email' => $data['username'], 'password' => $data['password']])) {
             // Authentication passed...
+            
             return redirect('/dashboard');
         }
         else{
@@ -103,7 +105,8 @@ class AuthController extends Controller
     }
 
     public function getLogout(){
-        \AuthGateway::logoutAdmin();
+        // \AuthGateway::logoutAdmin();
+        \Auth::logout();
         return redirect('/dashboard/login');  
     }
 

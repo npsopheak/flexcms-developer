@@ -41,7 +41,17 @@ class Directory extends Model
         'social_issues',
         'main_activities',
         'impact',
-        'solutions'
+        'solutions',
+        'location_id',
+        'appreviation',
+        'background',
+        'vision',
+        'mission',
+        'goal',
+
+        'faxes',
+
+        'project_type_id'
     ];
 
     protected $dates = ['deleted_at'];
@@ -84,11 +94,46 @@ class Directory extends Model
         return $this->belongsTo('FlexCMS\BasicCMS\Models\Media','logo_id');
     }
 
+    public function projectType(){
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','project_type_id');
+    }
+
+    public function location(){
+        return $this->belongsTo('FlexCMS\BasicCMS\Models\Item','location_id');
+    }
+
     /**
      * The roles that belong to the user.
      */
     public function categories()
     {
         return $this->belongsToMany('FlexCMS\BasicCMS\Models\Item', 'directory_categories', 'directory_id', 'category_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\User', 'directory_users', 'directory_id', 'user_id');
+    }
+
+    /* Detailed item */
+
+    public function budgets(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryBudget')->orderBy('year', 'DESC');
+    }
+
+    public function activities(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryActivity');
+    }
+
+    public function contacts(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryContact');
+    }
+
+    public function donors(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryDonor')->orderBy('year', 'DESC');
+    }
+
+    public function staffs(){
+        return $this->hasMany('FlexCMS\BasicCMS\Models\DirectoryStaff');
     }
 }   

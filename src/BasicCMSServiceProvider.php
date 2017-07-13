@@ -9,6 +9,7 @@ use Illuminate\Foundation\AliasLoader;
 use FlexCMS\BasicCMS\Commands\AddPage;
 use FlexCMS\BasicCMS\Commands\ClearPublic;
 use FlexCMS\BasicCMS\Commands\AddScript;
+use FlexCMS\BasicCMS\Commands\ClearResource;
 
 class BasicCMSServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,8 @@ class BasicCMSServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('api.guest', \FlexCMS\BasicCMS\Middleware\ApiRedirectIfAuthenticated::class);
         $this->app['router']->aliasMiddleware('app.auth', \FlexCMS\BasicCMS\Middleware\AuthorizedApp::class);
         $this->app['router']->aliasMiddleware('csrf', \FlexCMS\BasicCMS\Middleware\VerifyCsrfToken::class);
+        $this->app['router']->aliasMiddleware('no.csrf', \FlexCMS\BasicCMS\Middleware\IgnoreVerifyCsrfToken::class);
+        
         $this->app['router']->aliasMiddleware('cors', \Barryvdh\Cors\HandleCors::class);
 
         // Load route 
@@ -74,15 +77,24 @@ class BasicCMSServiceProvider extends ServiceProvider
         // Load view 
         $this->loadViewsFrom(__DIR__.'/resources/views', 'flexcms');
 
+        // Add publish view
         $this->publishes([
             __DIR__.'/public' => public_path('vendor'),
+            // __DIR__ . '/resources/views' => base_path('resources/views/vendor/flexcms'),
         ], 'public');
+
+
+        $this->publishes([
+            // __DIR__.'/public' => public_path('vendor'),
+            __DIR__ . '/resources/views' => base_path('resources/views/vendor/flexcms'),
+        ], 'resource');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
                 AddPage::class,
                 ClearPublic::class,
                 AddScript::class,
+                ClearResource::class
             ]);
         }
 

@@ -14,11 +14,18 @@ class ItemController extends ApiController {
 		try{
 			$items = [];
 			$type = Input::get('type');
+			$types = explode(',', $type);
 			if ($type == null){
 				$items = Item::whereRaw('1 = 1');
 			}
 			else{
-				$items = Item::where('item_type', '=', $type);
+				if (count($types) <= 1){
+					$items = Item::where('item_type', '=', $type);
+				}
+				else{
+					$items = Item::whereIn('item_type', explode(',', $type));
+				}
+				
 			}
 			$parentId = Input::get('parent_id');
 
@@ -42,6 +49,9 @@ class ItemController extends ApiController {
 				$items = $items->whereRaw('name = ?', [$name]);
 			}
 
+
+			$total = count($items->get()->toArray());
+
 			if (Input::get('ignore-offset') != 1){
 				$items = $items->take(Input::get('limit') ? Input::get('limit') : 20);
 				$items = $items->skip(Input::get('offset') ? Input::get('offset') : 0);
@@ -52,7 +62,11 @@ class ItemController extends ApiController {
 			else{
 				$items = $items->get()->toArray();
 			}
-			return $this->ok($items);
+			return $this->ok($items, 200, [
+				'total' => $total,
+				'limit' => Input::get('limit') ? Input::get('limit') : 20,
+				'offset' => Input::get('offset') ? Input::get('offset') : 0
+			]);
 		}
 		catch(\Exception $e){
 			return $this->error($e->getMessage());

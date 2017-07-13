@@ -24,6 +24,56 @@
         0 => 'list',
         1 => 'create',
       ),
+      'members' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+      ),
+      'libraries' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+        2 => 'viewDialog',
+      ),
+      'users' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+        2 => 'view',
+        3 => 'viewDialog',
+      ),
+      'staffs' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'budgets' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'contacts' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'donors' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'activities' => 
+      array (
+        0 => 'viewDialog',
+      ),
+      'items' => 
+      array (
+        0 => 'list',
+        1 => 'viewDialog',
+      ),
+      'careers' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+        2 => 'candidateList',
+        3 => 'candidateDetail',
+      ),
     ),
     'login' => 
     array (

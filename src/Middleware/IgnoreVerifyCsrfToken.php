@@ -2,7 +2,9 @@
 
 use Closure;
 
-class IgnoreVerifyCsrfToken extends {
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+
+class IgnoreVerifyCsrfToken extends BaseVerifier{
 
 	/**
 	 * Handle an incoming request.

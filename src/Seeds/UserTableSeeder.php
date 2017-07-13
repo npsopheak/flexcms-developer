@@ -25,6 +25,7 @@ class UserTableSeeder extends Seeder {
         $user = User::create([
             'id' => 1,
         	'email' => 'admin',
+            'role' => 'admin',
         	'name' => 'System Administrator',
         	'password' => \Hash::make('fT@20!5ech'),
             'site_id' => 1
@@ -38,6 +39,7 @@ class UserTableSeeder extends Seeder {
         $user = User::create([
             'id' => 2,
             'email' => 'user',
+            'role' => 'user',
             'name' => 'User Access',
             'password' => \Hash::make('123@user!'),
             'site_id' => 1
@@ -51,6 +53,7 @@ class UserTableSeeder extends Seeder {
         $user = User::create([
             'id' => 3,
             'email' => 'client',
+            'role' => 'member',
             'name' => 'Client Access',
             'password' => \Hash::make('123@$client'),
             'site_id' => 1
