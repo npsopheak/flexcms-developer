@@ -3,48 +3,48 @@ namespace.routes = [
 
 // DEVELOP TENGLAY ROUTE
 // @inused
-{
-    url: '',
-    template: '/partials/dashboard.careers.list',
-    controller: 'DashboardCareersListCtrl',
-    reloadOnSearch: false
-},
-{
-    url: 'careers',
-    template: '/partials/dashboard.careers.list',
-    controller: 'DashboardCareersListCtrl',
-    reloadOnSearch: false
-},
-{
-    url: 'careers/candidates',
-    template: '/partials/dashboard.careers.candidateList',
-    controller: 'DashboardCareersCandidateListCtrl',
-    reloadOnSearch: false
-},
-{
-    url: 'careers/create',
-    template: '/partials/dashboard.careers.create',
-    controller: 'DashboardCareersCreateCtrl',
-    reloadOnSearch: false
-},
-{
-    url: 'careers/:id',
-    template: '/partials/dashboard.careers.create',
-    controller: 'DashboardCareersCreateCtrl',
-    reloadOnSearch: false
-},
+// {
+//     url: '',
+//     template: '/partials/dashboard.careers.list',
+//     controller: 'DashboardCareersListCtrl',
+//     reloadOnSearch: false
+// },
+// {
+//     url: 'careers',
+//     template: '/partials/dashboard.careers.list',
+//     controller: 'DashboardCareersListCtrl',
+//     reloadOnSearch: false
+// },
+// {
+//     url: 'careers/candidates',
+//     template: '/partials/dashboard.careers.candidateList',
+//     controller: 'DashboardCareersCandidateListCtrl',
+//     reloadOnSearch: false
+// },
+// {
+//     url: 'careers/create',
+//     template: '/partials/dashboard.careers.create',
+//     controller: 'DashboardCareersCreateCtrl',
+//     reloadOnSearch: false
+// },
+// {
+//     url: 'careers/:id',
+//     template: '/partials/dashboard.careers.create',
+//     controller: 'DashboardCareersCreateCtrl',
+//     reloadOnSearch: false
+// },
 
 // DEVELOP ROUTE 
 // @deprecated
 // Shop endpoint
-// {
-//     url: '',
-//     template: '/partials/dashboard.articles.list',
-//     controller: 'DashboardArticlesListCtrl',
-//     reloadOnSearch: false
-//     // template: '/partials/posts',
-//     // controller: 'PostCtrl'
-// },
+{
+    url: '',
+    template: '/partials/dashboard.articles.list',
+    controller: 'DashboardArticlesListCtrl',
+    reloadOnSearch: false
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
 // {
 //     url: '',
 //     template: '/partials/dashboard.members.list',
@@ -97,25 +97,25 @@ namespace.routes = [
 //     controller: 'DashboardLibrariesCreateCtrl',
 //     reloadOnSearch: false
 // },
-// // Users endpoit
-// {
-//     url: 'accounts',
-//     template: '/partials/dashboard.users.list',
-//     controller: 'DashboardUsersListCtrl',
-//     reloadOnSearch: false
-// },
-// {
-//     url: 'accounts/create',
-//     template: '/partials/dashboard.users.create',
-//     controller: 'DashboardUsersCreateCtrl',
-//     reloadOnSearch: false
-// },
-// {
-//     url: 'accounts/:id',
-//     template: '/partials/dashboard.users.create',
-//     controller: 'DashboardUsersCreateCtrl',
-//     reloadOnSearch: false
-// },
+// Users endpoit
+{
+    url: 'accounts',
+    template: '/partials/dashboard.users.list',
+    controller: 'DashboardUsersListCtrl',
+    reloadOnSearch: false
+},
+{
+    url: 'accounts/create',
+    template: '/partials/dashboard.users.create',
+    controller: 'DashboardUsersCreateCtrl',
+    reloadOnSearch: false
+},
+{
+    url: 'accounts/:id',
+    template: '/partials/dashboard.users.create',
+    controller: 'DashboardUsersCreateCtrl',
+    reloadOnSearch: false
+},
 // // Item
 // {
 //     url: 'items',
@@ -125,27 +125,50 @@ namespace.routes = [
 //     // template: '/partials/posts',
 //     // controller: 'PostCtrl'
 // },
-// // Shop endpoint
-// {
-//     url: 'articles',
-//     template: '/partials/dashboard.articles.list',
-//     controller: 'DashboardArticlesListCtrl',
-//     reloadOnSearch: false
-//     // template: '/partials/posts',
-//     // controller: 'PostCtrl'
-// },
-// {
-//     url: 'articles/create',
-//     template: '/partials/dashboard.articles.create',
-//     controller: 'DashboardArticlesCreateCtrl'
-//     // template: '/partials/posts',
-//     // controller: 'PostCtrl'
-// },
-// {
-//     url: 'articles/:id',
-//     template: '/partials/dashboard.articles.create',
-//     controller: 'DashboardArticlesCreateCtrl'
-//     // template: '/partials/posts',
-//     // controller: 'PostCtrl'
-// }
+// Article endpoint
+{
+    url: 'articles',
+    template: '/partials/dashboard.articles.list',
+    controller: 'DashboardArticlesListCtrl',
+    reloadOnSearch: false
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
+{
+    url: 'articles/create',
+    template: '/partials/dashboard.articles.create',
+    controller: 'DashboardArticlesCreateCtrl'
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
+{
+    url: 'articles/:id',
+    template: '/partials/dashboard.articles.create',
+    controller: 'DashboardArticlesCreateCtrl'
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
+// Post endpoint
+{
+    url: 'posts',
+    template: '/partials/dashboard.posts.list',
+    controller: 'DashboardPostsListCtrl',
+    reloadOnSearch: false
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
+{
+    url: 'posts/create',
+    template: '/partials/dashboard.posts.create',
+    controller: 'DashboardPostsCreateCtrl'
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
+{
+    url: 'posts/:id',
+    template: '/partials/dashboard.posts.create',
+    controller: 'DashboardPostsCreateCtrl'
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+}
 ];

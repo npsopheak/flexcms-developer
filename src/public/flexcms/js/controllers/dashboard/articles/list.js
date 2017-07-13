@@ -88,6 +88,7 @@
 				'offset': (offset - 1) * limit || 0,
 				'limit': limit || 10,
 		    	'ignore-offset': 0,
+				'type-name': 'post',
 		    	'search': $scope.search.query || '',
 		    	'sort': 'directory_name', // $scope.sort || '',
 		    	// 'scope': 'foods,origins,categories,features,menu,drinks,payment_methods,parkings',

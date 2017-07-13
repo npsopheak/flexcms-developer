@@ -180,6 +180,19 @@ class ItemTableSeeder extends Seeder {
             'status' => 'active'
         ]);
 
+        $item = Item::create([
+            'id' => 17,
+            'display_name' => 'Contact Us',
+            'name' => 'contact-info',
+            'description' => 'Contact Info section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
         // Post Category - Post
 
         $item = Item::create([

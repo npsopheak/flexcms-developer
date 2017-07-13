@@ -126,6 +126,7 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::get('products/{id}/', 'Custom\ProductController@show');
 
     // User endpoint for managing user information
+    Route::get('users/me', 'UserController@showMe');
     Route::resource('users', 'UserController');
     Route::post('users/{id}/password', 'UserController@changePassword');
     Route::post('users/{id}/directory', 'UserController@assignDirectoryMember');

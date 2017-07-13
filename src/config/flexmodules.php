@@ -74,6 +74,11 @@
         2 => 'candidateList',
         3 => 'candidateDetail',
       ),
+      'posts' => 
+      array (
+        0 => 'list',
+        1 => 'create',
+      ),
     ),
     'login' => 
     array (
