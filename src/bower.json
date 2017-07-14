@@ -65,7 +65,8 @@
     "salvattore": "^1.0.9",
     "isotope": "^3.0.2",
     "jQuery-ui-Slider-Pips": "jquery-ui-slider-pips#^1.11.4",
-    "angular-aria": "1.5.6"
+    "angular-aria": "1.5.6",
+    "textAngular": "^1.5.16"
   },
   "resolutions": {
     "angular": "1.5.6",

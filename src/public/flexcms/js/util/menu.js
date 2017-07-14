@@ -13,7 +13,7 @@ namespace.menus = [{
         {
             name: 'Post',
             extraScreen: 'article',
-            icon: 'icon-office',
+            icon: 'icon-quill',
             enabled: true,
             path: '/posts'
         },

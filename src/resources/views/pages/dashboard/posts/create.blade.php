@@ -159,7 +159,9 @@
                         {{-- TEXT TYPE --}}                    
                         <md-input-container flex-gt-xs ng-if="field.type === 'text' || field.type === 'number'">
                             <label class="label-container"><% field.display_name %>:</label>
-                            <input ng-model="field.model" name="<% field.name %>" type="<% field.type === 'text' %>">
+                            {{--<input ng-model="field.model" name="<% field.name %>" type="<% field.type === 'text' %>">--}}
+							<textarea ng-model="field.model" columns="1" name="<% field.name %>"
+		                	md-maxlength="500" ></textarea>  
                         </md-input-container>
 			        	<div class="" ng-if="field.type === 'download-link-group'">
 			        		<div class="textarea-group" >
@@ -226,13 +228,14 @@
 		        </div>
 
 		      	<div class="textarea-group" ng-if="status['description']">      		
-		      		<label class="label-container">Your text:</label>
-			      	<textarea name="post-editor-desc"
+		      		<label class="label-container">Description:</label>
+			      	{{--<textarea name="post-editor-desc"
                         id="<% Date.now() | date:'ddMMyyyyHHmmss' %>"
 			      		co-editor ng-model="data.description" rows="10" 
 			      		cols="80">
 			            Your text goes here!
-			        </textarea>
+			        </textarea>--}}
+					<text-angular ta-toolbar="taOptions" ng-model="data.description"></text-angular>
 		        </div>
 
 		      	<div layout layout-sm="column">
