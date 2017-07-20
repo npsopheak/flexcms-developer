@@ -412,6 +412,7 @@ class CMS {
 
     // Get posts by category
     public function postsByCategory($category, $options = []){
+        
         $order = isset($options['order']) && $options['order'] ? $options['order'] : null;
         $limit = isset($options['limit']) && $options['limit'] ? $options['limit'] : null;
         $offset = isset($options['offset']) && $options['offset'] ? $options['offset'] : null;
@@ -447,7 +448,7 @@ class CMS {
             return $post;
         }
         else{
-            return [];
+            return 0;
         }
     }
 

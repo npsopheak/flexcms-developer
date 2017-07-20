@@ -528,7 +528,7 @@
 
 	    $scope.deletePendingPhoto = function (item){
 	    	for(var i = $scope.pendingFiles.length - 1; i >= 0; i--){
-				if (item.id === $scope.pendingFiles.id){
+				if (item.id === $scope.pendingFiles[i].id){
 					$scope.pendingFiles.splice(i, 1);
 				}
 			}
