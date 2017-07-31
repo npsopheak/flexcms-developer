@@ -1,11 +1,12 @@
 (function(app) {
-    app.controller('DashboardUsersCreateCtrl', ['$scope', '$timeout', '$mdSidenav',
+    app.controller('DashboardCareersCreateCtrl', ['$scope', '$timeout', '$mdSidenav',
         '$mdUtil', '$log', '$rootScope', '$mdDialog', '$routeParams', '$location',
-        '$mdToast', 'CoResource', 'filterFilter', function($scope, $timeout, $mdSidenav,
-        $mdUtil, $log, $rootScope, $mdDialog, $routeParams, $location,
-        $mdToast, CoResource, filterFilter) {
+        '$mdToast', 'CoResource', 'filterFilter',
+        function($scope, $timeout, $mdSidenav,
+            $mdUtil, $log, $rootScope, $mdDialog, $routeParams, $location,
+            $mdToast, CoResource, filterFilter) {
 
-	        $scope.id = $routeParams.id;
+            $scope.id = $routeParams.id;
             $scope.toastPosition = {
                 bottom: false,
                 top: true,
@@ -26,7 +27,7 @@
             $scope.mode = 'create';
 
             // Load data 
-            $scope.data = CoResource.resources.User
+            $scope.data = CoResource.resources.Career
                 .get({ id: $scope.id || 'NO_DATA' }, function(s) {
                     $scope.loading = false;
 
@@ -37,15 +38,30 @@
                         $scope.data = {};
 
                         $timeout(function() {
+                            $('#requirement-editor').val('');
+                            $('#res-editor').val('');
                             $rootScope.loading('hide');
                         }, 500);
                     } else {
 
+                        // if (s.result.closing_date && s.result.closing_date.length >= 11){
+                        //     s.result.closing_date = moment(s.result.closing_date, 'DD-MMM-YYYY').utc().toISOString();
+                        // }
+                        // console.log(s.result.closing_date );
                         $scope.data = s.result;
                         $scope.mode = 'edit';
                         $scope.data.is_active = $scope.data.is_active ? true : false;
 
+                        CoResource.resources.Career.listCandidate({
+                            'ignore-offset': 0,
+                            'job_id': $scope.data.id,
+                        }, function(s) {
+                            $scope.candidates = s.result;
+                        });
+
                         $timeout(function() {
+                            // $('#res-editor').val($scope.da`ta.responsibility);
+                            // $('#requirement-editor').val(`$scope.data.requirement);
                             $rootScope.loading('hide');
                         }, 1000);
 
@@ -61,8 +77,12 @@
                 $rootScope.loading('show');
 
                 if ($scope.mode === 'create') {
+                    // $scope.data.hash = $scope.hash;
                     
-                    var item = new CoResource.resources.User($scope.data);
+                    var item = new CoResource.resources.Career($scope.data);
+                    if (item.closing_date && (item.closing_date + '').length > 11){
+                        item.closing_date = moment.utc(item.closing_date).local().format('DD-MMM-YYYY');
+                    }
                     item.$save(function(s, h) {
                         $scope.data = s.result;
                         $scope.mode = 'edit';
@@ -71,15 +91,15 @@
                             return $mdDialog.show(
                                     $mdDialog.alert()
                                     .parent(angular.element(document.body))
-                                    .title('Create User Listing')
-                                    .content('User listing is successfully created')
-                                    .ariaLabel('Create User Listing')
+                                    .title('Create Career Job Listing')
+                                    .content('Career Job listing is successfully created')
+                                    .ariaLabel('Create Career Job Listing')
                                     .ok('Got it!')
                                 )
                                 .then(function(answer) {
-                                    $location.path('accounts/' + $scope.data.id);
+                                    $location.path('careers/' + $scope.data.id);
                                 }, function() {
-                                    $location.path('accounts/' + $scope.data.id);
+                                    $location.path('careers/' + $scope.data.id);
                                 });
                         }
                     }, function(f) {
@@ -88,9 +108,9 @@
                             return $mdDialog.show(
                                 $mdDialog.alert()
                                 .parent(angular.element(document.body))
-                                .title('Create User Listing')
-                                .content('There was an error while creating User listing. ' + CoResource.textifyError(f.data))
-                                .ariaLabel('Create User Listing')
+                                .title('Create Career Job Listing')
+                                .content('There was an error while creating Career Job listing. ' + CoResource.textifyError(f.data))
+                                .ariaLabel('Create Career Job Listing')
                                 .ok('Got it!')
                             );
                         }
@@ -98,38 +118,22 @@
 
                 } else {
 
-                    if ($scope.data.old_password){
-                        if (!!$scope.data.password && $scope.data.password !== $scope.data.password_confirmation){
-                            $rootScope.loading('hide');
-                            return $mdDialog.show(
-                                $mdDialog.alert()
-                                .parent(angular.element(document.body))
-                                .title('Update User Listing')
-                                .content('New Password is not matched')
-                                .ariaLabel('Update User Listing')
-                                .ok('Got it!')
-                            );
-                        }
-                        hideDialog = true;
-                    }
-
-                    var item = new CoResource.resources.User.get({
+                    var item = new CoResource.resources.Career.get({
                         id: $scope.data.id
                     }, function() {
                         item = _.extend(item, $scope.data);
-                        item = _.omit(item, 'password', 'old_password', 'password_confirmation');
 
-                        if ($rootScope.session.id == $scope.data.id){
-                            item = _.omit(item, 'role');
+                        if (item.closing_date && (item.closing_date + '').length > 11){
+                            item.closing_date = moment.utc(item.closing_date).local().format('DD-MMM-YYYY');
                         }
-                        // Update User 
+                        console.log(item.closing_date);
                         item.$update({ id: $scope.data.id }, function(s, h) {
 
                             $rootScope.loading('hide');
                             if (hideDialog) {
                                 return $mdToast.show(
                                     $mdToast.simple()
-                                    .content('User updated')
+                                    .content('Map updated')
                                     .position($scope.getToastPosition())
                                     .hideDelay(3000)
                                 );
@@ -137,9 +141,9 @@
                             return $mdDialog.show(
                                 $mdDialog.alert()
                                 .parent(angular.element(document.body))
-                                .title('Update User Listing')
-                                .content('User listing is successfully updated')
-                                .ariaLabel('Update User Listing')
+                                .title('Update Career Job Listing')
+                                .content('Career Job listing is successfully updated')
+                                .ariaLabel('Update Career Job Listing')
                                 .ok('Got it!')
                             );
                         }, function(e) {
@@ -149,49 +153,20 @@
                             return $mdDialog.show(
                                 $mdDialog.alert()
                                 .parent(angular.element(document.body))
-                                .title('Error Update User Listing')
+                                .title('Error Update Career Job Listing')
                                 .content(CoResource.textifyError(e.data))
-                                .ariaLabel('Update User Listing')
+                                .ariaLabel('Update Career Job Listing')
                                 .ok('Got it!')
                             );
                         });
-                        // Update password changed 
-                        if ($scope.data.old_password){
-                            CoResource.resources.User.changePassword({
-                                id: $scope.data.id
-                            }, _.pick($scope.data, 'old_password', 'password', 'password_confirmation'), function (s){
-                                $scope.data.old_password = null;
-                                $scope.data.password = null;
-                                $scope.data.password_confirmation = null;
-                                return $mdDialog.show(
-                                    $mdDialog.alert()
-                                    .parent(angular.element(document.body))
-                                    .title('Password Change')
-                                    .content('Password Change is successfully updated')
-                                    .ariaLabel('Password Change Listing')
-                                    .ok('Got it!')
-                                );
-                            }, function (e){
-                                return $mdDialog.show(
-                                    $mdDialog.alert()
-                                    .parent(angular.element(document.body))
-                                    .title('Error Password Change Listing')
-                                    .content(e.data.result)
-                                    .ariaLabel('Password Change Listing')
-                                    .ok('Got it!')
-                                );
-                            });
-                        }
-                        
-
                     }, function(e) {
                         $rootScope.loading('hide');
                         return $mdDialog.show(
                             $mdDialog.alert()
                             .parent(angular.element(document.body))
-                            .title('Update User Listing')
-                            .content('There was an error while updating User listing. ' + CoResource.textifyError(e.data))
-                            .ariaLabel('Update User Listing')
+                            .title('Update Career Job Listing')
+                            .content('There was an error while updating Career Job listing. ' + CoResource.textifyError(e.data))
+                            .ariaLabel('Update Career Job Listing')
                             .ok('Got it!')
                         );
                     });
@@ -201,20 +176,20 @@
 
             /* START: Update Location listing  */
 
-            // $scope.edit = function($event) {
-            //     if ($scope.selected.length == 1) {
-            //         $scope.editDimension($scope.selected[0], $event);
-            //     }
-            // };
+            $scope.edit = function($event) {
+                if ($scope.selected.length == 1) {
+                    $scope.editDimension($scope.selected[0], $event);
+                }
+            };
 
             $scope.delete = function($event) {
                 if ($scope.data.id) {
 
                     var confirm = $mdDialog.confirm()
                         .parent(angular.element(document.body))
-                        .title('Remove User?')
-                        .content('Are sure to remove this User? You cannot undo after you delete it')
-                        .ariaLabel('Remove User')
+                        .title('Remove Career Job?')
+                        .content('Are sure to remove this Career Job? You cannot undo after you delete it')
+                        .ariaLabel('Remove Career Job')
                         .ok('Yes')
                         .cancel('No')
                         .targetEvent($event);
@@ -227,7 +202,7 @@
                             $location.path('/');
                         }, function(e) {
                             $rootScope.loading('hide');
-                            alert('Sorry, this User cannot be set due to some reason, please contact administrator for more information');
+                            alert('Sorry, this Career Job cannot be set due to some reason, please contact administrator for more information');
                         });
 
                     }, function() {});
@@ -235,24 +210,24 @@
             };
 
             // Customized
-            // $scope.selected = [];
-            // $scope.showDetail = function(ev) {
-            //     var item = $scope.selected[0];
-            //     $scope.showDialog(item, ev);
-            // };
+            $scope.selected = [];
+            $scope.showDetail = function(ev) {
+                var item = $scope.selected[0];
+                $scope.showDialog(item, ev);
+            };
 
-            // $scope.showDialog = function (item, ev){
-            //     $mdDialog.show({
-            //         controller: 'DashboardCareersCandidateDetailCtrl',
-            //         templateUrl: '/partials/dashboard.careers.candidateDetail',
-            //         parent: angular.element(document.body),
-            //         targetEvent: ev,
-            //         locals: {
-            //             $current: item
-            //         }
-            //     })
-            //     .then(function(answer) {}, function() {});
-            // };
+            $scope.showDialog = function (item, ev){
+                $mdDialog.show({
+                    controller: 'DashboardCareersCandidateDetailCtrl',
+                    templateUrl: '/partials/dashboard.careers.candidateDetail',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    locals: {
+                        $current: item
+                    }
+                })
+                .then(function(answer) {}, function() {});
+            };
 
 
             $(function() {
@@ -262,5 +237,6 @@
                 });
             });
 
-    }]);
+        }
+    ]);
 }(app));

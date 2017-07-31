@@ -3,13 +3,10 @@
     <md-toolbar class="md-theme-indigo md-default-theme">
       <div class="md-toolbar-tools">
         <h2>
-          <span>User Listing</span>
+          <span>Career Candidate Listing</span>
         </h2>
         <span flex></span>
-        <md-button class="md-icon-button" aria-label="Add"
-            ng-click="create($event)">
-          <md-icon md-font-icon="icon-plus"></md-icon>
-        </md-button>
+        
       </div>
     </md-toolbar>
 
@@ -18,10 +15,10 @@
         <md-content layout-padding="16" class="box-shadow-content">
             <form name="userForm" layout-gt-xs="row">
                 <div class="md-toolbar-tools" flex-gt-xs>
-                    <span>User Listing</span>
+                    <span>Career Candidate Listing</span>
                 </div>
                 <md-input-container flex-gt-xs>
-                    <label>Search users</label>
+                    <label>Search candidate</label>
                     <input ng-model="search.query" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }">
                 </md-input-container>
             </form>
@@ -33,16 +30,16 @@
             <div class="buttons" layout-align="end center">
                 <md-button class="md-icon-button md-button md-ink-ripple"
                     style="width: 100px"
-                    type="button" ng-click="viewUser($event)" aria-label="Block Items">
-                    <md-icon md-font-icon="icon-blocked" class="md-font material-icons icon-office" 
+                    type="button" ng-click="view($event)" aria-label="Detail">
+                    <md-icon md-font-icon="icon-eye" class="md-font material-icons icon-office" 
                         style="display: inline-block;" aria-hidden="true"></md-icon>
-                    Edit
+                    Detail
                 </md-button>
-                <md-button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="removeUser($event)" aria-label="Remove" style="width: 120px">
-                    <md-icon md-font-icon="icon-bin2" class="md-font material-icons icon-bin2" 
+                <md-button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="callShortlist($event)" aria-label="Set Shortlist" style="width: 120px">
+                    <md-icon md-font-icon="icon-pencil" class="md-font material-icons icon-bin2" 
                         style="display: inline-block;" 
                         aria-hidden="true"></md-icon>
-                    Remove
+                    Shortlist
                 </md-button>
             </div>
           </div>
@@ -52,29 +49,39 @@
           <table md-table md-row-select ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="listing">
               <tr md-row>
-                <th md-column><span>Name</span></th>
+              	<th md-column><span>No</span></th>
+                <th md-column><span>Job Title</span></th>
+                <th md-column><span>Location</span></th>
+                <th md-column><span>Candidate</span></th>
+                <th md-column><span>Phone</span></th>
                 <th md-column><span>Email</span></th>
-                <th md-column><span>Role</span></th>
-                <th md-column>
-                	Linked Member
-                </th>
+                <th md-column><span>Comment</span></th>
                 <th md-column>Created at</th>
+                <th md-column>
+                	Status
+                </th>
               </tr>
             </thead>
             <tbody md-body>
               <tr md-row md-select="item" md-select-id="id" ng-click="viewDetail(item)" md-auto-select ng-repeat="item in data">
-                
-                <td md-cell><% item.name %></td>
-                
-                <td md-cell><% item.email %></td>
-                <td md-cell style="<% item.role == 'member' ? 'font-weight: bold' : ''%>"><% item.role %></td>
                 <td md-cell>
-                    <% item.directory[0].name %>
+                	<% $index + 1 %>
                 </td>
+                <td md-cell><% item.job.name %></td>
+                <td md-cell><% item.job.location %></td>
+                <td md-cell><% item.full_name %></td>
+                <td md-cell><% item.phone_number %></td>
+                <td md-cell><% item.email %></td>
+                <td md-cell><% item.comment %></td>
                 <td md-cell><% formatUtcDate(item.created_at) %></td>
+                <td md-cell>
+                    <span ng-show="item.status == 'active'">Active</span>
+                    <span ng-show="item.status == 'inactive'">Inactive</span>
+                    <span ng-show="item.status == 'shortlisted'">Shortlisted</span>
+                </td>
               </tr>
               <tr md-row ng-show="!data.length">
-                <td md-cell colspan="7">There is no advertisement data</td>
+                <td md-cell colspan="9">There is no jobs data</td>
               </tr>
             </tbody>
           </table>

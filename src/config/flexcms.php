@@ -4,11 +4,11 @@ return [
 
 	'app' => [
 
-		'name' => 'Flex Dashboard',
+		'name' => 'Tenglay Dashboard',
 
 		'login' => [
 
-			'name' => 'Flex Dashboard',
+			'name' => 'Tenglay Dashboard',
 
 			'description' => 'Accessing the content management system'
 			
@@ -28,7 +28,7 @@ return [
 		'encrypt_key_id' => 'X-XX-Sign-Key',
 
 		// User Agent name
-		'user_agent' => 'Flex Dashboard'
+		'user_agent' => 'Tenglay Dashboard'
 	],
 
     'api' => [
@@ -42,6 +42,15 @@ return [
 
 		// Value for request id
 		'request_id' => 'MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw=='
-    ]
+    ],
+
+	'cms' => [
+		'modules' => [
+			// Main for module dashboard such as: dashboard/activities,
+			// Main for customs such as: customs/controllers/left, customs/services/crypt
+			'excepts' => ['dashboard/activities', 'dashboard/budgets', 'dashboard/contacts', 'dashboard/donors', 'dashboard/members',
+			'dashboard/staffs']
+		]
+	]
 
 ];

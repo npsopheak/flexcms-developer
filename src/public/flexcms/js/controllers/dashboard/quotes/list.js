@@ -1,70 +1,46 @@
 (function(app) {
-    app.controller('DashboardUsersListCtrl', ['$scope', '$timeout', '$mdSidenav',
+    app.controller('DashboardQuotesListCtrl', ['$scope', '$timeout', '$mdSidenav',
         '$mdUtil', '$log', '$rootScope', '$mdDialog', '$routeParams', '$location',
         '$mdToast', 'CoResource', 'filterFilter', function($scope, $timeout, $mdSidenav,
         $mdUtil, $log, $rootScope, $mdDialog, $routeParams, $location,
         $mdToast, CoResource, filterFilter) {
 
-            
-	    
+        
 	    $scope.data = [];
-        $scope.selected = [];
 
 		$scope.search = {
 			query: $location.search().search || ''
 		};
 
-		$scope.view = function(item){
-			$location.path('accounts/' + item.id);
-		};	
-
-		$scope.create = function(){
-			$location.path('accounts/create');
-		};	
-
-
-		// Customized
-		$scope.selected = [];
-		$scope.viewUser = function(ev) {
-			var item = $scope.selected[0];
-			$scope.view(item, ev);
-		};
-
-		$scope.deleteUser = function(ev) {
-			var item = $scope.selected[0];
-			$scope.removeDialog(item, ev);
-		};
-
-		$scope.removeDialog = function(item, ev) {
-			if (item) {
-
-				var confirm = $mdDialog.confirm()
-					.parent(angular.element(document.body))
-					.title('Remove user?')
-					.content('Are sure to remove this user info? You cannot undo after you delete it')
-					.ariaLabel('Remove user')
-					.ok('Yes')
-					.cancel('No')
-					.targetEvent(ev);
-				$mdDialog.show(confirm).then(function() {
-					$rootScope.loading('show');
-					var query = {
-						id: $scope.data.id,
-					};
-					query['id'] = item.id;
-					CoResource.resources.User.delete(query, {
-						
-					}, function(s) {
-						loadData();
-						$rootScope.loading('hide');
-					}, function(e) {
-						$rootScope.loading('hide');
-						alert('Sorry, this item cannot be set due to some reason, please contact administrator for more information');
-					});
-
-				}, function() {});
-			}
-		};
+	    // Manific
+	    function renderMagnific(){
+	        $('.mini-gallery-list').magnificPopup({
+	            type: 'image',
+	            removalDelay: 300,
+	            mainClass: 'mfp-with-zoom',
+	            delegate: 'li.gallery-item', // the selector for gallery item,
+	            titleSrc: 'title',
+	            tLoading: '',
+	            gallery: {
+	                enabled: true
+	            },
+	            callbacks: {
+	                imageLoadComplete: function() {
+	                    var self = this;
+	                    setTimeout(function() {
+	                        self.wrap.addClass('mfp-image-loaded');
+	                    }, 16);
+	                },
+	                open: function() {
+	                    // $('#header > nav').css('padding-right', getScrollBarWidth() + "px");
+	                },
+	                close: function() {
+	                    this.wrap.removeClass('mfp-image-loaded');
+	                    // $('#header > nav').css('padding-right', "0px");
+	                },
+	            }
+	        });
+	    }
 
 		
 	    // Pagination
@@ -94,10 +70,11 @@
 	    	offset = offset || $scope.pagination.offset;
 	    	limit = limit || 10;
 	    	
-			CoResource.resources.User.list({
+			CoResource.resources.Article.list({
 				'offset': (offset - 1) * limit || 0,
 				'limit': limit || 10,
 		    	'ignore-offset': 0,
+                'category-name': 'quote-request', 
 		    	'search': $scope.search.query || '',
 		    	'sort': 'directory_name', // $scope.sort || '',
 		    	// 'scope': 'foods,origins,categories,features,menu,drinks,payment_methods,parkings',
@@ -106,7 +83,7 @@
 		    	$scope.pagination.total_record = s.options.total;
 		    	$scope.preparePagination();
 		    	setTimeout(function (){
-		    		// renderMagnific();
+		    		renderMagnific();
 		    	}, 2000);
 
 		    	if (callback){
@@ -202,7 +179,7 @@
 			$location.search('offset', null);
 			$location.search('search', null);
 		});
-		
+
 	
 
 

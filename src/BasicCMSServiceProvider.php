@@ -64,6 +64,10 @@ class BasicCMSServiceProvider extends ServiceProvider
          $this->publishes([
             __DIR__.'/config/flexcms.php' => config_path('flexcms.php'),
         ]);
+        // Publish js file
+        $this->publishes([
+            __DIR__.'/public/flexcms' => public_path('vendor/flexcms'),
+        ], 'public');
 
         // Merge Configuration 
         $this->mergeConfigFrom(

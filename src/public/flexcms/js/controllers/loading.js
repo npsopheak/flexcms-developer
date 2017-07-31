@@ -14,6 +14,6 @@
 	 		$mdDialog.hide();
 	 	};
 
-
+ 
     }]);
 }(app));

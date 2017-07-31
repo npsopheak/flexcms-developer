@@ -231,4 +231,14 @@ app.run(['$http', '$rootScope', '$mdSidenav', '$mdUtil', '$location', '$mdDialog
         'parking': 'Parking',
     };
 
+    CoResource.resources.User
+        .get({ id: 'me' }, function(s) {
+            $rootScope.session = s.result;
+        }, function(f) {
+            $scope.loading = false;
+            $rootScope.loading('hide');
+        });
+
+    // Save data
+
 }]);
