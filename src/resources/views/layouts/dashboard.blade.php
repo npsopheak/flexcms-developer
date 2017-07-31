@@ -26,8 +26,7 @@
 
             <link href="{{ asset('vendor/flexcms/css/vendor.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-            <link href="{{ asset('vendor/flexcms/vendors/textAngular/dist/textAngular.css') }}" rel="stylesheet">
+            
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -35,8 +34,7 @@
 
         @else
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-            <link href="{{ asset('vendor/flexcms/vendors/textAngular/dist/textAngular.css') }}" rel="stylesheet">
+            
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -92,13 +90,11 @@
 
         <script src="/vendor/flexcms/vendors-download/magnific-popup/jquery.magnific-popup.js"></script>
         <script src="/vendor/flexcms/vendors/angular-google-maps/dist/angular-google-maps.min.js"></script>
-        <script src="/vendor/flexcms/vendors/textAngular/dist/textAngular-rangy.min.js"></script>
-        <script src="/vendor/flexcms/vendors/textAngular/dist/textAngular-sanitize.min.js"></script>
-        <script src="/vendor/flexcms/vendors/textAngular/dist/textAngular.min.js"></script>
+
         <script src="/vendor/flexcms/vendors/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
 
         
-        <script type="text/javascript" src="{{ asset('vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/vendor/flexcms/vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
 
         <script src="/vendor/flexcms/vendors/ngmap/build/scripts/ng-map.min.js"></script>
         <script src="/vendor/flexcms/vendors/angular-resource/angular-resource.min.js"></script>
@@ -106,7 +102,7 @@
         <script src="/vendor/flexcms/vendors/angular-aria/angular-aria.min.js"></script>
         <script src="/vendor/flexcms/vendors/angular-material/angular-material.min.js"></script>
         <script src="/vendor/flexcms/vendors/angular-route/angular-route.min.js"></script>
-        {{--<script src="/vendor/flexcms/vendors/angular-sanitize/angular-sanitize.min.js"></script>--}}
+        <script src="/vendor/flexcms/vendors/angular-sanitize/angular-sanitize.min.js"></script>
         <script src="/vendor/flexcms/vendors/ng-file-upload/ng-file-upload.min.js"></script>
 
         <script src="/vendor/flexcms/vendors/material-angular-paging/build/dist.min.js"></script>

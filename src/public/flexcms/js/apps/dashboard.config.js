@@ -1,7 +1,7 @@
 
 app
-    .config(['$interpolateProvider', '$routeProvider', '$mdThemingProvider', '$httpProvider', '$mdDialogProvider', 'uiGmapGoogleMapApiProvider', '$provide',
-        function($interpolateProvider, $routeProvider, $mdThemingProvider, $httpProvider, $mdDialogProvider, uiGmapGoogleMapApiProvider, $provide) {
+    .config(['$interpolateProvider', '$routeProvider', '$mdThemingProvider', '$httpProvider', '$mdDialogProvider', 'uiGmapGoogleMapApiProvider',
+        function($interpolateProvider, $routeProvider, $mdThemingProvider, $httpProvider, $mdDialogProvider, uiGmapGoogleMapApiProvider) {
 		$mdThemingProvider.theme('default')
 		    .primaryPalette('teal')
 		    .accentPalette('green');
@@ -66,32 +66,8 @@ app
             }
         });
 
-        // Decorator function for text editor 
-        // this demonstrates how to register a new tool and add it to the default toolbar
-		/*$provide.decorator('taOptions', ['$delegate', function(taOptions){
-			// $delegate is the taOptions we are decorating
-			// here we override the default toolbars and classes specified in taOptions.
-			taOptions.forceTextAngularSanitize = true; // set false to allow the textAngular-sanitize provider to be replaced
-			taOptions.keyMappings = []; // allow customizable keyMappings for specialized key boards or languages
-			taOptions.toolbar =[
-                ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
-                ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
-                ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'],
-                ['html', 'insertImage','insertLink', 'insertVideo', 'wordcount', 'charcount']
-            ];
-			// taOptions.classes = {
-			// 	focussed: 'focussed',
-			// 	toolbar: 'btn-toolbar',
-			// 	toolbarGroup: 'btn-group',
-			// 	toolbarButton: 'btn btn-default',
-			// 	toolbarButtonActive: 'active',
-			// 	disabled: 'disabled',
-			// 	textEditor: 'form-control',
-			// 	htmlEditor: 'form-control'
-			// };
-			return taOptions;
-        }]);
-        */
+
+
     }]);
 
 app.filter('startFrom', function() {
@@ -125,9 +101,9 @@ app.filter('cut', function () {
 });
 
 
-app.run(['$http', '$rootScope', '$mdSidenav', '$mdUtil', '$location', '$mdDialog', '$interval', 'CoResource',
+app.run(['$http', '$rootScope', '$mdSidenav', '$mdUtil', '$location', '$mdDialog', '$http', '$interval', 'CoResource',
 	function ($http, $rootScope,
-	$mdSidenav, $mdUtil, $location, $mdDialog, $interval, CoResource){
+	$mdSidenav, $mdUtil, $location, $mdDialog, $http, $interval, CoResource){
     var remoteUrl = angular.element('meta[name="se:remoteUrl"]').attr('content');
     $rootScope.remoteUrl = null;
     $rootScope.mediaUrl = '';
@@ -141,13 +117,6 @@ app.run(['$http', '$rootScope', '$mdSidenav', '$mdUtil', '$location', '$mdDialog
     catch (e){
         console.info('Sorry, we cannot parse the remote url, now using local url');
     }
-
-    $rootScope.taOptions = [
-        ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
-        ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
-        ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'],
-        ['html', 'insertImage','insertLink', 'insertVideo', 'wordcount', 'charcount']
-    ];
 
     console.log($rootScope.remoteUrl );
 
@@ -261,5 +230,15 @@ app.run(['$http', '$rootScope', '$mdSidenav', '$mdUtil', '$location', '$mdDialog
         'payment_method': 'Payment methods',
         'parking': 'Parking',
     };
+
+    CoResource.resources.User
+        .get({ id: 'me' }, function(s) {
+            $rootScope.session = s.result;
+        }, function(f) {
+            $scope.loading = false;
+            $rootScope.loading('hide');
+        });
+
+    // Save data
 
 }]);

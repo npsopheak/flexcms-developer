@@ -10,14 +10,15 @@
         	Access one of the below features to start your editing website. You can manage post, menu, category, user access as well as your site information.
         </p> -->
 
-        <div class="co-sidebar-group" ng-repeat="(i, menu) in menus">
+        <div class="co-sidebar-group" ng-repeat="(i, menu) in menus" ng-if="menu.role ==  'any' || (menu.role || '').split(',').indexOf(session.role) != -1" >
 	        	
 	        <md-subheader class="md-no-sticky co-menu-subheader">
 	        	<% menu.text %>
 	        </md-subheader>
 			<md-list-item 
 				ng-click="!item.event ? navigateTo(item.path, $event) : item.event(this)" 
-				ng-repeat="item in menu.items">
+				ng-repeat="item in menu.items"
+				ng-if="item.role ==  'any' || (item.role || '').split(',').indexOf(session.role) != -1">
 				<md-icon md-font-icon="<% item.icon %>"></md-icon>
 			    <p> <% item.name %> <span ng-if="item.name == 'Message' && stats.message">(<% stats.message %>)</span> </p>
 			</md-list-item>

@@ -64,7 +64,14 @@
 
 					      		<md-input-container flex-gt-xs>
 						          	<label>Closing date</label>
-						          	<input ng-model="data.closing_date" name="closing_date" required ng-disabled="loading">
+									  
+							      	<input mdc-datetime-picker date="true" time="false" type="text" id="time" short-time="true"
+						               placeholder="Closting Date"
+						               format="DD-MMM-YYYY"
+									   name="closing_date"
+						               ng-model="data.closing_date"
+									   ng-disabled="loading">
+
 						          	<div ng-messages="jobForm.closing_date.$error"
 						          		 ng-show="jobForm.closing_date.$dirty &&
 						          		 	jobForm.closing_date.$invalid">

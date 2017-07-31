@@ -85,18 +85,17 @@
 								      	</md-input-container>
 
 								      	<md-input-container  flex-gt-xs>
-							                <label class="label-container">Description:</label>
+							                <label>Description</label>
 							                {{-- <textarea ng-model="data.description"
 							                	style="min-height: 200px;"
 							                	ng-disabled="loading" columns="1" name="description"
 							                	md-maxlength="1000"></textarea> --}}
-											{{--<textarea name="post-editor"
+											<textarea name="post-editor"
 												co-editor
 												id="post-editor" ng-model="data.description" rows="10" 
 												cols="80">
 												Your text goes here!
-											</textarea>--}}
-											<text-angular ta-toolbar="taOptions" ng-model="data.description"></text-angular>
+											</textarea>
 								      	</md-input-container>
 							      	</div>
 					        	</md-content>

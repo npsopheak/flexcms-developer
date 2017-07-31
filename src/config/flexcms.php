@@ -48,7 +48,7 @@ return [
 		'modules' => [
 			// Main for module dashboard such as: dashboard/activities,
 			// Main for customs such as: customs/controllers/left, customs/services/crypt
-			'excepts' => ['dashboard/careers', 'dashboard/activities', 'dashboard/budgets', 'dashboard/contacts', 'dashboard/donors', 'dashboard/members',
+			'excepts' => ['dashboard/activities', 'dashboard/budgets', 'dashboard/contacts', 'dashboard/donors', 'dashboard/members',
 			'dashboard/staffs']
 		]
 	]

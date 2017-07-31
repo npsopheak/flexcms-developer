@@ -190,6 +190,11 @@ namespace.endpoints = function ($resource, base) {
 	  			method: 'GET',
 				cache : false
 	  		},
+	  		'changePassword': {
+				url: base + 'users/:id/password',
+	  			method: 'POST',
+				cache : false
+	  		}, 
 
 		}),
 	};

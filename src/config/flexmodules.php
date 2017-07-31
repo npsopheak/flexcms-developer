@@ -72,12 +72,7 @@
         0 => 'list',
         1 => 'create',
         2 => 'candidateList',
-        3 => 'candidateDetail',
-      ),
-      'posts' => 
-      array (
-        0 => 'list',
-        1 => 'create',
+        3 => 'candidateDetail'
       ),
     ),
     'login' => 

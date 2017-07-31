@@ -1,30 +1,16 @@
-(function() {
-    app.controller('DashboardArticlesListCtrl', ['$scope', '$timeout', '$mdSidenav',
+(function(app) {
+    app.controller('DashboardQuotesListCtrl', ['$scope', '$timeout', '$mdSidenav',
         '$mdUtil', '$log', '$rootScope', '$mdDialog', '$routeParams', '$location',
         '$mdToast', 'CoResource', 'filterFilter', function($scope, $timeout, $mdSidenav,
         $mdUtil, $log, $rootScope, $mdDialog, $routeParams, $location,
         $mdToast, CoResource, filterFilter) {
 
+        
 	    $scope.data = [];
 
 		$scope.search = {
 			query: $location.search().search || ''
 		};
-
-		$scope.getMapUrl = function(directory){
-			var url = 'https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&center=' + (directory.latitude || '13.3671') + ',' + (directory.longitude || '103.8448') +
-				'&zoom=14&size=200x150&maptype=roadmap&markers=color:blue%7Clabel:E%7C' + (directory.latitude || '13.3671') + ',' + (directory.longitude || '103.8448');
-			return url;
-		};
-
-		$scope.view = function(item){
-			$location.path('articles/' + item.id);
-		};	
-
-		$scope.create = function(){
-			$location.path('articles/create');
-		};	
-
 
 	    // Manific
 	    function renderMagnific(){
@@ -88,6 +74,7 @@
 				'offset': (offset - 1) * limit || 0,
 				'limit': limit || 10,
 		    	'ignore-offset': 0,
+                'category-name': 'quote-request', 
 		    	'search': $scope.search.query || '',
 		    	'sort': 'directory_name', // $scope.sort || '',
 		    	// 'scope': 'foods,origins,categories,features,menu,drinks,payment_methods,parkings',
@@ -195,5 +182,6 @@
 
 	
 
+
     }]);
-}());
+}(app));

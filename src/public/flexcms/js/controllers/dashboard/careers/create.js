@@ -44,7 +44,11 @@
                         }, 500);
                     } else {
 
-                        $scope.data = $scope.data.result;
+                        // if (s.result.closing_date && s.result.closing_date.length >= 11){
+                        //     s.result.closing_date = moment(s.result.closing_date, 'DD-MMM-YYYY').utc().toISOString();
+                        // }
+                        // console.log(s.result.closing_date );
+                        $scope.data = s.result;
                         $scope.mode = 'edit';
                         $scope.data.is_active = $scope.data.is_active ? true : false;
 
@@ -74,8 +78,11 @@
 
                 if ($scope.mode === 'create') {
                     // $scope.data.hash = $scope.hash;
-
+                    
                     var item = new CoResource.resources.Career($scope.data);
+                    if (item.closing_date && (item.closing_date + '').length > 11){
+                        item.closing_date = moment.utc(item.closing_date).local().format('DD-MMM-YYYY');
+                    }
                     item.$save(function(s, h) {
                         $scope.data = s.result;
                         $scope.mode = 'edit';
@@ -115,6 +122,11 @@
                         id: $scope.data.id
                     }, function() {
                         item = _.extend(item, $scope.data);
+
+                        if (item.closing_date && (item.closing_date + '').length > 11){
+                            item.closing_date = moment.utc(item.closing_date).local().format('DD-MMM-YYYY');
+                        }
+                        console.log(item.closing_date);
                         item.$update({ id: $scope.data.id }, function(s, h) {
 
                             $rootScope.loading('hide');

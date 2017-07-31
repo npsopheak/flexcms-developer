@@ -45,16 +45,10 @@ elixir(function(mix) {
         mix.sass('vendor.scss', 'public/flexcms/css/vendor.css');
     });
 
-    var modulesThis = [
-        '/vendors/textAngular/dist/textAngular-rangy.min.js',
-        '/vendors/textAngular/dist/textAngular-sanitize.min.js',
-        '/vendors/textAngular/dist/textAngular.min.js',
-    ];
-
     // minify js for admin 
     gulp.task('minify_js_admin', function() {
 
-        return gulp.src(modulesThis.concat([
+        return gulp.src([
             // './public/js/app.js',
             
             basePath + '/vendors/jquery/dist/jquery.min.js',
@@ -74,8 +68,7 @@ elixir(function(mix) {
             basePath + '/vendors/angular-aria/angular-aria.min.js',
             basePath + '/vendors/angular-material/angular-material.min.js',
             basePath + '/vendors/angular-route/angular-route.min.js',
-            // Conflict with textangular
-            // basePath + '/vendors/angular-sanitize/angular-sanitize.min.js',
+            basePath + '/vendors/angular-sanitize/angular-sanitize.min.js',
             basePath + '/vendors/ng-file-upload/ng-file-upload.min.js',
 
             basePath + '/vendors/material-angular-paging/build/dist.min.js',
@@ -113,7 +106,7 @@ elixir(function(mix) {
             basePath + '/js/controllers/left.js',
             basePath + '/js/controllers/loading.js',
 
-        ]))
+        ])
         .pipe(count('## js-files selected admin script'))   
         .pipe(concat('hh-admin-script.js'))
         // .pipe(uglify({
