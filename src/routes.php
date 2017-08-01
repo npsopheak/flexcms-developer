@@ -53,6 +53,9 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api'], func
     Route::get('/directories/categories', 'DirectoryController@indexByCategory');
     // Directory endpoint for libray list all
     Route::get('/directories/libraries', 'DirectoryController@indexLibrary');
+
+    // Directory endpoint for downloads
+    Route::get('directories/downloads', 'DirectoryController@indexDownload');
     
     Route::get('directories', 'DirectoryController@index');
     Route::get('directories/{id}', 'DirectoryController@show');
@@ -99,9 +102,6 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::post('articles/{id}/publish', 'ArticleController@publish');
     Route::post('articles/{id}/schedule', 'ArticleController@schedule');
     Route::post('articles/{id}/drop-to-draft', 'ArticleController@pullAsDraft');
-
-    // Directory endpoint for downloads
-    Route::get('directories/downloads', 'DirectoryController@indexDownload');
 
     Route::resource('directories', 'DirectoryController', ['except' => ['show', 'index']]);
 
