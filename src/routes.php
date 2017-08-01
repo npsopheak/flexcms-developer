@@ -180,6 +180,9 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::delete('directories/{directoryId}/users/{id}', 'DirectoryController@destroyUser');
     Route::get('directories/{directoryId}/users/{id}', 'DirectoryController@showUser');
 
+    // Directory endpoint for downloads
+    Route::get('directories/downloads', 'DirectoryController@indexDownload');
+
 
 });
 

@@ -1060,4 +1060,20 @@ class DirectoryController extends ApiController {
 			return $this->error($e->getMessage());
 		}
 	}
+
+	// Directory download 
+
+	public function indexDownload(){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDownload";
+			return $this->indexGeneric($directoryClass, null, function ($query) {
+				$query = $query->with('directory')->with('document')->with('directoryLibrary');
+				
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
 }
