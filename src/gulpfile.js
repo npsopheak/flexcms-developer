@@ -76,7 +76,7 @@ elixir(function(mix) {
             basePath + '/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
             basePath + '/vendors/angular-material-data-table/dist/md-data-table.min.js',
 
-            basePath + '/vendors/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js',
+            basePath + '/vendors/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js',
 
             basePath + '/vendors-download/ckeditor/ckeditor.js',
 
@@ -152,5 +152,23 @@ elixir(function(mix) {
     });
 
     gulp.task('prod_admin', ['clean_before','mix_css_admin', 'minify_css_admin', 'minify_js_admin', 'copy_file']);
+
+    // GULP FOR DEV ASSET
+    // TO Run: gulp dev watch
+    const SRC = './public/flexcms/**/*';
+    const DEST = './../../../../public/vendor/flexcms/**/*';
+
+    var execShell = require('child_process').exec;
+
+    gulp.task('dev-publish-public', function(){
+        execShell('npm run publish-dev-public', function (er, stdin, stdout){
+            console.log('Run completed', stdout);
+        });
+        return gulp.src(SRC);
+        });
+
+    gulp.task('watch-dev', function(){
+        gulp.watch(SRC, ['dev-publish-public']);
+    });
 
 });

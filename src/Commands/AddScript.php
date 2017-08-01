@@ -51,7 +51,13 @@ class AddScript extends Command
         $jsCtrlName = ucfirst($name);
 
         // Form js file path
-        $moduleJSPath = __DIR__ . '/../public/flexcms/js/' . $type . '/';
+        // $moduleJSPath = __DIR__ . '/../public/flexcms/js/' . $type . '/';
+        if (public_path('vendor/flexcms')){
+            $moduleJSPath = public_path('vendor/flexcms') . '/' . 'js/' . $type . '/';
+        }
+        else{
+            $moduleJSPath = __DIR__ . '/../public/flexcms/js/' . $type . '/';
+        }
         $fileJSPath = $moduleJSPath . $name . '.js';
 
         if (!file_exists($moduleJSPath)){
@@ -79,7 +85,13 @@ class AddScript extends Command
         }
 
         // Add to module js load routes
-        $configFilePath = __DIR__ . '/../config/flexmodules.php';
+        // $configFilePath = __DIR__ . '/../config/flexmodules.php';
+        if (file_exists(config_path('flexmodules.php'))){
+            $configFilePath = config_path('flexmodules.php');
+        }
+        else{
+            $configFilePath = __DIR__ . '/../config/flexmodules.php';
+        }
         $configModule = \File::getRequire($configFilePath);
 
         if (!isset($configModule['customs'])){

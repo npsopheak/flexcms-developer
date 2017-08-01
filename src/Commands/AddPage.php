@@ -49,7 +49,14 @@ class AddPage extends Command
 
         $action = $this->argument('action');
 
-        $modulePath = __DIR__ . '/../resources/views/pages/' . $module . '/' . $submodule . '/'; //
+        // Check path views
+        if (file_exists(base_path('resources/views/vendor/flexcms'))){
+            $modulePath = base_path('resources/views/vendor/flexcms') . '/' . 'pages/' . $module . '/' . $submodule . '/'; //
+        }
+        else{
+            $modulePath = __DIR__ . '/../resources/views/pages/' . $module . '/' . $submodule . '/'; //
+        }
+        
         $filePath = $modulePath . $action . '.blade.php';
 
         $this->info('Creating blade file at: ' . $filePath);
@@ -69,7 +76,13 @@ class AddPage extends Command
         $jsCtrlName = ucfirst($module) . ucfirst($submodule) . ucfirst($action) . 'Ctrl';
 
         // Form js file path
-        $moduleJSPath = __DIR__ . '/../public/flexcms/js/controllers/' . $module . '/' . $submodule . '/'; //
+        // $moduleJSPath = __DIR__ . '/../public/flexcms/js/controllers/' . $module . '/' . $submodule . '/'; //
+        if (public_path('vendor/flexcms')){
+            $moduleJSPath = public_path('vendor/flexcms') . '/js/controllers/' . $module . '/' . $submodule . '/'; //
+        }
+        else{
+            $moduleJSPath = __DIR__ . '/../public/flexcms/js/controllers/' . $module . '/' . $submodule . '/'; //
+        }
         $fileJSPath = $moduleJSPath . $action . '.js';
 
         if (!file_exists($moduleJSPath)){
@@ -84,7 +97,12 @@ class AddPage extends Command
         file_put_contents($fileJSPath, str_replace('{CONTROLLER_NAME}', $jsCtrlName, $content));
 
         // Add to module js load routes
-        $configFilePath = __DIR__ . '/../config/flexmodules.php';
+        if (file_exists(config_path('flexmodules.php'))){
+            $configFilePath = config_path('flexmodules.php');
+        }
+        else{
+            $configFilePath = __DIR__ . '/../config/flexmodules.php';
+        }
         $configModule = \File::getRequire($configFilePath);
 
         if (!isset($configModule['modules'][$module][$submodule])){
