@@ -175,6 +175,9 @@ class DirectoryController extends ApiController {
 			if (Input::get('emails')){
 				$directory->emails = Input::get('emails');
 			}
+			if (Input::get('directory_category_opt')){
+				$directory->directory_category_opt = Input::get('directory_category_opt');
+			}
 			if (Input::get('is_active')){
 				$directory->is_active = Input::get('is_active');
 			}

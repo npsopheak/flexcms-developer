@@ -48,9 +48,8 @@ class Directory extends Model
         'vision',
         'mission',
         'goal',
-
+        'directory_category_opt',
         'faxes',
-
         'project_type_id'
     ];
 
