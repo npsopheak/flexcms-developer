@@ -100,6 +100,9 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::post('articles/{id}/schedule', 'ArticleController@schedule');
     Route::post('articles/{id}/drop-to-draft', 'ArticleController@pullAsDraft');
 
+    // Directory endpoint for downloads
+    Route::get('directories/downloads', 'DirectoryController@indexDownload');
+
     Route::resource('directories', 'DirectoryController', ['except' => ['show', 'index']]);
 
     Route::resource('collections', 'CollectionController', ['except' => ['create', 'edit']]);
@@ -179,9 +182,6 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'FlexCMS\BasicCMS\Api', 'midd
     Route::put('directories/{directoryId}/users/{id}', 'DirectoryController@updateUser');
     Route::delete('directories/{directoryId}/users/{id}', 'DirectoryController@destroyUser');
     Route::get('directories/{directoryId}/users/{id}', 'DirectoryController@showUser');
-
-    // Directory endpoint for downloads
-    Route::get('directories/downloads', 'DirectoryController@indexDownload');
 
 
 });
