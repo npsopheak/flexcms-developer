@@ -220,7 +220,10 @@ class DirectoryController extends ApiController {
 			if (\Input::get('location_id')){
 				$directory->location_id = Input::get('location_id');
 			}
-	        $directory->updated_by = Auth::user()->id;
+			if (\Input::get('org_lead_by') != null){
+				$directory->org_lead_by = Input::get('org_lead_by');
+			}
+			$directory->updated_by = Auth::user()->id;
 			$directory->save();
 			return $this->show($directory->id);
 		}

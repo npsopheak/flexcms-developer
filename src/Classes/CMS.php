@@ -659,8 +659,15 @@ class CMS {
         
         $item = $Model::create($data);
         return $item;
-	}
+    }
 
+	public function resourceExec($Model, $closure = null){
+        
+        if ($closure){
+            return $closure($Model);
+        }
+    }
+    
     public function generatePagination($total_pages, $limit, $page, $baseUrl){
         // How many adjacent pages should be shown on each side?
         $adjacents = 3;
