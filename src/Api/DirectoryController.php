@@ -154,7 +154,7 @@ class DirectoryController extends ApiController {
 			if (Input::get('category_id')){
 				$directory->category_id = Input::get('category_id');
 			}
-			if (Input::get('logo_id')){
+			if (Input::get('logo_id') != null){
 				$directory->logo_id = Input::get('logo_id');
 			}
 			if (Input::get('latitude')){
