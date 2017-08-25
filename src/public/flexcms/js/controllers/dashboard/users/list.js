@@ -15,12 +15,56 @@
 		};
 
 		$scope.view = function(item){
-			$location.path('users/' + item.id);
+			$location.path('accounts/' + item.id);
 		};	
 
 		$scope.create = function(){
-			$location.path('users/create');
+			$location.path('accounts/create');
 		};	
+
+
+		// Customized
+		$scope.selected = [];
+		$scope.viewUser = function(ev) {
+			var item = $scope.selected[0];
+			$scope.view(item, ev);
+		};
+
+		$scope.deleteUser = function(ev) {
+			var item = $scope.selected[0];
+			$scope.removeDialog(item, ev);
+		};
+
+		$scope.removeDialog = function(item, ev) {
+			if (item) {
+
+				var confirm = $mdDialog.confirm()
+					.parent(angular.element(document.body))
+					.title('Remove user?')
+					.content('Are sure to remove this user info? You cannot undo after you delete it')
+					.ariaLabel('Remove user')
+					.ok('Yes')
+					.cancel('No')
+					.targetEvent(ev);
+				$mdDialog.show(confirm).then(function() {
+					$rootScope.loading('show');
+					var query = {
+						id: $scope.data.id,
+					};
+					query['id'] = item.id;
+					CoResource.resources.User.delete(query, {
+						
+					}, function(s) {
+						loadData();
+						$rootScope.loading('hide');
+					}, function(e) {
+						$rootScope.loading('hide');
+						alert('Sorry, this item cannot be set due to some reason, please contact administrator for more information');
+					});
+
+				}, function() {});
+			}
+		};
 
 		
 	    // Pagination
@@ -158,7 +202,7 @@
 			$location.search('offset', null);
 			$location.search('search', null);
 		});
-
+		
 	
 
 
