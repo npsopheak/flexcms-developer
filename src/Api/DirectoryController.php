@@ -1077,7 +1077,7 @@ class DirectoryController extends ApiController {
 				$query = $query->with('directory')->with('document')->with('directoryLibrary');
 				
 				if (\Input::get('q')){
-					$items = $items->whereRaw("directory_library_id IN (SELECT id FROM directory_libraries i WHERE i.name LIKE ? OR i.description LIKE ?)", ['%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
+					$query = $query->whereRaw("directory_library_id IN (SELECT id FROM directory_libraries i WHERE i.name LIKE ? OR i.description LIKE ?)", ['%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
 						// "name like ? OR email LIKE ? OR role LIKE ?", 
 						// ['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
 				}
