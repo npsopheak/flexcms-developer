@@ -22,6 +22,10 @@ class UserController extends ApiController {
 			if ($name != null){
 				$items = $items->whereRaw('name = ?', [$name]);
 			}
+			if (\Input::get('q')){
+				$items = $items->whereRaw("name like ? OR email LIKE ? OR role LIKE ?", 
+					['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
+			}
 
 			$items = $items->with('directory');
 
