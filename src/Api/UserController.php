@@ -47,7 +47,7 @@ class UserController extends ApiController {
 
 	public function show($id){
 		try{
-			$item = User::find($id);
+			$item = User::with('directory')->find($id);
 			if (!$item){
 				throw new \Exception('The item cannot be found to update');
 			}

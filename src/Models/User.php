@@ -60,6 +60,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function directory()
     {
-        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Directory', 'directory_users', 'user_id', 'directory_id');
+        return $this->belongsToMany('FlexCMS\BasicCMS\Models\Directory', 'directory_users', 'directory_id', 'user_id');
     }
 }
