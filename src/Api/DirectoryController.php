@@ -35,7 +35,7 @@ class DirectoryController extends ApiController {
 					->orWhereRaw("id IN (SELECT dc.directory_id FROM items i INNER JOIN directory_categories dc ON i.id = dc.category_id WHERE item_type = 'category' AND display_name LIKE ?)", ['%' . Input::get('q') . '%']);
 			}
 			if (\Input::get('member')){
-				$query = $query->whereRaw('id = ?', [\Input::get('member')]);
+				$directories = $directories->whereRaw('id = ?', [\Input::get('member')]);
 			}
 			$total = count($directories->get()->toArray());
 
