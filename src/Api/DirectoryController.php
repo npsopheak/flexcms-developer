@@ -34,6 +34,9 @@ class DirectoryController extends ApiController {
 					['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%'])
 					->orWhereRaw("id IN (SELECT dc.directory_id FROM items i INNER JOIN directory_categories dc ON i.id = dc.category_id WHERE item_type = 'category' AND display_name LIKE ?)", ['%' . Input::get('q') . '%']);
 			}
+			if (\Input::get('member')){
+				$query = $query->whereRaw('id = ?', [\Input::get('member')]);
+			}
 			$total = count($directories->get()->toArray());
 
 			if (Input::get('ignore-offset') != 1){
@@ -142,6 +145,13 @@ class DirectoryController extends ApiController {
 			if (!$directory){
 				throw new \Exception('The item cannot be found to update');
 			}
+			if (Auth::user()->role == 'member'){
+				$directoryUser = DirectoryUser::where('user_id', '=', Auth::user()->id)->first();
+				if (!$directoryUser || $directoryUser->directory_id != $id){
+					throw new \Exception('You do not have permission to update');
+				}
+			}
+			
 			if (Input::get('title')){
 				$directory->title = Input::get('title');
 			}
@@ -860,6 +870,9 @@ class DirectoryController extends ApiController {
 					$query = $query->whereRaw("name like ? OR description LIKE ?", 
 						['%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
 				}
+				if (\Input::get('member')){
+					$query = $query->whereRaw('directory_id = ?', [\Input::get('member')]);
+				}
 				\Log::info('Logging donor generic');
 				return $query;
 			});
@@ -1077,9 +1090,19 @@ class DirectoryController extends ApiController {
 				$query = $query->with('directory')->with('document')->with('directoryLibrary');
 				
 				if (\Input::get('q')){
-					$query = $query->whereRaw("directory_library_id IN (SELECT id FROM directory_libraries i WHERE i.name LIKE ? OR i.description LIKE ?)", ['%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
+					$query = $query->whereRaw("email LIKE ? OR description LIKE ? OR position LIKE ? directory_library_id IN (SELECT id FROM directory_libraries i WHERE i.name LIKE ? OR i.description LIKE ?)", 
+						[	'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%'
+						]);
 						// "name like ? OR email LIKE ? OR role LIKE ?", 
 						// ['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
+				}
+
+				if (\Input::get('member')){
+					$query = $query->whereRaw('directory_library_id IN (SELECT id from directory_libraries i WHERE i.directory_id = ? )', [\Input::get('member')]);
 				}
 
 				return $query;
