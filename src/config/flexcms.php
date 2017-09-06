@@ -12,6 +12,24 @@ return [
 
 			'description' => 'Accessing the content management system'
 			
+		],
+
+		'route' => [
+
+			'prefix' => 'dashboard',
+
+			'middleware' => [
+
+				'auth' => ['api.auth'],
+
+				'guest' => ['api.guest']
+
+			],
+
+			'unauthorized' => '/dashboard/login',
+
+			'authorized' => '/dashboard'
+
 		]
 
 	],
@@ -20,6 +38,8 @@ return [
 
 		// Mostly is the app client id or api client id in the nodejs service
 		'request_id' => env('CMS_REQUEST_ID', 'X-XX-Request-ID'),
+
+		'request_id_value' => env('CMS_REQUEST_ID_VALUE', 'XXXXXXXXX'),
 
 		// The session id 
 		'session_id' => env('CMS_SESSION_ID', 'X-XX-ConNEPt-ID'),
@@ -35,6 +55,8 @@ return [
     	'endpoint' => env('CMS_ENDPOINT', 'http://localhost:8000/api/v1/'),
 
 		'ws_endpoint' => env('CMS_WS_ENDPOINT', 'http://localhost:8000/api/v1/'),
+
+		'token_property' => env('CMS_TOKEN_PROPERTY', 'access_token'),
 
 		'use_x_forward_for' => false,
 

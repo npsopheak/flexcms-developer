@@ -4,7 +4,7 @@ namespace FlexCMS\BasicCMS\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use \AuthGateway;
+use \FlexAuth;
 
 class ApiAuthenticate extends BaseMiddleware
 {
@@ -35,13 +35,13 @@ class ApiAuthenticate extends BaseMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // \Log::info(AuthGateway::isLogin() . ' logging in');
-        if (!AuthGateway::isAdminLogin()) {
+        
+        if (!FlexAuth::isLogin('user')) {
             if ($request->ajax() || $request->is('api/*')) {
                 return $this->error('Unauthorized.', null, null, 401);
             } else {
 
-                return redirect()->guest('dashboard/login');
+                return redirect()->guest(config('flexcms.app.route.unauthorized'));
             }
         }
         else{

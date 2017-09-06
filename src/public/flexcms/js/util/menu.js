@@ -15,24 +15,24 @@ namespace.menus = [{
             extraScreen: 'member',
             icon: 'icon-office',
             enabled: true,
-            path: '/members'
+            path: '/'
         },
-        {
-            name: 'Libraries',
-            extraScreen: 'libraries',
-            icon: 'icon-libreoffice',
-            enabled: true,
-            path: '/libraries'
-        }
+        // {
+        //     name: 'Libraries',
+        //     extraScreen: 'libraries',
+        //     icon: 'icon-libreoffice',
+        //     enabled: true,
+        //     path: '/libraries'
+        // }
     ]
-}, {
+}/*, {
     name: 'user',
     text: 'User',
     items: [
         { name: 'List', extraScreen: 'List accoount information', icon: 'icon-users', enabled: true, path: '/accounts' },
         // { name: 'Your account', extraScreen: 'Your account', icon: 'icon-user', enabled: false, path: '/account' },
     ]
-}, {
+}*/, {
     name: 'settings',
     text: 'Settings',
     items: [

@@ -6,10 +6,11 @@ use \Log;
 // use AuthGateway;
 use \Config;
 
-class RequestGateway extends AuthGateway {
+class FlexRequest extends AuthGateway {
 
 	protected $address = null;
-	protected $ws_address = null;
+    protected $ws_address = null;
+    protected $headers = [];
 
     public function __construct(){
         // echo env('REMOTE_API'); die();
@@ -29,6 +30,13 @@ class RequestGateway extends AuthGateway {
          return '127.0.0.1';
     }
 
+    public function setDefaultHeader($key, $value){
+        $this->headers[$key] = $value;
+    }
+
+    public function unsetDefaultHeader($key){
+        unset($this->headers[$key]);
+    }
 
     public function getSocketServerAddress()
     {
@@ -55,21 +63,21 @@ class RequestGateway extends AuthGateway {
         curl_close( $res );
 
         // Check unauthorized requested
-        if (isset($result['responseText']['result'])){
-            if ($result['responseText']['result'] === 'Your request is not authorized'){
-                AuthGateway::logout();
-            }
-        }
+        // if (isset($result['responseText']['result'])){
+        //     if ($result['responseText']['result'] === 'Your request is not authorized'){
+        //         AuthGateway::logout();
+        //     }
+        // }
         
         return $result;
     }
 
     private function translateHeaders($header){
         // Based by user login
-        if (AuthGateway::isLogin()){
-            $user = AuthGateway::user();
-            $header['Authorization'] = 'Bearer ' . $user['access_token'];
-        }
+        // if (AuthGateway::isLogin()){
+        //     $user = AuthGateway::user();
+        //     $header['Authorization'] = 'Bearer ' . $user['access_token'];
+        // }
         
         if (config('flexcms.api.use_x_forward_for') == true){
             $header['X-Forwarded-For'] = \Request::getClientIp();    
@@ -80,7 +88,7 @@ class RequestGateway extends AuthGateway {
         }
 
         if (!isset($header[config('flexcms.system.request_id')])){
-            $header[config('flexcms.system.request_id')] = config('flexcms.api.request_id');
+            $header[config('flexcms.system.request_id')] = config('flexcms.system.request_id_value');
         }
 
         if (!isset($header[config('flexcms.system.session_id')])){

@@ -42,27 +42,23 @@ class BasicCMSServiceProvider extends ServiceProvider
         // ]);
 
         // Setup middleware
-        $this->app['router']->aliasMiddleware('auth', \FlexCMS\BasicCMS\Middleware\Authenticate::class);
+        
         $this->app['router']->aliasMiddleware('api.auth', \FlexCMS\BasicCMS\Middleware\ApiAuthenticate::class);
         $this->app['router']->aliasMiddleware('api.guest', \FlexCMS\BasicCMS\Middleware\ApiRedirectIfAuthenticated::class);
+        $this->app['router']->aliasMiddleware('auth', \FlexCMS\BasicCMS\Middleware\Authenticate::class);
         $this->app['router']->aliasMiddleware('app.auth', \FlexCMS\BasicCMS\Middleware\AuthorizedApp::class);
         $this->app['router']->aliasMiddleware('csrf', \FlexCMS\BasicCMS\Middleware\VerifyCsrfToken::class);
         $this->app['router']->aliasMiddleware('no.csrf', \FlexCMS\BasicCMS\Middleware\IgnoreVerifyCsrfToken::class);
         
-        $this->app['router']->aliasMiddleware('cors', \Barryvdh\Cors\HandleCors::class);
-
-        // Load route 
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
-
-        // Load migration 
-        $this->loadMigrationsFrom(__DIR__.'/migrations');
-
+        $this->app['router']->aliasMiddleware('cors', \Barryvdh\Cors\HandleCors::class); 
+        
         // Merge Configuration 
         $this->mergeConfigFrom(
             __DIR__.'/config/flexcms.php', 'flexcms'
         );
+               
         // Config publication
-         $this->publishes([
+            $this->publishes([
             __DIR__.'/config/flexcms.php' => config_path('flexcms.php'),
         ]);
 
@@ -74,6 +70,12 @@ class BasicCMSServiceProvider extends ServiceProvider
          $this->publishes([
             __DIR__.'/config/flexmodules.php' => config_path('flexmodules.php'),
         ]);
+
+        // Load route 
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
+
+        // Load migration 
+        $this->loadMigrationsFrom(__DIR__.'/migrations');
 
         // Load view 
         $this->loadViewsFrom(__DIR__.'/resources/views', 'flexcms');
@@ -114,12 +116,20 @@ class BasicCMSServiceProvider extends ServiceProvider
         // include __DIR__.'/routes.php';
         $this->app->make('FlexCMS\BasicCMS\Api\SiteController');
 
-        AliasLoader::getInstance()->alias('AuthGateway', 'FlexCMS\BasicCMS\Facades\AuthGateway');
+        // AliasLoader::getInstance()->alias('AuthGateway', 'FlexCMS\BasicCMS\Facades\AuthGateway');
+        
+        // // Bind facade
+        // \App::bind('authgateway', function()
+        // {
+        //     return new \FlexCMS\BasicCMS\Classes\AuthGateway;
+        // });
+
+        AliasLoader::getInstance()->alias('FlexAuth', 'FlexCMS\BasicCMS\Facades\FlexAuth');
         
         // Bind facade
-        \App::bind('authgateway', function()
+        \App::bind('flexauth', function()
         {
-            return new \FlexCMS\BasicCMS\Classes\AuthGateway;
+            return new \FlexCMS\BasicCMS\Classes\FlexAuth;
         });
 
         AliasLoader::getInstance()->alias('CMS', 'FlexCMS\BasicCMS\Facades\CMS');
@@ -130,11 +140,18 @@ class BasicCMSServiceProvider extends ServiceProvider
             return new \FlexCMS\BasicCMS\Classes\CMS;
         });
 
-        AliasLoader::getInstance()->alias('RequestGateway', 'FlexCMS\BasicCMS\Facades\RequestGateway');
+        // AliasLoader::getInstance()->alias('RequestGateway', 'FlexCMS\BasicCMS\Facades\RequestGateway');
 
-        \App::bind('requestgateway', function()
+        // \App::bind('requestgateway', function()
+        // {
+        //     return new \FlexCMS\BasicCMS\Classes\RequestGateway;
+        // });
+
+        AliasLoader::getInstance()->alias('FlexRequest', 'FlexCMS\BasicCMS\Facades\FlexRequest');
+
+        \App::bind('flexrequest', function()
         {
-            return new \FlexCMS\BasicCMS\Classes\RequestGateway;
+            return new \FlexCMS\BasicCMS\Classes\FlexRequest;
         });
     }
 }   

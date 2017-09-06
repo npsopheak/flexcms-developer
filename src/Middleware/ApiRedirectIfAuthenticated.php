@@ -4,7 +4,7 @@ namespace FlexCMS\BasicCMS\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use \AuthGateway;
+use \FlexAuth;
 
 class ApiRedirectIfAuthenticated
 {
@@ -35,10 +35,9 @@ class ApiRedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        if (AuthGateway::isAdminLogin()) {
-            return redirect('/dashboard');
+        if (FlexAuth::isLogin('user')) {
+            return redirect(config('flexcms.app.route.authorized'));
         }
-
         return $next($request);
     }
 }

@@ -12,8 +12,8 @@
 		<meta name="developer" content="nexGenDev"/>
 		<meta name="contact" content="biz@flexitech.io"/>
 
-        @if (AuthGateway::isAdminLogin())
-            <meta name="api:bearer" content="{{ AuthGateway::admin()['access_token'] }}">
+        @if (FlexAuth::isLogin('user'))
+            <meta name="api:bearer" content="{{ FlexAuth::getProperty(config('flexcms.api.token_property'), 'user') }}">
             <meta name="api:request" content="{{ config('flexcms.api.request_id') }}">
         @endif
 
