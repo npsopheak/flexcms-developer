@@ -39,8 +39,6 @@ return [
 		// Mostly is the app client id or api client id in the nodejs service
 		'request_id' => env('CMS_REQUEST_ID', 'X-XX-Request-ID'),
 
-		'request_id_value' => env('CMS_REQUEST_ID_VALUE', 'XXXXXXXXX'),
-
 		// The session id 
 		'session_id' => env('CMS_SESSION_ID', 'X-XX-ConNEPt-ID'),
 
@@ -63,7 +61,7 @@ return [
 		'default_content_type' => 'application/json',
 
 		// Value for request id
-		'request_id' => 'MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw=='
+		'request_id' => env('CMS_REQUEST_ID_VALUE', 'MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw==')
     ]
 
 ];

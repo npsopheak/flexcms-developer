@@ -88,7 +88,7 @@ class FlexRequest extends AuthGateway {
         }
 
         if (!isset($header[config('flexcms.system.request_id')])){
-            $header[config('flexcms.system.request_id')] = config('flexcms.system.request_id_value');
+            $header[config('flexcms.system.request_id')] = config('flexcms.api.request_id');
         }
 
         if (!isset($header[config('flexcms.system.session_id')])){
