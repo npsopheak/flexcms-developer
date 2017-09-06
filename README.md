@@ -160,6 +160,25 @@ php artisan flex:add dashboard MODULE PAGE
 
 Run composer update or install to install the latest version
 
+## Publish the vendor
+
+To publish provider flexcms: `php artisan vendor:publish --provide="FlexCMS/BasicCMS"`
+
+## Configuration
+
+Add these to your .env for customize the configuration value
+
+```
+    CMS_REQUEST_ID=X-XX-Request-ID
+    CMS_SESSION_ID=X-XX-ConNEPt-ID
+    CMS_ENCRYPT_KEY_ID=X-XX-Sign-Key
+	CMS_USER_AGENT=Documentation Dashboard
+    CMS_ENDPOINT=http://localhost:8000/api/v1/
+	CMS_WS_ENDPOINT=http://localhost:8000/api/v1/
+	CMS_TOKEN_PROPERTY=access_token
+    CMS_REQUEST_ID_VALUE =MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw==
+```
+
 # Development command
 
 - Run `gulp watch-dev` in path `/src/` to watch assets like JS or Image or CSS change.
