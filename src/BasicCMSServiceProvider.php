@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Foundation\AliasLoader;
 
 use FlexCMS\BasicCMS\Commands\AddPage;
+use FlexCMS\BasicCMS\Commands\RemovePage;
 use FlexCMS\BasicCMS\Commands\ClearPublic;
 use FlexCMS\BasicCMS\Commands\AddScript;
 use FlexCMS\BasicCMS\Commands\ClearResource;
@@ -94,7 +95,8 @@ class BasicCMSServiceProvider extends ServiceProvider
                 AddPage::class,
                 ClearPublic::class,
                 AddScript::class,
-                ClearResource::class
+                ClearResource::class,
+                RemovePage::class,
             ]);
         }
 
