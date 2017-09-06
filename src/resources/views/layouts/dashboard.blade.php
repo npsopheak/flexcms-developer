@@ -12,8 +12,8 @@
 		<meta name="developer" content="nexGenDev"/>
 		<meta name="contact" content="biz@flexitech.io"/>
 
-        @if (AuthGateway::isAdminLogin())
-            <meta name="api:bearer" content="{{ AuthGateway::admin()['access_token'] }}">
+        @if (FlexAuth::isLogin('user'))
+            <meta name="api:bearer" content="{{ FlexAuth::getProperty(config('flexcms.api.token_property'), 'user') }}">
             <meta name="api:request" content="{{ config('flexcms.api.request_id') }}">
         @endif
 
@@ -94,7 +94,7 @@
         <script src="/vendor/flexcms/vendors/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
 
         
-        <script type="text/javascript" src="{{ asset('vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/vendor/flexcms/vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
 
         <script src="/vendor/flexcms/vendors/ngmap/build/scripts/ng-map.min.js"></script>
         <script src="/vendor/flexcms/vendors/angular-resource/angular-resource.min.js"></script>

@@ -4,14 +4,32 @@ return [
 
 	'app' => [
 
-		'name' => 'Flex Dashboard',
+		'name' => 'NEP Documentation Dashboard',
 
 		'login' => [
 
-			'name' => 'Flex Dashboard',
+			'name' => 'NEP Documentation',
 
 			'description' => 'Accessing the content management system'
 			
+		],
+
+		'route' => [
+
+			'prefix' => 'dashboard',
+
+			'middleware' => [
+
+				'auth' => ['api.auth'],
+
+				'guest' => ['api.guest']
+
+			],
+
+			'unauthorized' => '/dashboard/login',
+
+			'authorized' => '/dashboard'
+
 		]
 
 	],
@@ -19,22 +37,26 @@ return [
 	'system' => [
 
 		// Mostly is the app client id or api client id in the nodejs service
-		'request_id' => 'X-XX-Request-ID',
+		'request_id' => env('CMS_REQUEST_ID', 'X-XX-Request-ID'),
+
+		'request_id_value' => env('CMS_REQUEST_ID_VALUE', 'XXXXXXXXX'),
 
 		// The session id 
-		'session_id' => 'X-XX-Connect-ID',
+		'session_id' => env('CMS_SESSION_ID', 'X-XX-ConNEPt-ID'),
 
 		// The key encryption name
-		'encrypt_key_id' => 'X-XX-Sign-Key',
+		'encrypt_key_id' => env('CMS_ENCRYPT_KEY_ID', 'X-XX-Sign-Key'),
 
 		// User Agent name
-		'user_agent' => 'Flex Dashboard'
+		'user_agent' => env('CMS_USER_AGENT', 'NEP Documentation Dashboard')
 	],
 
     'api' => [
-    	'endpoint' => 'http://localhost:8000/api/v1/',
+    	'endpoint' => env('CMS_ENDPOINT', 'http://localhost:8000/api/v1/'),
 
-		'ws_endpoint' => 'http://localhost:8000/api/v1/',
+		'ws_endpoint' => env('CMS_WS_ENDPOINT', 'http://localhost:8000/api/v1/'),
+
+		'token_property' => env('CMS_TOKEN_PROPERTY', 'access_token'),
 
 		'use_x_forward_for' => false,
 

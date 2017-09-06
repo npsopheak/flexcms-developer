@@ -2,9 +2,19 @@
 app
     .config(['$interpolateProvider', '$routeProvider', '$mdThemingProvider', '$httpProvider', '$mdDialogProvider', 'uiGmapGoogleMapApiProvider',
         function($interpolateProvider, $routeProvider, $mdThemingProvider, $httpProvider, $mdDialogProvider, uiGmapGoogleMapApiProvider) {
-		$mdThemingProvider.theme('default')
-		    .primaryPalette('teal')
-		    .accentPalette('green');
+        var neonGreenMap = $mdThemingProvider.extendPalette('red', {
+            '500': '#5a8200',
+            'contrastDefaultColor': 'light'
+        });
+
+        // Register the new color palette map with the name <code>neonRed</code>
+        $mdThemingProvider.definePalette('neonGreen', neonGreenMap);
+    	$mdThemingProvider.theme('default')
+		    .primaryPalette('neonGreen')
+		    .accentPalette('lime');
+		// $mdThemingProvider.theme('default')
+		//     .primaryPalette('teal')
+		//     .accentPalette('green');
         $interpolateProvider.startSymbol('<%');
         $interpolateProvider.endSymbol('%>');
         console.log(namespace.routes);

@@ -34,6 +34,9 @@ class DirectoryController extends ApiController {
 					['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%'])
 					->orWhereRaw("id IN (SELECT dc.directory_id FROM items i INNER JOIN directory_categories dc ON i.id = dc.category_id WHERE item_type = 'category' AND display_name LIKE ?)", ['%' . Input::get('q') . '%']);
 			}
+			if (\Input::get('member')){
+				$directories = $directories->whereRaw('id = ?', [\Input::get('member')]);
+			}
 			$total = count($directories->get()->toArray());
 
 			if (Input::get('ignore-offset') != 1){
@@ -116,7 +119,8 @@ class DirectoryController extends ApiController {
 					$category_ids = $data['category_ids'];
 					unset($data['category_ids']);
 				}
-	        	
+				
+	        	$data['hash'] = time() . '-' . rand();
 	        	
 	        	$data['created_by'] = Auth::user()->id;
 	        	$data['updated_by'] = Auth::user()->id;
@@ -141,6 +145,13 @@ class DirectoryController extends ApiController {
 			if (!$directory){
 				throw new \Exception('The item cannot be found to update');
 			}
+			if (Auth::user()->role == 'member'){
+				$directoryUser = DirectoryUser::where('user_id', '=', Auth::user()->id)->first();
+				if (!$directoryUser || $directoryUser->directory_id != $id){
+					throw new \Exception('You do not have permission to update');
+				}
+			}
+			
 			if (Input::get('title')){
 				$directory->title = Input::get('title');
 			}
@@ -153,7 +164,7 @@ class DirectoryController extends ApiController {
 			if (Input::get('category_id')){
 				$directory->category_id = Input::get('category_id');
 			}
-			if (Input::get('logo_id')){
+			if (Input::get('logo_id') !== null){
 				$directory->logo_id = Input::get('logo_id');
 			}
 			if (Input::get('latitude')){
@@ -173,6 +184,9 @@ class DirectoryController extends ApiController {
 			}
 			if (Input::get('emails')){
 				$directory->emails = Input::get('emails');
+			}
+			if (Input::get('directory_category_opt')){
+				$directory->directory_category_opt = Input::get('directory_category_opt');
 			}
 			if (Input::get('is_active')){
 				$directory->is_active = Input::get('is_active');
@@ -207,7 +221,7 @@ class DirectoryController extends ApiController {
 			if (Input::get('goal')){
 				$directory->goal = Input::get('goal');
 			}
-			if (\Input::get('project_type_id') != null){
+			if (\Input::get('project_type_id') !== null){
 				$directory->project_type_id = \Input::get('project_type_id');
 			}
 			if (\Input::get('faxes')){
@@ -216,7 +230,10 @@ class DirectoryController extends ApiController {
 			if (\Input::get('location_id')){
 				$directory->location_id = Input::get('location_id');
 			}
-	        $directory->updated_by = Auth::user()->id;
+			if (\Input::get('org_lead_by') != null){
+				$directory->org_lead_by = Input::get('org_lead_by');
+			}
+			$directory->updated_by = Auth::user()->id;
 			$directory->save();
 			return $this->show($directory->id);
 		}
@@ -849,6 +866,13 @@ class DirectoryController extends ApiController {
 				if (\Input::get('scope') == 'detail'){
 					$query = $query->with('directory')->with('type');
 				}
+				if (\Input::get('q')){
+					$query = $query->whereRaw("name like ? OR description LIKE ?", 
+						['%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
+				}
+				if (\Input::get('member')){
+					$query = $query->whereRaw('directory_id = ?', [\Input::get('member')]);
+				}
 				\Log::info('Logging donor generic');
 				return $query;
 			});
@@ -1049,6 +1073,38 @@ class DirectoryController extends ApiController {
 			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryUser";
 			return $this->destroyGeneric($directoryClass, $directory, $id, function ($query) {
 				\Log::info('Logging User generic update');
+				return $query;
+			});
+		}
+		catch(\Exception $e){
+			return $this->error($e->getMessage());
+		}
+	}
+
+	// Directory download 
+
+	public function indexDownload(){
+		try{
+			$directoryClass = "\\FlexCMS\\BasicCMS\\Models\\DirectoryDownload";
+			return $this->indexGeneric($directoryClass, null, function ($query) {
+				$query = $query->with('directory')->with('document')->with('directoryLibrary');
+				
+				if (\Input::get('q')){
+					$query = $query->whereRaw("email LIKE ? OR description LIKE ? OR position LIKE ? OR directory_library_id IN (SELECT id FROM directory_libraries i WHERE i.name LIKE ? OR i.description LIKE ?)", 
+						[	'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%', 
+							'%' . Input::get('q') . '%'
+						]);
+						// "name like ? OR email LIKE ? OR role LIKE ?", 
+						// ['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
+				}
+
+				if (\Input::get('member')){
+					$query = $query->whereRaw('directory_library_id IN (SELECT id from directory_libraries i WHERE i.directory_id = ? )', [\Input::get('member')]);
+				}
+
 				return $query;
 			});
 		}

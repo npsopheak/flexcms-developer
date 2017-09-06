@@ -31,6 +31,8 @@ class CreateDirectoriesTable extends Migration
             $table->integer('category_id')->nullable();
             $table->integer('project_type_id')->nullable();
             $table->integer('location_id')->nullable();
+            $table->string('directory_category_opt', 50)->nullable();
+            $table->string('org_lead_by', 50)->nullable();
             $table->string('phones', 50)->nullable();
             $table->string('faxes', 50)->nullable();
             $table->string('websites', 400)->nullable();

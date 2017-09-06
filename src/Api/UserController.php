@@ -22,6 +22,10 @@ class UserController extends ApiController {
 			if ($name != null){
 				$items = $items->whereRaw('name = ?', [$name]);
 			}
+			if (\Input::get('q')){
+				$items = $items->whereRaw("name like ? OR email LIKE ? OR role LIKE ?", 
+					['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
+			}
 
 			$items = $items->with('directory');
 
@@ -43,7 +47,7 @@ class UserController extends ApiController {
 
 	public function show($id){
 		try{
-			$item = User::find($id);
+			$item = User::with('directory')->find($id);
 			if (!$item){
 				throw new \Exception('The item cannot be found to update');
 			}
@@ -52,6 +56,11 @@ class UserController extends ApiController {
 		catch(\Exception $e){
 			return $this->error($e->getMessage());
 		}
+	}
+
+
+	public function showMe(){
+		return $this->show(Auth::user()->id);
 	}
 
 	public function store(){
@@ -85,8 +94,8 @@ class UserController extends ApiController {
             }
             else{
 
-                if (Auth::user() != 'admin'){
-                    throw new \Exception('You do not have permission to remove');
+                if (Auth::user()->role != 'admin'){
+                    throw new \Exception('You do not have permission to update');
                 }
             }
 			$item = User::find($id);
@@ -94,7 +103,12 @@ class UserController extends ApiController {
 				throw new \Exception('The item cannot be found to update');
 			}
 			if (Input::get('name')){
-				$item->name = Input::get('item_type');
+				$item->name = Input::get('name');
+			}
+			if (Auth::user()->role == 'admin'){
+				if (Input::get('role')){
+					$item->role = Input::get('role');
+				}
 			}
 			if (Input::get('email')){
                 $existing = User::where('email', '=', Input::get('email'))
@@ -116,7 +130,7 @@ class UserController extends ApiController {
 	public function destroy($id){
 		try{
 
-            if (Auth::user() != 'admin'){
+            if (Auth::user()->role != 'admin'){
                 throw new \Exception('You do not have permission to remove');
             }
 
@@ -141,8 +155,8 @@ class UserController extends ApiController {
             }
             else{
 
-                if (Auth::user() != 'admin'){
-                    throw new \Exception('You do not have permission to remove');
+                if (Auth::user()->role != 'admin'){
+                    throw new \Exception('You do not have permission to change password');
                 }
             }
 
@@ -152,18 +166,31 @@ class UserController extends ApiController {
 			}
 
             $data = Input::all();
-			$validation = \Validator::make($data, [
-	            'password' => 'required|confirmed',
-	            'password_confirmation' => 'required',
-	            'new_password' => 'required'
-	        ]);
+			$validation = null;
+			if (Auth::user()->role == 'admin' && false){
+
+				$validation = \Validator::make($data, [
+					'password' => 'required|confirmed',
+					'password_confirmation' => 'required'
+				]);
+			}
+			else{
+
+				$validation = \Validator::make($data, [
+					'password' => 'required|confirmed',
+					'password_confirmation' => 'required',
+					'old_password' => 'required'
+				]);
+			}
 	        if ($validation->passes()){
 
-                if (\Hash::check($data['password'], $item->password)) {
-                    $data['password'] = \Hash::make($data['new_password']);
-                }else{
-                    return $this->error('Password did not match', 'validation-error');
-                }
+				if (Auth::user()->role !== 'admin' || true ){
+					if (\Hash::check($data['old_password'], $item->password)) {
+						$data['password'] = \Hash::make($data['password']);
+					}else{
+						return $this->error('Password did not match', 'validation-error');
+					}
+				}
 	        	
                 $item->password = $data['password'];
                 $item->save();

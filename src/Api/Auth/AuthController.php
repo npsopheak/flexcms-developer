@@ -2,15 +2,12 @@
 
 namespace FlexCMS\BasicCMS\Api\Auth;
 
-use FlexCMS\BasicCMS\Models\User;
-use \RequestGateway;
-use \AuthGateway;
 use Validator;
 use \Input;
 use \Response;
 use App\Http\Controllers\Controller;
 
-class AuthController extends Controller
+abstract class AuthController extends Controller
 {
 
     protected function ok($content, $code = null, $options = null, $status = 200){
@@ -55,98 +52,21 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('api.guest', ['except' => 'getLogout']);
+        // $this->middleware('api.guest', ['except' => 'getLogout']);
     }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-
+    
     /***
      * Login via dashboard database access
      */
-    public function login(){
-        $data = \Input::all();
-        
-        if (\Auth::attempt(['email' => $data['username'], 'password' => $data['password']])) {
-            // Authentication passed...
-            
-            return redirect('/dashboard');
-        }
-        else{
-            return redirect('/dashboard/login')->with(['error' => 'Sorry, invalid username or password']);   
-        }
-    }
+    abstract public function login();
 
-    public function getLogout(){
-        // \AuthGateway::logoutAdmin();
-        \Auth::logout();
-        return redirect('/dashboard/login');  
-    }
+    abstract public function logout();
 
     /***
      * Login via API call
      */
 
-    public function apiLogin(){
-        try{
-            $input = Input::all();
-            $data = isset($input['data']) ? $input['data'] : array();
-            $headers = isset($input['headers']) ? $input['headers'] : array();
+    abstract public function apiLogin();
 
-            // Admin api key 
-            
-            // $headers['X-HH-Request-ID'] = 'YzUzYzcxNjJkODhjMWEzZGZjNWE4Yzc2MWNkYTZkYzU5MTllZDJhOTYyMmFkZDY1ZDUwZGIwMjI4YTNkYzFhNQ==';
-
-            $headers['X-GT-Connect-ID'] = base64_encode(\Session::getId());
-            
-            $tmp = RequestGateway::post('/admin/login', $data, $headers);
-
-            if ($tmp['responseText'] && isset($tmp['responseText']['result']) && isset($tmp['responseText']['result']['_id']) && isset($tmp['responseText']['result']['access_token']) && isset($tmp['responseText']['result']['email']) ){
-                AuthGateway::loginAdmin($tmp['responseText']['result']);
-
-                return $this->ok('You have successfully logged in', 0, [
-                    'redirect' =>'/dashboard']);
-            }
-            else{
-
-
-                return $this->error('Sorry, the username or password is not correct', 'authentication', [], 0);
-            }
-        }
-        catch (\Exception $e){
-            return $this->error($e->getMessage(), 'general', [], 401);
-        }
-    }
-
-    public function getApiLogout(){
-        \AuthGateway::logoutAdmin();
-        return redirect('/dashboard/login');  
-    }
+    abstract public function apiLogout();
 }

@@ -294,8 +294,8 @@
 						                <td md-cell><% formatUtcDate(item.updated_at) %></td>
 						              </tr>
 													<tr md-row ng-show="budgets.length <= 0">
-														<td md-cell colspan="6">There is no budget data.</td>
-														<td md-cell colspan="1">
+														<td md-cell colspan="5">There is no budget data.</td>
+														<td md-cell colspan="2">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addBudget($event)" aria-label="addStaff">
 																Add
@@ -304,8 +304,8 @@
 														</td>
 													</tr>
 													<tr md-row ng-show="budgets.length > 0">
-														<td md-cell colspan="6">Add more budget.</td>
-														<td md-cell colspan="1">
+														<td md-cell colspan="5">Add more budget.</td>
+														<td md-cell colspan="2">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addBudget($event)" aria-label="addStaff">
 																Add
@@ -489,7 +489,7 @@
 						              </tr>
 													<tr md-row ng-show="contacts.length <= 0">
 														<td md-cell colspan="5">There is no contact data.</td>
-														<td md-cell colspan="1">
+														<td md-cell colspan="2">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addContact($event)" aria-label="addStaff">
 																Add
@@ -499,7 +499,7 @@
 													</tr>
 													<tr md-row ng-show="contacts.length > 0">
 														<td md-cell colspan="5">Add more contact.</td>
-														<td md-cell colspan="1">
+														<td md-cell colspan="2">
 															 <md-button class="md-primary md-button md-ink-ripple"
 						                    type="button" ng-click="addContact($event)" aria-label="addStaff">
 																Add
@@ -548,7 +548,7 @@
 						            <tbody md-body>
 						              <tr md-row md-select="item" md-select-id="_id" md-auto-select ng-repeat="item in libraries">
 						                <td md-cell><% item.name %></td>
-						                <td md-cell><% item.description %></td>
+						                <td md-cell style="white-space: nowrap;max-width: 100px;text-overflow: ellipsis;overflow: hidden;"><% item.description %></td>
 						                <td md-cell style="<% item.document_english ? 'font-weight: bold': ''%>"><% item.document_english ? 'Yes' : 'No' %></td>
 														<td md-cell style="<% item.document_khmer ? 'font-weight: bold': ''%>"><% item.document_khmer ? 'Yes' : 'No' %></td>
 														<td md-cell style="<% item.document_english ? 'font-weight: bold': ''%>"><% item.document_english_download %></td>

@@ -11,12 +11,13 @@ namespace.routes = [
 // },
 {
     url: '',
-    template: '/partials/dashboard.members.list',
+    template: 'dashboard/partials/dashboard.members.list',
     controller: 'DashboardMembersListCtrl',
     reloadOnSearch: false
     // template: '/partials/posts',
     // controller: 'PostCtrl'
 },
+/*
 // Member endpoit
 {
     url: 'members',
@@ -111,4 +112,4 @@ namespace.routes = [
     controller: 'DashboardArticlesCreateCtrl'
     // template: '/partials/posts',
     // controller: 'PostCtrl'
-}];
+}*/];

@@ -47,24 +47,26 @@
                     if (cb){
                         cb(null, $scope.data);
                     }
-                    
-                    return $mdDialog.show(
-                        $mdDialog.alert({
-                            preserveScope: true,
-                            autoWrap: true,
-                            skipHide: true,
-                            title: 'Add Library info',
-                            content: 'Library info has been saved',
-                            ariaLabel: 'Add Library info',
-                            ok: 'Got it!'
-                        })
-                    )
-                        .finally(function () {
-                            if (!cb){
-                                // $mdDialog.hide();
-                            }
-                            
-                        });
+                    if (!$scope.pendingUploads.length){
+
+                        return $mdDialog.show(
+                                $mdDialog.alert({
+                                    preserveScope: true,
+                                    autoWrap: true,
+                                    skipHide: true,
+                                    title: 'Add Library info',
+                                    content: 'Library info has been saved',
+                                    ariaLabel: 'Add Library info',
+                                    ok: 'Got it!'
+                                })
+                            )
+                            .finally(function () {
+                                if (!cb){
+                                    // $mdDialog.hide();
+                                }
+                                
+                            });
+                    }
                 };
 
                 var fail = function (f) {
@@ -151,6 +153,7 @@
     	};
 
 		$scope.uploadDocument = function (files, fieldName, $event){
+            console.log(files);
 			if (!files.length){
     			return;
     		}
@@ -161,6 +164,7 @@
     			src: window.URL.createObjectURL(files[0]),
                 fieldName: fieldName
     		};
+            console.log($scope[uploadFileName]);
             // console.log($scope[uploadFileName]);
     		if ($scope.mode === 'create'){
     			$scope.pendingUploads = _.filter($scope.pendingUploads, function (v){

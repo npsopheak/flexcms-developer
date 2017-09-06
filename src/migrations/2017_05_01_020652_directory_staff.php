@@ -22,7 +22,7 @@ class DirectoryStaff extends Migration
             $table->integer('quantity')->default(0);
             $table->integer('female_quantity')->default(0);
             $table->string('short_description', 256)->nullable();
-            $table->string('description', 1200);
+            $table->string('description', 1200)->nullable();
             $table->integer('directory_id')->nullable();
             $table->integer('seq_no')->default(0);
             $table->boolean('is_active')->default(0);

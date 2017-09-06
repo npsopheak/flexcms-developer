@@ -44,9 +44,9 @@ class ItemController extends ApiController {
 				$items = $items->whereRaw('parent_id IN (SELECT id from items WHERE name = ? )', [$parentName]);
 			}
 
-			$name = Input::get('name');
+			$name = Input::get('q');
 			if ($name != null){
-				$items = $items->whereRaw('name = ?', [$name]);
+				$items = $items->whereRaw('name LIKE ? OR display_name LIKE ? OR description LIKE ?', ['%' . Input::get('q') . '%', '%' . Input::get('q') . '%', '%' . Input::get('q') . '%']);
 			}
 
 
