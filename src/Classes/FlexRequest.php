@@ -98,7 +98,7 @@ class FlexRequest extends AuthGateway {
         $result = array();
         foreach($header as $key => $value){
             if ($key == 'key'){
-                $result[] = config('flexcms.system.encrypt_key_id') + ': ' . $value;
+                $result[] = config('flexcms.system.encrypt_key_id') . ': ' . $value;
             }
             else{
                 $result[] = $key . ': ' . $value;    
