@@ -6,7 +6,7 @@ use \Log;
 // use AuthGateway;
 use \Config;
 
-class FlexRequest extends AuthGateway {
+class FlexRequest {
 
 	protected $address = null;
     protected $ws_address = null;

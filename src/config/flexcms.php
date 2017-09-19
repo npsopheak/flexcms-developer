@@ -42,6 +42,9 @@ return [
 		// The session id 
 		'session_id' => env('CMS_SESSION_ID', 'X-XX-ConNEPt-ID'),
 
+		// Authentication key
+		'auth' => env('CMS_AUTH_ID', 'Authorization'),
+
 		// The key encryption name
 		'encrypt_key_id' => env('CMS_ENCRYPT_KEY_ID', 'X-XX-Sign-Key'),
 

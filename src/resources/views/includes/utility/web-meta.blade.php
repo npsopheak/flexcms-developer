@@ -36,19 +36,23 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{-- =============== GLOBAL VAR ============== --}}
-<meta name="se:remoteUrl" content="{{ base64_encode(env('REMOTE_API', '')) }}">
+<meta name="se:remoteUrl" content="{{ base64_encode(config('flexcms.api.endpoint')) }}">
 
 <meta name="se:lang" content="{{ HungryModule::getLang() ? HungryModule::getLang() : '' }}">
 <meta name="se:url" content="{{ base64_encode(URL::to('/')) }}">
 
 <!-- -->
-<meta name="api:session" content="{{ base64_encode(\Session::getId() . 'U') }}">
-<meta name="api:request" content="{{ 'MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw==' }}">
+<meta name="api:session" content="{{ base64_encode(\Session::getId()) }}">
+<meta name="api:request" content="{{ config('flexcms.api.request_id') }}">
 
-@if (AuthGateway::isLogin())
+<meta name="api:key:session" content="{{ config('flexcms.system.session_id') }}">
+<meta name="api:key:request" content="{{ config('flexcms.system.request_id') }}">
+<meta name="api:key:bearer" content="{{ config('flexcms.system.request_id') }}">
+
+@if (FlexAuth::isLogin('user'))
 	
-    <meta name="se:info" content="{{ base64_encode( json_encode(AuthGateway::user()) ) }}">
-    <meta name="api:bearer" content="{{ AuthGateway::user()['access_token'] }}">
+    <meta name="se:info" content="{{ base64_encode( json_encode(FlexAuth::get('user')) ) }}">
+    <meta name="api:bearer" content="{{ FlexAuth::getProperty('token') }}">
 @endif
 
 

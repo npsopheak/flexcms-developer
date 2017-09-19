@@ -15,6 +15,10 @@
         @if (FlexAuth::isLogin('user'))
             <meta name="api:bearer" content="{{ FlexAuth::getProperty(config('flexcms.api.token_property'), 'user') }}">
             <meta name="api:request" content="{{ config('flexcms.api.request_id') }}">
+
+            <meta name="api:key:session" content="{{ config('flexcms.system.session_id') }}">
+            <meta name="api:key:request" content="{{ config('flexcms.system.request_id') }}">
+            <meta name="api:key:bearer" content="{{ config('flexcms.system.auth') }}">
         @endif
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
@@ -84,7 +88,7 @@
         <script type="text/javascript">
             // CONFIGURE DOMAIN
             namespace.domain = '{{ config("flexcms.api.endpoint") }}';
-            namespace.sessionId = '{{ config("flexcms.api.session_id") }}';
+            namespace.sessionId = '{{ base64_encode(\Session::getId()) }}';
         </script>
 
 
