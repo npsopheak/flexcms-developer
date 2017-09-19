@@ -4,13 +4,13 @@ return [
 
 	'app' => [
 
-		'name' => 'NEP Documentation Dashboard',
+		'name' => env('CMS_NAME', 'NEP Documentation Dashboard'),
 
 		'login' => [
 
-			'name' => 'NEP Documentation',
+			'name' => env('CMS_LOGIN_NAME', 'NEP Documentation'),
 
-			'description' => 'Accessing the content management system'
+			'description' => env('CMS_LOGIN_DESC', 'Accessing the content management system')
 			
 		],
 
