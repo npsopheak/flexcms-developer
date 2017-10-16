@@ -15,7 +15,7 @@ namespace.menus = [{
             extraScreen: 'member',
             icon: 'icon-office',
             enabled: true,
-            path: '/'
+            path: '/member'
         },
         {
             name: 'Members1',
