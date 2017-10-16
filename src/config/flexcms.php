@@ -4,13 +4,13 @@ return [
 
 	'app' => [
 
-		'name' => 'NEP Documentation Dashboard',
+		'name' => env('CMS_NAME', 'NEP Documentation Dashboard'),
 
 		'login' => [
 
-			'name' => 'NEP Documentation',
+			'name' => env('CMS_LOGIN_NAME', 'NEP Documentation'),
 
-			'description' => 'Accessing the content management system'
+			'description' => env('CMS_LOGIN_DESC', 'Accessing the content management system')
 			
 		],
 
@@ -41,6 +41,9 @@ return [
 
 		// The session id 
 		'session_id' => env('CMS_SESSION_ID', 'X-XX-ConNEPt-ID'),
+
+		// Authentication key
+		'auth' => env('CMS_AUTH_ID', 'Authorization'),
 
 		// The key encryption name
 		'encrypt_key_id' => env('CMS_ENCRYPT_KEY_ID', 'X-XX-Sign-Key'),
