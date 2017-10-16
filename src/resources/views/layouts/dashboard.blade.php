@@ -25,12 +25,15 @@
         @if (App::environment('local'))
 
             <link href="{{ asset('vendor/flexcms/css/vendor.css') }}" rel="stylesheet">
-            <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+            <!-- <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet"> -->
             
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
             <link href="{{ asset('vendor/flexcms/css/main.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/css/coreuistyle.css') }}" rel="stylesheet">    
+            <link href="{{ asset('vendor/flexcms/vendors/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
 
         @else
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
@@ -38,7 +41,8 @@
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
-
+            <link href="{{ asset('vendor/flexcms/css/coreuistyle.css') }}" rel="stylesheet">    
+            
             <link href="{{ elixir('/vendor/build/css/admin_style.css') }}" rel="stylesheet">
 
         @endif
@@ -50,8 +54,8 @@
 	        }
 	    </style>
 	</head>
-	<body layout="column" class="ng-cloak">
-		<md-toolbar layout="row" hide-gt-md>
+	<body layout="column" class="ng-cloak app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<!-- 		<md-toolbar layout="row" hide-gt-md>
 	      <div class="md-toolbar-tools">
 	        <md-button ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
 	          <md-icon aria-label="Menu" fmd-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
@@ -63,12 +67,23 @@
                 </a>
             </h1>
 	      </div>
-	    </md-toolbar>
-	    <div layout="row" flex>
-	    	@include ('flexcms::includes.layouts.dashboard-sidebar')
-			@yield('content')
-		</div>
-		<md-progress-linear class="global-loading" ng-show="loadingBarVisible" class="global-progress-bar" md-mode="indeterminate"></md-progress-linear>
+	    </md-toolbar> -->
+        <main itemscope itemtype1="http://schema.org/Organization">
+            @include ('flexcms::includes.layouts.header')
+            <div style="display: flex;">
+                    <div class="sidebar">
+                        @include ('flexcms::includes.layouts.dashboard-sidebar')
+                    </div>
+                    <div class="app-body">
+                        <div class="main" style="min-height: 100vh;">
+                            @include ('flexcms::includes.layouts.topMenuContent')
+                            @yield('content')
+                        </div>
+                    </div>
+            </div>
+            @include ('flexcms::includes.layouts.footer')
+        </main>
+		<!-- <md-progress-linear class="global-loading" ng-show="loadingBarVisible" class="global-progress-bar" md-mode="indeterminate"></md-progress-linear> -->
 	</body>
 
     <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&libraries=places'></script>
@@ -90,12 +105,8 @@
 
         <script src="/vendor/flexcms/vendors-download/magnific-popup/jquery.magnific-popup.js"></script>
         <script src="/vendor/flexcms/vendors/angular-google-maps/dist/angular-google-maps.min.js"></script>
-
         <script src="/vendor/flexcms/vendors/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
-
-        
         <script type="text/javascript" src="{{ asset('/vendor/flexcms/vendors/angular-simple-logger/dist/angular-simple-logger.min.js') }}"></script>
-
         <script src="/vendor/flexcms/vendors/ngmap/build/scripts/ng-map.min.js"></script>
         <script src="/vendor/flexcms/vendors/angular-resource/angular-resource.min.js"></script>
         <script src="/vendor/flexcms/vendors/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
@@ -106,13 +117,20 @@
         <script src="/vendor/flexcms/vendors/ng-file-upload/ng-file-upload.min.js"></script>
 
         <script src="/vendor/flexcms/vendors/material-angular-paging/build/dist.min.js"></script>
-
         <script src="/vendor/flexcms/vendors/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
-        <script src="/vendor/flexcms/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <!-- <script src="/vendor/flexcms/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> -->
+        <script type="text/javascript" src="/vendor/flexcms/vendors-download/popper.min.js"></script>
+        
         <script type="text/javascript" src="/vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/js/js123/app.js"></script>
+        <!-- <script type="text/javascript" src="/vendor/flexcms/js/js123/views/main.js"></script> -->
+
+
 
         <!-- Text editor -->
-        <script src="/vendor/flexcms/vendors-download/ckeditor/ckeditor.js"></script>
+        <!-- <script src="/vendor/flexcms/vendors-download/ckeditor/ckeditor.js"></script> -->
         <!-- App -->
 
         {!! \CMS::generateScripts('customs', ['util/menu', 'util/endpoint', 'util/route']) !!}

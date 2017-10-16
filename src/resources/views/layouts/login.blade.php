@@ -12,15 +12,20 @@
 		<meta name="contact" content="biz@flexitech.io"/>
 
 		<link href="/img/favico.gif" type="image/x-icon" rel="shortcut icon" />
-		<link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">		
+<!-- 		<link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet"> -->		
 		<link href="{{ asset('vendor/flexcms/css/main.css') }}" rel="stylesheet">	
+		<link href="{{ asset('vendor/flexcms/css/vendor.css') }}" rel="stylesheet">	
+		
+		<link href="{{ asset('vendor/flexcms/css/coreuistyle.css') }}" rel="stylesheet">	
 	    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 	    <meta name="viewport" content="initial-scale=1" />
 	</head>
-	<body layout="column" layout-align="center center"
+	<body class="app flex-row align-items-center" layout="column" layout-align="center center"
 		fake-style="background-image: url(/img/bg/home-background.jpg);background-size: cover;"
         style="background-color: rgba(111, 111, 111, 0.14);"> 
-		@yield('content')
+
+			@yield('content')
+
 	</body>
 
     {{-- Generate script --}}

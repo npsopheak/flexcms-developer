@@ -1,0 +1,191 @@
+
+.UserDetail{
+    background-color: white;
+    padding: 15px 30px;
+    margin:15px 30px;
+    .image{
+        background-color: gainsboro; 
+        margin: auto;
+        padding: 2em;
+        .kdaob{
+            text-align: center;
+            .topicon{
+                font-size: 7em;
+                vertical-align: 0;
+                line-height: 1em;
+                color: dimgray;
+            }
+            .des{
+                margin: 10px 20px;
+                color:dimgray;
+            }
+            .upload{
+                display: flex;
+                text-align: center;
+                justify-content:center;
+                .icon{
+                    display: block;
+                    margin: 0 10px;
+                    height: 60px;
+                    width: 60px;
+                    border-radius:50%; 
+                    // padding: 1em;
+                }
+            }
+        }
+    }
+    .button{
+        .btn{
+            margin: 15px;
+        }
+    }
+}
+.listStaff{
+    background-color: white;    
+    padding: 15px 30px;
+    margin:15px 30px;
+    .headlabel{
+        padding: 30px 15px;
+    }
+}
+.productDetail{
+    background-color: white;
+        padding: 15px  30px;
+        margin:15px 30px;
+    .topContent{
+        padding: 15px 0px;
+        .form{
+            .icon-text{
+                display: flex;
+                .icon{
+                    margin: 10px;
+                }
+            }
+
+        }
+        .image{
+        background-color: gainsboro; 
+        // margin: auto;
+        justify-content: center;
+        // padding: 2em;
+        .kdaob{
+            text-align: center;
+            .topicon{
+                font-size: 7em;
+                // vertical-align: 0;
+                line-height: 1em;
+                color: dimgray;
+            }
+            .des{
+                margin: 10px 20px;
+                color:dimgray;
+            }
+            .upload{
+                display: flex;
+                text-align: center;
+                justify-content: center;
+                .icon{
+                    display: block;
+                    margin:0 10px;
+                    border-radius:50%; 
+                    // padding: 1em;
+                    height: 60px;
+                    width:60px;
+                }
+            }
+        }
+    }
+    }
+    .middleContent{
+        padding: 15px 0px;
+        .tab-6-btn{
+            background: #04947E;
+            width: 100%;
+            height: 45px;
+            .this-btn{
+                border: none;
+                background: none;
+                float: right;
+                color: white;
+                font-size: 24px;
+                padding-right: 35px;
+            }
+        }
+        #categories{
+            select{
+                margin-top: 15px;
+            }
+        }
+        .inlinehead{
+            display: flex;
+            .btn-camera{
+                color: black;
+                border-radius: 50%;
+                font-size: 1em;
+                padding: 1em;
+                margin-left: 1em;
+            }
+        }
+        .media-tab{
+            display: flex;
+            margin-top: 50px;
+            .img1{
+                height: 160px;
+                width: 100%;
+                margin-right: 35px;
+                .img-box{
+                    background: grey;
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    .icon{
+                        display: grid;
+                        padding-top: 20%;
+                        .icon-camera{
+                            font-size: 30px;
+                            color: silver;
+                        }
+                        label{
+                            color: silver;
+                        }
+                    }
+                }
+            }
+            .img2{
+                height: 160px;
+                width: 100%;
+                margin-right: 35px;
+                .img-box{
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    background:grey;
+                    img{
+                        max-width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            .img3{
+                height: 160px;
+                width: 100%;
+                margin-right: 10px;
+                .img-box{
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    background:grey;
+                    img{
+                        max-width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+         }
+    }
+    .button{
+        .btn{
+            margin: 15px;
+        }
+    }
+}

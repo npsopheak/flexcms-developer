@@ -17,6 +17,30 @@ namespace.routes = [
     // template: '/partials/posts',
     // controller: 'PostCtrl'
 },
+{
+    url: 'member',
+    template: 'dashboard/partials/dashboard.members.list',
+    controller: 'DashboardMembersListCtrl',
+    reloadOnSearch: false
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
+{
+    url: 'staff',
+    template: 'dashboard/partials/dashboard.users.create',
+    controller: 'DashboardUsersCreateCtrl',
+    reloadOnSearch: false
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+},
+{
+    url: 'users',
+    template: 'dashboard/partials/dashboard.users.list',
+    controller: 'DashboardUsersListCtrl',
+    reloadOnSearch: false
+    // template: '/partials/posts',
+    // controller: 'PostCtrl'
+}
 /*
 // Member endpoit
 {

@@ -44,6 +44,11 @@ elixir(function(mix) {
         mix.sass('theme.scss', 'public/flexcms/css/theme.css');
         mix.sass('vendor.scss', 'public/flexcms/css/vendor.css');
     });
+    gulp.task('styles', function() {
+        mix.sass('coreuistyle.scss', 'public/flexcms/css/coreuistyle.css');
+        // mix.sass('theme.scss', 'public/flexcms/css/theme.css');
+        // mix.sass('vendor.scss', 'public/flexcms/css/vendor.css');
+    });
 
     // minify js for admin 
     gulp.task('minify_js_admin', function() {

@@ -17,6 +17,20 @@ namespace.menus = [{
             enabled: true,
             path: '/'
         },
+        {
+            name: 'Members1',
+            extraScreen: 'member',
+            icon: 'icon-office',
+            enabled: true,
+            path: '/staff'
+        },
+        {
+            name: 'Members2',
+            extraScreen: 'member',
+            icon: 'icon-office',
+            enabled: true,
+            path: '/users'
+        }
         // {
         //     name: 'Libraries',
         //     extraScreen: 'libraries',
