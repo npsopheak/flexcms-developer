@@ -1,4 +1,4 @@
-<aside class="aside-menu">
+
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" data-target="#timeline" role="tab"><i class="icon-list"></i></a>
@@ -283,4 +283,3 @@
                     <small class="text-muted">25GB/256GB</small>
                 </div>
             </div>
-        </aside>

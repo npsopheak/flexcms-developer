@@ -15,10 +15,6 @@
         @if (FlexAuth::isLogin('user'))
             <meta name="api:bearer" content="{{ FlexAuth::getProperty(config('flexcms.api.token_property'), 'user') }}">
             <meta name="api:request" content="{{ config('flexcms.api.request_id') }}">
-
-            <meta name="api:key:session" content="{{ config('flexcms.system.session_id') }}">
-            <meta name="api:key:request" content="{{ config('flexcms.system.request_id') }}">
-            <meta name="api:key:bearer" content="{{ config('flexcms.system.auth') }}">
         @endif
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
@@ -29,6 +25,8 @@
         @if (App::environment('local'))
 
             <link href="{{ asset('vendor/flexcms/css/vendor.css') }}" rel="stylesheet">
+            <!-- <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet"> -->
+            
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -39,31 +37,60 @@
 
         @else
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+            
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
             <link href="{{ asset('vendor/flexcms/css/coreuistyle.css') }}" rel="stylesheet">    
+            
             <link href="{{ elixir('/vendor/build/css/admin_style.css') }}" rel="stylesheet">
 
         @endif
+
+
+	    <style>
+	        .datepicker.datepicker-inline{
+	            margin: auto;
+	        }
+	    </style>
 	</head>
 	<body layout="column" class="ng-cloak app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<!-- 		<md-toolbar layout="row" hide-gt-md>
+	      <div class="md-toolbar-tools">
+	        <md-button ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
+	          <md-icon aria-label="Menu" fmd-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+	        </md-button>
+	        <h1>
+
+                <a class="navbar-brand" href="/" style="padding-left: 0px">
+                    <span>{{ config('flexcms.app.name') }} Dashboard</span>
+                </a>
+            </h1>
+	      </div>
+	    </md-toolbar> -->
         <main itemscope itemtype1="http://schema.org/Organization">
             <div class="app-header navbar">
-            @include ('flexcms::includes.layouts.header')
+                @include ('flexcms::includes.layouts.header')
             </div>
             <div class="app-body">
-               @include ('flexcms::includes.layouts.dashboard-sidebar')
+                <div class="sidebar">
+                    @include ('flexcms::includes.layouts.dashboard-sidebar')
+                </div>
                 <div class="main" style="min-height: 100vh;">
                     @include ('flexcms::includes.layouts.topMenuContent')
                     @yield('content')
                 </div>
-                @include ('flexcms::includes.layouts.asidebar')
-            </div>
+                <div class="aside-menu">
+                    @include ('flexcms::includes.layouts.asidebar')
+                </div>
+                   
+            </div >
             <div class="app-footer">
-            @include ('flexcms::includes.layouts.footer')
+                @include ('flexcms::includes.layouts.footer')
             </div>
+            
         </main>
+		<!-- <md-progress-linear class="global-loading" ng-show="loadingBarVisible" class="global-progress-bar" md-mode="indeterminate"></md-progress-linear> -->
 	</body>
 
     <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&libraries=places'></script>
@@ -79,7 +106,7 @@
         <script type="text/javascript">
             // CONFIGURE DOMAIN
             namespace.domain = '{{ config("flexcms.api.endpoint") }}';
-            namespace.sessionId = '{{ base64_encode(\Session::getId()) }}';
+            namespace.sessionId = '{{ config("flexcms.api.session_id") }}';
         </script>
 
 

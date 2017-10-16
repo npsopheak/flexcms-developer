@@ -12,7 +12,7 @@ namespace.routes = [
 {
     url: '',
     template: 'dashboard/partials/dashboard.users.list',
-    controller: 'DashboardMembersListCtrl',
+    controller: 'DashboardUsersListCtrl',
     reloadOnSearch: false
     // template: '/partials/posts',
     // controller: 'PostCtrl'

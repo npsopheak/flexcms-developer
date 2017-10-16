@@ -1,6 +1,4 @@
 <section id="page-posts">
-
-
 	<div class="listStaff">
 		<div class="row">
 			<h1 class="col-md-6">List All Staff</h1>
@@ -41,7 +39,7 @@
 		        </div>
 		    </div>
         </div>
-       <table class="table table-bordered  table-striped">
+       	<table class="table table-bordered table-striped table-sm">
 			<thead>
 				<tr>
 					<th><input type="checkbox" name="myTextEditBox" value="checked"></th>
@@ -71,5 +69,22 @@
 			    </tr>
 			</tbody>
 		</table>
+		<nav>
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" data-target="#">Prev</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" data-target="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" data-target="#">2</a>
+                </li>
+                <li class="page-item"><a class="page-link" data-target="#">3</a>
+                </li>
+                <li class="page-item"><a class="page-link" data-target="#">4</a>
+                </li>
+                <li class="page-item"><a class="page-link" data-target="#">Next</a>
+                </li>
+            </ul>
+        </nav>
 	</div>
 </section>
