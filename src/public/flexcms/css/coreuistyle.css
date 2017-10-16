@@ -9376,8 +9376,7 @@ hr.transparent {
 
 .UserDetail {
   background-color: white;
-  padding: 15px 30px;
-  margin: 15px 30px; }
+  padding: 15px 30px; }
   .UserDetail .image {
     background-color: gainsboro;
     margin: auto;
@@ -9409,15 +9408,13 @@ hr.transparent {
 
 .listStaff {
   background-color: white;
-  padding: 15px 30px;
-  margin: 15px 30px; }
+  padding: 15px 30px; }
   .listStaff .headlabel {
     padding: 30px 15px; }
 
 .productDetail {
   background-color: white;
-  padding: 15px  30px;
-  margin: 15px 30px; }
+  padding: 15px  30px; }
   .productDetail .topContent {
     padding: 15px 0px; }
     .productDetail .topContent .form .icon-text {
