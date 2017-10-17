@@ -6,10 +6,7 @@
 				<input type="text" class="form-control " placeholder="Search Staff">
 			</div>
 			<div class="form-group col-md-3">
-				<select class="form-control ">
-					<option>team</option>
-					<option>admin</option>
-				</select>
+				<selectize placeholder='Pick some things...' options='myOptions' config="myConfig" ng-model="myModel" ng-disabled='disable' required='true'></selectize>
 			</div>
 		</div>
 		 <div class="card-body">

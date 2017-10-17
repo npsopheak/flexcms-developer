@@ -40,6 +40,24 @@
 
     ];
 
+    	    $scope.myModel = 1;
+
+            $scope.myOptions = [
+            {id: 1, title: 'Admin'},
+            {id: 2, title: 'Staff'},
+            {id: 3, title: 'CEO'}
+            ];
+
+            $scope.myConfig = {
+            create: true,
+            valueField: 'id',
+            labelField: 'title',
+            delimiter: '|',
+            placeholder: 'Pick something',
+            onInitialize: function(selectize){
+            },
+			};
+
 
     }]);
 }(app));

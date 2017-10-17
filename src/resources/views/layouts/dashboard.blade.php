@@ -34,6 +34,7 @@
             <link href="{{ asset('vendor/flexcms/css/coreuistyle.css') }}" rel="stylesheet">    
             <link href="{{ asset('vendor/flexcms/vendors/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/selectize/dist/css/selectize.css') }}" rel="stylesheet">
 
         @else
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
@@ -55,19 +56,6 @@
 	    </style>
 	</head>
 	<body layout="column" class="ng-cloak app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-<!-- 		<md-toolbar layout="row" hide-gt-md>
-	      <div class="md-toolbar-tools">
-	        <md-button ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
-	          <md-icon aria-label="Menu" fmd-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
-	        </md-button>
-	        <h1>
-
-                <a class="navbar-brand" href="/" style="padding-left: 0px">
-                    <span>{{ config('flexcms.app.name') }} Dashboard</span>
-                </a>
-            </h1>
-	      </div>
-	    </md-toolbar> -->
         <main itemscope itemtype1="http://schema.org/Organization">
             <div class="app-header navbar">
                 @include ('flexcms::includes.layouts.header')
@@ -90,7 +78,6 @@
             </div>
             
         </main>
-		<!-- <md-progress-linear class="global-loading" ng-show="loadingBarVisible" class="global-progress-bar" md-mode="indeterminate"></md-progress-linear> -->
 	</body>
 
     <script src='//maps.googleapis.com/maps/api/js?key=AIzaSyCrP9rxOqS4yAxtd-3cT9kJTYnO5fpnJoY&libraries=places'></script>
@@ -125,16 +112,17 @@
 
         <script src="/vendor/flexcms/vendors/material-angular-paging/build/dist.min.js"></script>
         <script src="/vendor/flexcms/vendors/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
-        <!-- <script src="/vendor/flexcms/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script> -->
         <script type="text/javascript" src="/vendor/flexcms/vendors-download/popper.min.js"></script>
         
         <script type="text/javascript" src="/vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/sifter/sifter.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/microplugin/src/microplugin.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/selectize/dist/js/selectize.min.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/angular-selectize2/dist/angular-selectize.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/js/js123/app.js"></script>
-        <!-- <script type="text/javascript" src="/vendor/flexcms/js/js123/views/main.js"></script> -->
-
-
+        <script type="text/javascript" src="/vendor/flexcms/js/js123/hook.js"></script>
 
         <!-- Text editor -->
         <!-- <script src="/vendor/flexcms/vendors-download/ckeditor/ckeditor.js"></script> -->

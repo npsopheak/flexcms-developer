@@ -1,23 +1,8 @@
 @extends('flexcms::layouts.login')
 
 @section('content')	
-	<form id="page-login" class="ng-cloak login-area" method="POST" name="loginForm" 
-		ng-controller="LoginCtrl"
-		ng-submit="submit()" style="margin: auto; background: none; box-shadow: 0 0 0 0;">
-		
-<!-- 		<div class="logo-container">			
-			<img class="logo" 
-				style="width: 220px;"
-				src="{{ URL::asset('/img/biz-dimension-logo.png') }}"/>
-		</div> -->
-    <div class="container" >
-		<!-- <div class="logo-container login-title">
-			{{ config('flexcms.app.login.name') }} Admin Area
-		</div>
-		<div class="logo-container login-subtitle">
-			{{ config('flexcms.app.login.description') }}
-		</div> -->
-		<div class="row justify-content-center " style="margin: auto;">
+<form id="page-login" class="ng-cloak login-area" method="POST" name="loginForm" ng-controller="LoginCtrl" ng-submit="submit()" style="margin: auto; background: none; box-shadow: 0 0 0 0;">
+		<div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card-group mb-0">
                     <div class="card p-4">
@@ -27,16 +12,16 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-addon"><i class="icon-user"></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input type="text" class="form-control" placeholder="Username" name="username" ng-model="user.email" required id="text1">
                             </div>
                             <div class="input-group mb-4">
                                 <span class="input-group-addon"><i class="icon-lock"></i>
                                 </span>
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input type="password" class="form-control" placeholder="Password" name="password" ng-model="user.password" required id="text2">
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-primary px-4">Login</button>
+                                    <button type="button" class="btn btn-primary px-4" onclick="test()">Login</button>
                                 </div>
                                 <div class="col-6 text-right">
                                     <button type="button" class="btn btn-link px-0" style="color:rgb(32,168,216)">Forgot password?</button>
@@ -56,6 +41,20 @@
                 </div>
             </div>
         </div>
-    </div>
-	</form>
+
+</form>
 @stop
+<script type="text/javascript">
+    function test(){
+        if(   document.getElementById("text1").value == "workshop"
+           && document.getElementById("text2").value == "workshop")
+        {
+            alert( "validation succeeded" );
+        }
+        else
+        {
+            alert( "validation failed" );
+        }
+    }
+
+</script>

@@ -65,8 +65,7 @@
     "angular-material-datetimepicker": "^1.4.0",
     "angular-material-data-table": "^0.10.9",
     "material-angular-paging": "*",
-    "angular-material-datetimepicker": "^1.4.0"
-
+    "angular-selectize2": "^3.0.1"
   },
   "resolutions": {
     "angular": "1.5.6",
