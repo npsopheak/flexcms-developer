@@ -1,4 +1,4 @@
 #vendor
 src/public/build
 src/node_modules
-src/public/flexcms/vendors
+#src/public/flexcms/vendors
