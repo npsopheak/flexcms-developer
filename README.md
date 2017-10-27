@@ -179,6 +179,54 @@ Add these to your .env for customize the configuration value
     CMS_REQUEST_ID_VALUE =MGUwMTIwZDEyNmYzZTA4ZDI5ZGFkYzcxZWFmMjhhOGU1MDU3OWNjNzRmZDA1ZWUzZjkyZmU5NTc0OWI1ZjE4Nw==
 ```
 
+# Using in production
+
+## Step to install package to the new project
+
+### Sample repo
+
+1. Accept this repo: https://github.com/npsopheak/techs-job
+
+2. You need to add two things to your current composer.json (sample at: https://github.com/npsopheak/techs-job/blob/master/composer.json)
+
+### Add package installation to the `composer.json`
+
+Thing to added:
+
+`"FlexCMS/BasicCMS": "dev-0.1.0"` to `"require": { ... }`
+
+and 
+
+```json
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/npsopheak/flexcms-developer/"
+        }
+    ]
+```
+
+to the end of the json line.
+
+### Composer install/dashboard install
+
+You can run `composer install` to install the dashboard project into the current project
+
+(similar in this readme at: https://github.com/npsopheak/flexcms-developer)
+
+### Publish the package content for customization
+
+Publish the package content into the project: `php artisan vendor:publish --provide="FlexCMS/BasicCMS"`
+
+#### Accessing script and views
+
+You can access the js at: `public/js/vendor/flexcms` and view at `resources/views/vendor/flexcms`
+
+### Define login controller 
+
+You can define the login controller at: https://github.com/npsopheak/flexcms-developer#sample-dashboard-login
+
 # Development command
 
 - Run `gulp watch-dev` in path `/src/` to watch assets like JS or Image or CSS change.
