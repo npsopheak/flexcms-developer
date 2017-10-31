@@ -123,9 +123,12 @@
         <script type="text/javascript" src="/vendor/flexcms/vendors/microplugin/src/microplugin.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors/selectize/dist/js/selectize.min.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors/angular-selectize2/dist/angular-selectize.js"></script>
+
         <script type="text/javascript" src="/vendor/flexcms/js/js123/app.js"></script>
         <!-- <script type="text/javascript" src="/vendor/flexcms/js/js123/hook.js"></script> -->
         <script type="text/javascript" src="/vendor/flexcms/vendors/ng-sortable/dist/ng-sortable.min.js"></script>
+
+        <script type="text/javascript" src="/vendor/flexcms/js/js_coreui/app.js"></script>
 
         <!-- Text editor -->
         <!-- <script src="/vendor/flexcms/vendors-download/ckeditor/ckeditor.js"></script> -->

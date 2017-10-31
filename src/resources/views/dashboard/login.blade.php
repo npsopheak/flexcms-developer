@@ -46,14 +46,15 @@
 @stop
 <script type="text/javascript">
     function test(){
-        if(   document.getElementById("text1").value == "workshop"
-           && document.getElementById("text2").value == "workshop")
+        if(   document.getElementById("text1").value == "ken@fullcircle.click"
+           && document.getElementById("text2").value == "fullcircle" )
         {
-            alert( "validation succeeded" );
+            // alert( "validation succeeded" );
+            window.location.redirect("http://localhost:8000/dashboard#/users");
         }
         else
         {
-            alert( "validation failed" );
+            alert( "validation failed" );        
         }
     }
 
