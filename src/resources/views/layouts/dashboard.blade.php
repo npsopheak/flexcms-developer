@@ -35,13 +35,15 @@
             <link href="{{ asset('vendor/flexcms/vendors/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/selectize/dist/css/selectize.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/ng-sortable/dist/ng-sortable.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/flexcms/vendors/ng-sortable/dist/ng-sortable.style.min.css') }}" rel="stylesheet">
 
         @else
             <link href="{{ asset('vendor/flexcms/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
             
             <link href="{{ asset('vendor/flexcms/vendors/angular-material/angular-material.min.css') }}" rel="stylesheet">
             <link href="{{ asset('vendor/flexcms/vendors/angular-material-datetimepicker/dist/material-datetimepicker.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/>
+            <!-- <link href="{{ asset('vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.css') }}" rel="stylesheet" type="text/css"/> -->
             <link href="{{ asset('vendor/flexcms/css/coreuistyle.css') }}" rel="stylesheet">    
             
             <link href="{{ elixir('/vendor/build/css/admin_style.css') }}" rel="stylesheet">
@@ -114,7 +116,7 @@
         <script src="/vendor/flexcms/vendors/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors-download/popper.min.js"></script>
         
-        <script type="text/javascript" src="/vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.js"></script>
+        <!-- <script type="text/javascript" src="/vendor/flexcms/vendors/angular-material-data-table/dist/md-data-table.min.js"></script> -->
         <script type="text/javascript" src="/vendor/flexcms/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors/sifter/sifter.js"></script>
@@ -122,7 +124,8 @@
         <script type="text/javascript" src="/vendor/flexcms/vendors/selectize/dist/js/selectize.min.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/vendors/angular-selectize2/dist/angular-selectize.js"></script>
         <script type="text/javascript" src="/vendor/flexcms/js/js123/app.js"></script>
-        <script type="text/javascript" src="/vendor/flexcms/js/js123/hook.js"></script>
+        <!-- <script type="text/javascript" src="/vendor/flexcms/js/js123/hook.js"></script> -->
+        <script type="text/javascript" src="/vendor/flexcms/vendors/ng-sortable/dist/ng-sortable.min.js"></script>
 
         <!-- Text editor -->
         <!-- <script src="/vendor/flexcms/vendors-download/ckeditor/ckeditor.js"></script> -->

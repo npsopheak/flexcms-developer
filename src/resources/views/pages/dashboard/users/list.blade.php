@@ -6,10 +6,10 @@
 				<input type="text" class="form-control " placeholder="Search Staff">
 			</div>
 			<div class="form-group col-md-3">
-				<selectize placeholder='Pick some things...' options='myOptions' config="myConfig" ng-model="myModel" ng-disabled='disable' required='true'></selectize>
+				<selectize placeholder='Choose one below' options='myOptions' config="myConfig" ng-model="myModel" ng-disabled='disable' required='true'></selectize>
 			</div>
 		</div>
-		 <div class="card-body">
+		<div class="card-body btn-bar text-right">
             <button type="button" class="btn btn-success fa fa-plus fa-lg" data-toggle="modal" data-target="#successModal">
             </button>
         </div>
@@ -23,11 +23,49 @@
 		                </button>
 		            </div>
 		            <div class="modal-body">
-		                <div class="form-group">
-							<input class="form-control">
-								
-							</input>
-		                </div>
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" data-target="#home" role="tab" aria-controls="home" aria-expanded="true">Detail</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" data-target="#profile" role="tab" aria-controls="profile" aria-expanded="false">Cover Image</a>
+							</li>
+						</ul>
+
+						<div class="tab-content">
+							<div class="tab-pane active" id="home" role="tabpanel" aria-expanded="true">
+								<div class="form-group">
+									<label for="name">Display Name *</label>
+									<input type="text" class="form-control" id="name">
+								</div>   
+								<div class="form-group">
+									<label for="name">Description</label>
+									<input type="text" class="form-control" id="name">  
+								</div>                          
+								<div class="form-group">
+									<label for="name">Order Number</label>
+									<input type="number" min="1" class="form-control" id="name">
+								</div>   
+							</div>
+							<div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
+								<div class="text-center">
+									<div class="upload-img">
+										<div class="cloud">
+											<span class="fa fa-cloud-download"></span>
+										</div>
+										<div class="text-under">
+											<p class="big-text">Drag & Drop a File</p>
+											<p>or select an option below</p>
+										</div>
+										<div class="btn-group">
+											<button type="button" class="btn btn-success"><span class="fa fa-photo"></span></button>
+											<button type="button" class="btn btn-primary"><span class="fa fa-video-camera"></span></button>
+											<button type="button" class="btn btn-danger"><span class="fa fa-chain"></span></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 		            </div>
 		            <div class="modal-footer">
 		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -36,7 +74,7 @@
 		        </div>
 		    </div>
         </div>
-       	<table class="table table-bordered table-striped table-sm">
+       	<table class="table table-bordered table-striped table-md">
 			<thead>
 				<tr>
 					<th><input type="checkbox" name="myTextEditBox" value="checked"></th>

@@ -1236,9 +1236,6 @@ pre {
     background-color: #fff;
     border-color: #8ad4ee;
     outline: none; }
-  .form-control::-webkit-input-placeholder {
-    color: #536c79;
-    opacity: 1; }
   .form-control:-ms-input-placeholder {
     color: #536c79;
     opacity: 1; }
@@ -7299,6 +7296,9 @@ button {
     padding: 0 1.25rem;
     text-align: center; }
 
+.card-body, .card-block {
+  padding: 1.25rem 0; }
+
 [class*="card-outline-"] .card-body, [class*="card-outline-"] .card-block {
   background: #fff !important; }
 
@@ -7657,7 +7657,8 @@ base-chart.chart {
     background-size: 70px auto;
     border-bottom: 1px solid #c2cfd6; }
   .app-header.navbar .navbar-toggler {
-    color: #536c79; }
+    color: #536c79;
+    outline: none; }
   .app-header.navbar .navbar-nav {
     -ms-flex-direction: row;
     flex-direction: row;
@@ -9377,10 +9378,15 @@ hr.transparent {
 .UserDetail {
   background-color: white;
   padding: 15px 30px; }
+  .UserDetail .fa-save {
+    padding-right: 7px; }
+  .UserDetail .fa-mail-reply {
+    padding-right: 7px; }
+  .UserDetail .fa-exchange {
+    padding-right: 7px; }
   .UserDetail .image {
     background-color: gainsboro;
-    margin: auto;
-    padding: 2em; }
+    padding: 7em; }
     .UserDetail .image .kdaob {
       text-align: center; }
       .UserDetail .image .kdaob .topicon {
@@ -9404,17 +9410,53 @@ hr.transparent {
           width: 60px;
           border-radius: 50%; }
   .UserDetail .button .btn {
-    margin: 15px; }
+    margin-top: 35px;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    font-size: 1rem; }
+    .UserDetail .button .btn:hover {
+      color: #fff; }
 
 .listStaff {
   background-color: white;
   padding: 15px 30px; }
+  .listStaff .btn-bar {
+    background: mediumseagreen;
+    padding: .5rem; }
+    .listStaff .btn-bar button {
+      background: mediumseagreen;
+      border: none;
+      box-shadow: none; }
+  .listStaff .modal .modal-dialog .modal-content .modal-body .tab-content .tab-pane .upload-img .cloud .fa-cloud-download {
+    font-size: 125px;
+    color: silver; }
+  .listStaff .modal .modal-dialog .modal-content .modal-body .tab-content .tab-pane .upload-img .text-under .big-text {
+    font-size: 25px;
+    color: grey; }
+  .listStaff .modal .modal-dialog .modal-content .modal-body .tab-content .tab-pane .upload-img p {
+    color: silver; }
+  .listStaff .modal .modal-dialog .modal-content .modal-body .tab-content .tab-pane .upload-img .btn-group .btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; }
+  .listStaff .modal .modal-dialog .modal-content .modal-body .tab-content .tab-pane .upload-img .btn-group .btn-primary {
+    margin: 0 30px; }
   .listStaff .headlabel {
     padding: 30px 15px; }
 
 .productDetail {
   background-color: white;
   padding: 15px  30px; }
+  .productDetail .fa-save {
+    padding-right: 7px; }
+  .productDetail .fa-mail-reply {
+    padding-right: 7px; }
+  .productDetail .fa-download {
+    cursor: pointer;
+    margin-left: 15rem; }
+  .productDetail .fa-upload {
+    cursor: pointer;
+    margin-left: 1rem; }
   .productDetail .topContent {
     padding: 15px 0px; }
     .productDetail .topContent .form .icon-text {
@@ -9424,6 +9466,7 @@ hr.transparent {
         margin: 10px; }
     .productDetail .topContent .image {
       background-color: gainsboro;
+      width: 100%;
       -ms-flex-pack: center;
       justify-content: center; }
       .productDetail .topContent .image .kdaob {
@@ -9449,19 +9492,19 @@ hr.transparent {
             width: 60px; }
   .productDetail .middleContent {
     padding: 15px 0px; }
-    .productDetail .middleContent .tab-6-btn {
-      background: #04947E;
-      width: 100%;
-      height: 45px; }
-      .productDetail .middleContent .tab-6-btn .this-btn {
+    .productDetail .middleContent .btn-bar {
+      background: mediumseagreen;
+      padding: .5rem; }
+      .productDetail .middleContent .btn-bar button {
+        background: mediumseagreen !important;
         border: none;
-        background: none;
-        float: right;
-        color: white;
-        font-size: 24px;
-        padding-right: 35px; }
+        box-shadow: none; }
     .productDetail .middleContent #categories select {
-      margin-top: 15px; }
+      margin-top: 40px; }
+      .productDetail .middleContent #categories select:first-child {
+        margin-top: 15px; }
+      .productDetail .middleContent #categories select:last-child {
+        margin-bottom: 10px; }
     .productDetail .middleContent .inlinehead {
       display: -ms-flexbox;
       display: flex; }
@@ -9469,8 +9512,12 @@ hr.transparent {
         color: black;
         border-radius: 50%;
         font-size: 1em;
-        padding: 1em;
+        width: 3rem;
+        height: 3rem;
         margin-left: 1em; }
+        .productDetail .middleContent .inlinehead .btn-camera a {
+          position: relative;
+          top: -2px; }
     .productDetail .middleContent .media-tab {
       display: -ms-flexbox;
       display: flex;
@@ -9506,7 +9553,7 @@ hr.transparent {
             max-width: 100%;
             height: 100%; }
       .productDetail .middleContent .media-tab .img3 {
-        height: 160px;
+        height: 155px;
         width: 100%;
         margin-right: 10px; }
         .productDetail .middleContent .media-tab .img3 .img-box {
@@ -9518,6 +9565,11 @@ hr.transparent {
             max-width: 100%;
             height: 100%; }
   .productDetail .button .btn {
-    margin: 15px; }
+    margin-top: 15px;
+    padding: 0.5rem 2rem;
+    color: #fff;
+    font-size: 1rem; }
+    .productDetail .button .btn:hover {
+      color: #fff; }
 
 /*# sourceMappingURL=coreuistyle.css.map */

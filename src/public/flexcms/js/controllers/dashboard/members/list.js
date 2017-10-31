@@ -6,13 +6,8 @@
         $mdToast, CoResource, filterFilter) {
         	$scope.person = [
           { id: 30, name: 'John', username: 'Rambo',email: 'sokpheng@gmail.com',status: 'Active',registrationdate:'1999/2/22' },
-			];
-
-
-
-
-
-
+            ];
+            
 			
     }]);
 }(app));

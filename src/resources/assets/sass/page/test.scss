@@ -3,10 +3,18 @@
     background-color: white;
     padding: 15px 30px;
     // margin:15px 30px;
+    .fa-save{
+        padding-right: 7px;
+    }
+    .fa-mail-reply{
+        padding-right: 7px;
+    }
+    .fa-exchange{
+        padding-right: 7px;
+    }
     .image{
         background-color: gainsboro; 
-        margin: auto;
-        padding: 2em;
+        padding: 7em;
         .kdaob{
             text-align: center;
             .topicon{
@@ -36,7 +44,13 @@
     }
     .button{
         .btn{
-            margin: 15px;
+            margin-top: 35px;
+            padding: 0.5rem 1rem;
+            color: #fff;
+            font-size: 1rem;
+            &:hover{
+                color: #fff;
+            }
         }
     }
 }
@@ -44,6 +58,53 @@
     background-color: white;    
     padding: 15px 30px;
     // margin:15px 30px;
+    .btn-bar{
+        background: mediumseagreen;
+        padding: .5rem;
+        button{
+            background: mediumseagreen;
+            border: none;
+            box-shadow: none;
+        }
+    }
+    .modal{
+        .modal-dialog{
+            .modal-content{
+                .modal-body{
+                    .tab-content{
+                        .tab-pane{
+                            .upload-img{
+                                .cloud{
+                                    .fa-cloud-download{
+                                        font-size: 125px;
+                                        color: silver;
+                                    }
+                                }
+                                .text-under{
+                                    .big-text{
+                                        font-size: 25px;
+                                        color: grey;
+                                    }
+                                }
+                                p{
+                                    color: silver;
+                                }
+                                .btn-group{
+                                    .btn{
+                                        width: 50px;
+                                        height: 50px;
+                                        border-radius: 50%;
+                                    }
+                                    .btn-primary{
+                                        margin: 0 30px;                                   }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .headlabel{
         padding: 30px 15px;
     }
@@ -52,6 +113,20 @@
     background-color: white;
         padding: 15px  30px;
         // margin:15px 30px;
+    .fa-save{
+        padding-right: 7px;
+    }
+    .fa-mail-reply{
+        padding-right: 7px;
+    }
+    .fa-download{
+        cursor: pointer;
+        margin-left: 15rem;
+    }
+    .fa-upload{
+        cursor: pointer;
+        margin-left: 1rem;
+    }
     .topContent{
         padding: 15px 0px;
         .form{
@@ -65,6 +140,7 @@
         }
         .image{
         background-color: gainsboro; 
+        width: 100%;
         // margin: auto;
         justify-content: center;
         // padding: 2em;
@@ -98,32 +174,39 @@
     }
     .middleContent{
         padding: 15px 0px;
-        .tab-6-btn{
-            background: #04947E;
-            width: 100%;
-            height: 45px;
-            .this-btn{
+        .btn-bar{
+            background: mediumseagreen;
+            padding: .5rem;
+            button{
+                background: mediumseagreen !important;
                 border: none;
-                background: none;
-                float: right;
-                color: white;
-                font-size: 24px;
-                padding-right: 35px;
+                box-shadow: none;
             }
         }
         #categories{
             select{
-                margin-top: 15px;
+                margin-top: 40px;
+                &:first-child{
+                    margin-top: 15px;
+                }
+                &:last-child{
+                    margin-bottom: 10px;
+                }
             }
         }
-        .inlinehead{
+        .inlinehead{ 
             display: flex;
-            .btn-camera{
+            .btn-camera{ 
                 color: black;
                 border-radius: 50%;
                 font-size: 1em;
-                padding: 1em;
+                width: 3rem;
+                height: 3rem;
                 margin-left: 1em;
+                a{
+                    position: relative;
+                    top: -2px;
+                }
             }
         }
         .media-tab{
@@ -167,7 +250,7 @@
                 }
             }
             .img3{
-                height: 160px;
+                height: 155px;
                 width: 100%;
                 margin-right: 10px;
                 .img-box{
@@ -183,9 +266,16 @@
             }
          }
     }
+//CSS Button
     .button{
         .btn{
-            margin: 15px;
+            margin-top: 15px;
+            padding: 0.5rem 2rem;
+            color: #fff;
+            font-size: 1rem;
+            &:hover{
+                color: #fff;
+            }
         }
     }
 }

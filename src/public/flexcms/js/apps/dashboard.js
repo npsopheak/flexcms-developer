@@ -1,3 +1,3 @@
-app = angular.module('StarterApp', ['ngMaterial',  'uiGmapgoogle-maps', 'ngRoute', 'ngSanitize', 
-	'dndLists', 'ngResource', 'ngFileUpload', 'ngMap' , 'md.data.table', 'cl.paging', 'ngMaterialDatePicker','selectize']);
+app = angular.module('StarterApp', ['ngMaterial','as.sortable',  'uiGmapgoogle-maps', 'ngRoute', 'ngSanitize', 
+	'dndLists', 'ngResource', 'ngFileUpload', 'ngMap' , 'cl.paging', 'ngMaterialDatePicker','selectize']);
 namespace.app = app;
