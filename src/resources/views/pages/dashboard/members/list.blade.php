@@ -24,7 +24,7 @@
                 </div>
                  <div class="form-group">
                     <label>Date</label>
-                    <input type="text" class="form-control" value="<%person[0].registrationdate%>">
+                    <input type="text" data-provide="datepicker-inline" class="form-control" value="<%person[0].registrationdate%>">
                 </div>
 
             </div>
@@ -43,10 +43,10 @@
 
             </div>
         </div>
-        <div class="row button">
-            <a class="btn btn-success btn-lg">Save</a>
-            <a class="btn btn-secondary btn-lg" >Cancel</a>
-            <a class="btn btn-secondary btn-lg">Change Password</a>
+        <div class="button">
+            <a class="btn btn-success btn-lg"><span class="fa fa-save"></span> Save</a>
+            <a class="btn btn-secondary btn-lg"><span class="fa fa-mail-reply"></span> Cancel</a>
+            <a class="btn btn-secondary btn-lg"><span class="fa fa-exchange"></span> Change Password</a>
         </div>
     </div>
 </section>
