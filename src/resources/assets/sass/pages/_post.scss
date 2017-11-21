@@ -161,3 +161,35 @@ form{
 		}
 	}
 }
+// TEXTANGULAR
+.ta-editor{
+	> .ta-bind{
+		border: 1px solid #e4e4e4;
+	}
+}
+.ta-toolbar{
+	.btn-group{
+		display: inline-block;
+		margin-bottom: 5px;
+		.btn{
+			transition: background-color ease 1s, color ease 1s;
+			border: 0px;
+			margin-right: 5px;
+			background: #fbfbfb;
+			padding: 5px;
+			min-width: 35px;
+
+			&:hover{
+				background: #009688;
+				color: white
+			}
+		}
+		> div{
+			display: inline-block !important;
+
+			&:hover{
+				background: #fbfbfb;
+			}
+		}
+	}
+}

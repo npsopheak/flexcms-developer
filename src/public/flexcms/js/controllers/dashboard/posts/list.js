@@ -1,9 +1,10 @@
-(function() {
-    app.controller('DashboardArticlesListCtrl', ['$scope', '$timeout', '$mdSidenav',
+(function(app) {
+    app.controller('DashboardPostsListCtrl', ['$scope', '$timeout', '$mdSidenav',
         '$mdUtil', '$log', '$rootScope', '$mdDialog', '$routeParams', '$location',
         '$mdToast', 'CoResource', 'filterFilter', function($scope, $timeout, $mdSidenav,
         $mdUtil, $log, $rootScope, $mdDialog, $routeParams, $location,
         $mdToast, CoResource, filterFilter) {
+        
 
 	    $scope.data = [];
 
@@ -18,11 +19,11 @@
 		};
 
 		$scope.view = function(item){
-			$location.path('articles/' + item.id);
+			$location.path('posts/' + item.id);
 		};	
 
 		$scope.create = function(){
-			$location.path('articles/create');
+			$location.path('posts/create');
 		};	
 
 
@@ -88,7 +89,7 @@
 				'offset': (offset - 1) * limit || 0,
 				'limit': limit || 10,
 		    	'ignore-offset': 0,
-				'type-name': 'post',
+                'type-name': 'section',
 		    	'search': $scope.search.query || '',
 		    	'sort': 'directory_name', // $scope.sort || '',
 		    	// 'scope': 'foods,origins,categories,features,menu,drinks,payment_methods,parkings',
@@ -194,7 +195,5 @@
 			$location.search('search', null);
 		});
 
-	
-
     }]);
-}());
+}(app));

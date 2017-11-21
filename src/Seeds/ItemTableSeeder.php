@@ -180,6 +180,100 @@ class ItemTableSeeder extends Seeder {
             'status' => 'active'
         ]);
 
+        $item = Item::create([
+            'id' => 17,
+            'display_name' => 'Contact Us',
+            'name' => 'contact-info',
+            'description' => 'Contact Info section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'id' => 18,
+            'display_name' => 'Slider Text',
+            'name' => 'slider-text',
+            'description' => 'Slider text section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        // INSERT INTO `items` (`id`, `name`, `display_name`, `description`, `locale`, `item_type`, `status`, `article_count`, `parent_id`, `photo_id`, `seq_number`, `created_by`, `updated_by`, `indeletable`, `deleted_by`, `created_at`, `updated_at`, `deleted_at`) VALUES (18, 'slider-text', 'Slider Text', 'Slider text section paragraph that can be small text.', NULL, 'category', 'active', NULL, 2, NULL, NULL, 1, 1, 1, NULL, '2017-07-21 04:00:00', '2017-07-21 04:00:00', NULL);
+
+
+        $item = Item::create([
+            'id' => 19,
+            'display_name' => 'Intermodal Service',
+            'name' => 'intermodal-service',
+            'description' => 'Service item section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'id' => 20,
+            'display_name' => 'Freight Forwarding',
+            'name' => 'freight-forwarding',
+            'description' => 'Service item section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'id' => 21,
+            'display_name' => 'Customs House Brokerage',
+            'name' => 'customs-house-brokerage',
+            'description' => 'Service item section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'id' => 22,
+            'display_name' => 'Warehousing and Distribution',
+            'name' => 'warehousing-and-distribution',
+            'description' => 'Service item section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
+        $item = Item::create([
+            'id' => 23,
+            'display_name' => 'Quote Section',
+            'name' => 'quote-section',
+            'description' => 'Section paragraph that can be small text.',
+            'parent_id' => 2,
+            'item_type' => 'category',
+            'indeletable' => 1,
+            'created_by' => 1,
+            'updated_by' => 1,
+            'status' => 'active'
+        ]);
+
         // Post Category - Post
 
         $item = Item::create([
