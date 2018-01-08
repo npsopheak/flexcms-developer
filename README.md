@@ -55,12 +55,12 @@ FlexAuth::getProperty('role.name', 'userAdmin', null);
 
 ## Install via composer 
 
-Add the 0.1.0 version to composer.json
+Add the 0.1.0.x-dev version to composer.json
 
 ```json
     "require": {
         "php": ">=5.6.4",
-        "FlexCMS/BasicCMS": "dev-0.1.0"
+        "FlexCMS/BasicCMS": "0.1.0.x-dev"
     },
 
 ```
