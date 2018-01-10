@@ -8,7 +8,7 @@
 
 Route::group(['prefix' => config('flexcms.app.route.prefix'), 'middleware' => ['web', 'csrf'], 'namespace' => 'FlexCMS\BasicCMS\Api'], function()
 {
-    Route::get('/', ['as' => 'dashboard', 'uses' => function () {
+    Route::get('/', ['middleware' => config('flexcms.app.route.middleware.auth'), 'as' => 'dashboard', 'uses' => function () {
         return view('flexcms::dashboard.index');
     }]);
 
