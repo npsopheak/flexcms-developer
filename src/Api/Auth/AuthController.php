@@ -6,6 +6,7 @@ use Validator;
 use \Input;
 use \Response;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 abstract class AuthController extends Controller
 {
