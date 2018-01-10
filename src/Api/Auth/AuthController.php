@@ -58,15 +58,15 @@ abstract class AuthController extends Controller
     /***
      * Login via dashboard database access
      */
-    abstract public function login();
+    abstract public function login(Request $request = null);
 
-    abstract public function logout();
+    abstract public function logout(Request $request = null);
 
     /***
      * Login via API call
      */
 
-    abstract public function apiLogin();
+    abstract public function apiLogin(Request $request = null);
 
-    abstract public function apiLogout();
+    abstract public function apiLogout(Request $request = null);
 }
