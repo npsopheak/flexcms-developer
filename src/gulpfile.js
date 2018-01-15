@@ -40,14 +40,31 @@ elixir(function(mix) {
     var autoprefixer = require('gulp-autoprefixer');
 
     gulp.task('bcss', function() {
-        mix.sass('main.scss', 'public/flexcms/css/main.css');
-        mix.sass('theme.scss', 'public/flexcms/css/theme.css');
-        mix.sass('vendor.scss', 'public/flexcms/css/vendor.css');
+        gulp.src(['resources/assets/sass/main.scss', 'resources/assets/sass/theme.scss', 'resources/assets/sass/vendor.scss'])
+            .pipe(sass().on('error', sass.logError))
+            .pipe(gulp.dest('./public/flexcms/css'));
+        // gulp.src('resources/assets/sass/main.scss', 'public/flexcms/css/main.css');
+        // gulp.sass('resources/assets/sass/theme.scss', 'public/flexcms/css/theme.css');
+        // gulp.sass('resources/assets/sass/vendor.scss', 'public/flexcms/css/vendor.css');
     });
     gulp.task('styles', function() {
-        mix.sass('coreuistyle.scss', 'public/flexcms/css/coreuistyle.css');
+        gulp.src(['resources/assets/sass/coreuistyle.scss'])
+            .pipe(sass().on('error', sass.logError))
+            .pipe(gulp.dest('./public/flexcms/css'));
+        // gulp.sass('resources/assets/sass/coreuistyle.scss', 'public/flexcms/css/coreuistyle.css');
         // mix.sass('theme.scss', 'public/flexcms/css/theme.css');
         // mix.sass('vendor.scss', 'public/flexcms/css/vendor.css');
+    });
+    gulp.task('sass', function() {
+        gulp.src(['resources/assets/sass/main.scss', 'resources/assets/sass/theme.scss', 'resources/assets/sass/vendor.scss', 'resources/assets/sass/coreuistyle.scss'])
+            .pipe(sass().on('error', sass.logError))
+            .pipe(gulp.dest('./public/flexcms/css'));
+        // gulp.src('resources/assets/sass/main.scss', 'public/flexcms/css/main.css');
+        // gulp.sass('resources/assets/sass/theme.scss', 'public/flexcms/css/theme.css');
+        // gulp.sass('resources/assets/sass/vendor.scss', 'public/flexcms/css/vendor.css');
+    });
+    gulp.task('sass:watch', function () {
+        gulp.watch('resources/assets/sass/**/*.scss', ['sass']);
     });
 
     // minify js for admin 

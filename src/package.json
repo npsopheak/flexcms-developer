@@ -15,8 +15,8 @@
     "gulp-rimraf": "^0.2.1",
     "gulp-strip-debug": "^1.1.0",
     "gulp-uglify": "^1.2.0",
-    "laravel-elixir": "^2.0.0",
-    "laravel-mix": "^0.6.0",
+    "laravel-elixir": "^4.0.0",
+    "laravel-mix": "^1.0",
     "lodash": "^4.16.2"
   },
   "dependencies": {

@@ -20,11 +20,11 @@
 // Import Bootstrap source files from bower_components
 // @import "bower_components/bootstrap/scss/bootstrap";
 
-// Import vendors styles
-@import "vendors/vendors";
-
 // Override core variables
 @import "core-variables";
+
+// Import vendors styles
+@import "vendors/vendors";
 
 // Import core styles
 @import "core/core";
