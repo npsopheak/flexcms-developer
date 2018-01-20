@@ -127,6 +127,7 @@
         <script type="text/javascript" src="/vendor/flexcms/js/js123/app.js"></script>
         <!-- <script type="text/javascript" src="/vendor/flexcms/js/js123/hook.js"></script> -->
         <script type="text/javascript" src="/vendor/flexcms/vendors/ng-sortable/dist/ng-sortable.min.js"></script>
+        <script type="text/javascript" src="/vendor/flexcms/vendors/angular-paging/dist/paging.js"></script>
 
         <script type="text/javascript" src="/vendor/flexcms/js/js_coreui/app.js"></script>
 
