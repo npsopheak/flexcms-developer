@@ -10,7 +10,7 @@ class CMS {
     }
 
     // php artisan vendor:publish --tag=public 
-    public function generateScripts($main, $scripts = []){
+    public function generateScripts($main, $scripts = [],$version=''){
         $modules = config('flexmodules.modules');
 
         $base = 'vendor/flexcms/js';
@@ -52,7 +52,7 @@ class CMS {
                 }
                 else {
 
-                    $files[] = $base . '/apps/' . $main . '.js';    
+                    $files[] = $base . '/apps/' . $main . '.js'.$version;    
                     $files[] = $base . '/apps/' . $main . '.config.js';    
                     // TODO: Next handle directive correctly
                     // $globals = $modules['global'];
@@ -76,12 +76,12 @@ class CMS {
                 foreach($mains as $key => $value){
                     if (is_array($value)){
                         foreach($value as $k => $v){
-                            $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $v . '.js';    
+                            $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $v . '.js'.$version;    
                         }
                         
                     }
                     else if (is_string($value)){ 
-                        $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $value . '.js';
+                        $files[] = $base . '/controllers/' . $main . '/' . $key . '/' . $value . '.js'.$version;
                     }
                     
                 }   
