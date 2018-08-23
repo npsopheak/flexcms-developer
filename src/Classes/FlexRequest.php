@@ -68,8 +68,27 @@ class FlexRequest {
         //         AuthGateway::logout();
         //     }
         // }
-        
+
         return $result;
+    }
+
+    private function getDynamicRequestIdAPI($data){
+        try {
+            $uri = $this->getServerAddress() . $this->sanitizeUri('admin/get_workspaces?search='.$data);
+            $header = array();
+            $curl = curl_init();
+            // Set some options - we are passing in a useragent too here
+            curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $uri,
+                CURLOPT_USERAGENT => config('flexcms.system.user_agent'),
+                CURLOPT_HTTPHEADER => $header,
+                CURLOPT_SSL_VERIFYPEER => false
+            ));
+            // Send the request & save response to $resp
+            $resp = curl_exec($curl);
+            return $this->response($curl, $resp);
+        } catch (Exception $e) {}
     }
 
     private function translateHeaders($header){
@@ -78,17 +97,27 @@ class FlexRequest {
         //     $user = AuthGateway::user();
         //     $header['Authorization'] = 'Bearer ' . $user['access_token'];
         // }
-        
+
         if (config('flexcms.api.use_x_forward_for') == true){
-            $header['X-Forwarded-For'] = \Request::getClientIp();    
+            $header['X-Forwarded-For'] = \Request::getClientIp();
         }
 
         if (!isset($header['Content-Type'])){
             $header['Content-Type'] = config('flexcms.api.default_content_type');
         }
 
+        $requestId = config('flexcms.api.request_id');
+
+        if(config('flexcms.api.is_dynamic_request_id')) {
+            $data = $_POST;
+            $workSpaces = $this->getDynamicRequestIdAPI($data['org']);
+            if($workSpaces['responseText']['code'] === 200){
+                $requestId = $workSpaces['responseText']['result']['api_access'];
+            }
+        }
+
         if (!isset($header[config('flexcms.system.request_id')])){
-            $header[config('flexcms.system.request_id')] = config('flexcms.api.request_id');
+            $header[config('flexcms.system.request_id')] = $requestId;
         }
 
         if (!isset($header[config('flexcms.system.session_id')])){
@@ -101,9 +130,9 @@ class FlexRequest {
                 $result[] = config('flexcms.system.encrypt_key_id') . ': ' . $value;
             }
             else{
-                $result[] = $key . ': ' . $value;    
+                $result[] = $key . ': ' . $value;
             }
-            
+
         }
         return $result;
     }
@@ -204,7 +233,7 @@ class FlexRequest {
     public function any($method, $url, $data = array(), $headers = array()){
         $curl = curl_init();
         switch ($method) {
-            case 'DELETE':                
+            case 'DELETE':
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
@@ -215,7 +244,7 @@ class FlexRequest {
                     CURLOPT_SSL_VERIFYPEER => false
                 ));
                 break;
-            case 'PUT': 
+            case 'PUT':
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
@@ -226,7 +255,7 @@ class FlexRequest {
                     CURLOPT_SSL_VERIFYPEER => false
                 ));
                 break;
-            case 'POST':   
+            case 'POST':
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $url,
